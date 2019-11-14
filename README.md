@@ -3,7 +3,8 @@
 This directory is organised as follows:
 
       .
-      ├── bib          # Assignment bibliography
+      ├── resources    # Assignment bibliography and other useful resources
       ├── report       # LaTeX template for the report
       ├── slides       # LaTeX Beamer template for the slides
       ├── src          # Source code
+
