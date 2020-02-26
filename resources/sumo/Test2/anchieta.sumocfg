@@ -1,0 +1,6 @@
+<configuration>
+    <input>
+       <net-file value="anchieta.net.xml"/>
+       <route-files value="anchieta.rou.xml"/>
+    </input>
+</configuration>

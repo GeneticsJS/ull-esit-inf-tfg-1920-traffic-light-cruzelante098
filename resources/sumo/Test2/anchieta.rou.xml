@@ -1,0 +1,13 @@
+<routes>
+    <vType id="car" type="passenger" length="5" accel="3.5" decel="2.2" sigma="1.0"/>
+    
+    <flow id="carflow" type="car" beg="0" end="0" number="50" from="edgeTf5EntradaSur" to="edgeAstrofisicoSalida"/>
+    <flow id="carflowa" type="car" beg="0" end="0" number="50" from="edgeTf5EntradaSur" to="edgeTrinidadSalida"/>
+    <flow id="carflow1" type="car" beg="0" end="0" number="50" from="edgeTrinidadEntrada" to="edgeTf5SalidaSur"/>
+    <flow id="carflow2" type="car" beg="0" end="0" number="50" from="edgeGenetoEntrada" to="edgeAstrofisicoSalida"/>
+    <flow id="carflow3a" type="car" beg="0" end="0" number="50" from="edgeEsperanzaEntrada" to="edgeTf5SalidaNorte"/>
+    <flow id="carflow3" type="car" beg="0" end="0" number="50" from="edgeEsperanzaEntrada" to="edgeTrinidadSalida"/>
+    <flow id="carflow4" type="car" beg="0" end="0" number="50" from="edgeAstrofisicoEntrada" to="edgeTf5SalidaSur"/>
+    <flow id="carflow4a" type="car" beg="0" end="0" number="50" from="edgeAstrofisicoEntrada" to="edgeTrinidadSalida"/>
+    <flow id="carflow5" type="car" beg="0" end="0" number="50" from="edgeTf5EntradaNorte" to="edgeTrinidadSalida"/>
+</routes>

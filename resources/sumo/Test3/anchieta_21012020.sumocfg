@@ -1,0 +1,6 @@
+<configuration>
+    <input>
+       <net-file value="anchieta_21012020_v2.net.xml"/>
+       <route-files value="viajes_aleatorios.rou.xml"/>
+    </input>
+</configuration>
