@@ -1,0 +1,49 @@
+preset:"Water/Water/*" | 
+preset:"Water/Shipping/*" | 
+preset:"Shops/*" | 
+preset:"Sports/Sport/*" | 
+preset:"Sports/Motorsport/*" | 
+preset:"Sports/Sport (Ball)/*" | 
+preset:"Sports/Sport Facilities/*" | 
+preset:"Geography/Boundaries/*" | 
+preset:"Geography/Geography/*" | 
+preset:"Geography/Places/*" | 
+preset:"Geography/Nature/*" | 
+preset:"Geography/Land use/*" | 
+preset:"Man Made/Power/*" | 
+preset:"Man Made/Man Made/*" | 
+preset:"Man Made/Historic Places/*" | 
+preset:"Man Made/Bridges/*" | 
+preset:"Facilities/Food+Drinks/*" | 
+preset:"Facilities/Culture/*" | 
+preset:"Facilities/Public Building/*" | 
+preset:"Facilities/Education/*" | 
+preset:"Facilities/Emergency/*" | 
+preset:"Facilities/Social Facility/*" | 
+preset:"Facilities/Health/*" | 
+preset:"Facilities/Place of Worship/*" | 
+preset:"Facilities/Leisure/*" | 
+preset:"Facilities/Tourism/*" | 
+preset:"Offices/*" | 
+preset:"Craft/*" | 
+preset:"Relations/*" | 
+preset:"Transport/Airport/*" | 
+
+preset:"Man Made/Military/*" | 
+preset:"Man Made/Telecom/*" | 
+preset:"Facilities/Accommodation/*" | 
+preset:"Facilities/Facilities/*" | 
+preset:"Transport/Car/*" | 
+preset:"Transport/Bicycle/*" | 
+preset:"Transport/Railway/*" | 
+preset:"Transport/Aerialway/*"
+
+preset:"Shops/For the body/Erotic" | 
+preset:"Shops/Food/Beverages" | 
+preset:"Shops/Home decoration/Kitchen" | 
+preset:"Shops/Cash/Money Exchange" | 
+preset:"Shops/Electronic/Electronics" | 
+preset:"Shops/Payment Methods" | 
+preset:"Shops/Printed Material/Ticket" | 
+preset:"Shops/Vending Machine" | 
+preset:"Shops/Other/Bag" preset:"Shops/Clothes/Laundry" | 

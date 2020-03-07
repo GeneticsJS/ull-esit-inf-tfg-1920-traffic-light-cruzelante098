@@ -150,4 +150,12 @@ La velocidad de un vehículo se puede definir de tres maneras:
 2. **Velocidad de circulación (Vc).** Cociente entre la distancia recorrida en un tramo y el tiempo que el vehículo está en movimiento.
 3. **Velocidad de recorrido (Vr).** Cociente entre la distancia recorrida en un tramo y el tiempo que transcurre desde que el vehículo inicia el viaje hasta que llega a su destino.
 
-### 
+### 5/3/2020: Mejora en la conversión del archivo OSM
+
+Comando mejorado: 
+
+```
+netconvert --type-files osmNetconvert.typ.xml,osmNetconvertPedestrians.typ.xml --osm-files mapa_anchieta.osm --output-file mapa_anchieta22.net.xml --geometry.remove --roundabouts.guess --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --no-turnarounds.except-deadend --crossings.guess --osm.all-attributes --sidewalks.guess
+```
+
+Preguntar a Segredo por qué las fases de los semáforos no coinciden con la cantidad de cruces.
