@@ -159,3 +159,8 @@ netconvert --type-files osmNetconvert.typ.xml,osmNetconvertPedestrians.typ.xml -
 ```
 
 Preguntar a Segredo por qué las fases de los semáforos no coinciden con la cantidad de cruces.
+
+Script para obtener el mapa desde la web:
+
+"C:\Program Files (x86)\Eclipse\Sumo\tools\osmWebWizard.py"
+
