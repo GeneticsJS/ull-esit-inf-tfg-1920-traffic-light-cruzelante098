@@ -164,3 +164,18 @@ Script para obtener el mapa desde la web:
 
 "C:\Program Files (x86)\Eclipse\Sumo\tools\osmWebWizard.py"
 
+### 17/3/2020: Mejora de las conexiones y adición de semáforos
+
+Con respecto a la red:
+
+- Se han ajustado mejor las intersecciones para poder introducir los semáforos adecuadamente.
+- Se han ajustado los semáforos para permitir que el carril interior siempre permita la circulación, o sea, está siempre en verde cuando es posible (porque la entrada es de un carril; si tiene dos, no es posible).
+- Se han ajustado los semáforos en cada paso adecuándolos a los pasos de peatones si los hubiera.
+
+Con respecto al código: 
+
+- Se ha creado:
+  - Un ejecutor de sumo.
+  - Un lector de archivos XML para leer las fases de los semáforos extraídas del archivo de red.
+  - Un conjunto de clases que permitan manipular fácilmente los datos de los semáforos.
+
