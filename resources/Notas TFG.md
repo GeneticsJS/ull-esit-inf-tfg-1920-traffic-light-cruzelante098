@@ -75,8 +75,7 @@ Otras características interesantes:
 
 ### La intensidad
 
-> Se define como intensidad de tráfico al número de vehículos que pasan a través de una
-> sección fija de la carretera por unidad de tiempo.
+> Se define como intensidad de tráfico al número de vehículos que pasan a través de una sección fija de la carretera por unidad de tiempo.
 
 Normalmente suele ser *vehículos por hora* o *vehículos por día*. 
 
@@ -178,4 +177,48 @@ Con respecto al código:
   - Un ejecutor de sumo.
   - Un lector de archivos XML para leer las fases de los semáforos extraídas del archivo de red.
   - Un conjunto de clases que permitan manipular fácilmente los datos de los semáforos.
+
+## 19 abr. 2020
+
+- Creación de una instancia reducida, con corrección de errores de preferencia (en el caso de la incorporación a la TF-5 desde la vía del instituto) y supresión de algunas aceras inútiles
+- Implementación de funcionalidad en el código: permite que se generen valores fijos para las fases que contengan ámbar
+
+- Trabajo con induction loop detectors y con los datos del Cabildo para generar rutas y flujos de tráfico:
+
+```
+dfrouter.exe --net-file anchieta.net.xml --detector-files flowroute\induction-loop-detectors-TF-5.add.xml --measure-files flowroute\flow_TF-5_2020-02-27_8h_normal.csv --routes-output flowroute\routes_output.add.xml --detector-output flowroute\detectors_output.add.xml
+```
+
+```
+python "C:\Program Files (x86)\Eclipse\Sumo\tools\detector\flowrouter.py" -n anchieta.net.xml -d flowroute\detectors_output.add.xml -f flowroute\flow_TF-5_2020-02-27_8h_normal.csv -o flowroute\ROUTES.add.xml -e flowroute\TRAFFICFLOW.add.xml -v --vclass passenger --revalidate-detectors --respect-zero
+```
+
+Nota: el `--revalidate-detectors` en el comando anterior hay que quitarlo si ya los he escrito a mano.
+
+```
+sumo-gui -n anchieta.net.xml -a flowroute\ROUTES.add.xml,flowroute\TRAFFICFLOW.add.xml
+```
+
+
+
+## 20 abr. 2020
+
+- Se cambian de posición los datos de Guajara ascendente y descendente.
+- Estimación de valores de flujo de tráfico para la rotonda.
+
+## 21 abr 2020
+
+- Había una mala conexión en geneto que permitía que los vehículos que entraban hicieran un giro de 180 grados para incorporarse a la autopista.
+- No existe posibilidad de incorporación a la TF-5 desde la vía de la entrada a Anchieta. Cambios radicales en la instancia para permitirlo.
+- Incorporación de nuevos detectores de tráfico para las vías de la rotonda, con valores estimados.
+
+## 6 may. 2020
+
+Generación de matrices y viajes:
+
+```
+od2trips.exe --taz-files taz.add.xml --od-matrix-files od_matrix_vissum_o_format.txt --flow-output OD_FLOW_DEF.add.xml
+```
+
+
 

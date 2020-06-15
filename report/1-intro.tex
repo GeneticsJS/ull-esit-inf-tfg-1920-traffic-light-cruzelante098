@@ -1,0 +1,9 @@
+\chapter{Introducción}
+\label{cap:1intro}
+
+Los algoritmos evolutivos toman como guía la evolución biológica y la llevan al campo de la optimización. A diferencia de otros métodos, esta clase de algoritmos busca ofrecer mejores resultados mediante la evolución de los individuos de una población, haciéndolos mutar, combinando características entre ellos y seleccionando los mejores candidatos a optar a solución de un problema (normalmente, de optimización no lineal con un amplio espacio de búsqueda), donde otros algoritmos tardarían demasiado o serían directamente inviables. \cite{eiben_introduction_2003}
+
+Esta clase de algoritmos resultan útiles para afrontar el problema de la planificación de la duración de las fases de los semáforos, más conocido como el Traffic Light Scheduling Problem (TLSP). Este problema de optimización plantea cuánto deberían durar las fases de los semáforos de uno o varios cruces para mejorar la circulación con respecto a varios parámetros; el más habitual de ellos siendo el tiempo medio de viaje de un grupo de vehículos desde un origen hasta el destino.
+
+Por tanto, se plantea la obtención de una instancia real, con datos de tráfico incluidos, de la glorieta del Brasil (más conocida como la rotonda del Padre Anchieta), situada en el corazón de La Laguna, Tenerife. Los resultados de la simulación del tráfico en dicha instancia servirían de entrada a un algoritmo evolutivo para evaluar si incluyendo semáforos en la rotonda y modificando la duración de las fases es posible mejorar la circulación. Finalmente, se usaría SUMO \cite{lopez_microscopic_2018} para realizar la simulación de tráfico.
+

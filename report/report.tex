@@ -1,17 +1,22 @@
-\documentclass[spanish,a4paper,11pt,oneside]{extreport}
+\documentclass[spanish,a4paper,12pt,oneside,notitlepage]{extreport}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[dvips]{graphicx}
-\usepackage[dvips]{epsfig}
+\usepackage{graphicx}
+\usepackage{epsfig}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{alltt}
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{multirow}
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage{libertinus}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+\usepackage{csquotes}
+\usepackage[style=numeric]{biblatex}
+\addbibresource{report.bib}
+ 
 \newcommand{\SONY}{{\sc Sony}}
 \newcommand{\MICROSOFT}{{\sc Microsoft}}
 \newcommand{\GCC}{\textsf{\textsc{G}CC}}
@@ -33,6 +38,9 @@
 \newcommand{\TO}{\textbf{hasta} }
 \newcommand{\AND}{\textbf{y} }
 \newcommand{\OR}{\textbf{o} }
+
+\renewcommand{\baselinestretch}{1.1} 
+
 
 %%%%%%%%%%%%%%%%% Creamos un entorno para listar cÃ³digo fuente %%%%%%%%%%%%%%%
 \newenvironment{sourcecode}
@@ -98,111 +106,103 @@
 \setlength{\parindent}{0mm}
 \setlength{\parskip}{0mm}
 
-\vspace*{\stretch{0.5}}
 
+\vspace*{\stretch{0.3}}
 \begin{center}
-  \includegraphics[scale=0.8]{images/logo_vertical}\\[10mm]
-  {\Huge Informe de prácticas}
+  % \includegraphics[scale=0.8]{images/logo_vertical}\\[10mm]
+  \includegraphics[scale=1]{images/logo-esit}\\[10mm]
+  \vspace*{\stretch{0.5}}
+  {\huge \scshape Trabajo de Fin de Grado}
 \end{center}
 
 \HRule
-\begin{flushright}
-  {\Huge Título} \\[2.5mm]
-  %{\Large \textit{Title in English} .} \\[5mm]
-  {\Large Autor} \\[5mm]
-
-\end{flushright}
+\begin{center}
+  \vspace{1em}
+  {\Huge Planificación optimizada de un sistema de semáforos mediante algoritmos evolutivos: una aplicación a la rotonda del Padre Anchieta, en Santa Cruz de Tenerife} \\[3mm]
+  \rule{5cm}{0.6pt}\\[5mm]
+  {\Large \textit{Optimized planning of a traffic light system using evolutionary algorithms: an application to the Padre Anchieta roundabout, in Santa Cruz de Tenerife}} \\[3mm]
+  \rule{5cm}{0.6pt}\\[5mm]
+  {\Large Francisco Arturo Cruz Zelante}
+\end{center}
 \HRule
+
 \vspace*{\stretch{2}}
+
 \begin{center}
-  \Large La Laguna, \today
+  \Large San Cristóbal de La Laguna, \today
 \end{center}
 
-\setlength{\parindent}{5mm}
+\titleformat{\chapter}[display]
+{\normalfont%
+    \LARGE% %change this size to your needs for the first line
+    \itshape}{\chaptertitlename\ \thechapter}{20pt}{%
+    \normalfont \bfseries \Huge %change this size to your needs for the second line
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\pagestyle{myheadings} %my head defined by markboth or markright
-% No funciona bien \markboth sin "twoside" en \documentclass, pero al
-% ponerlo se dan un montÃ³n de errores de underfull \vbox, con lo que no se
-% ha puesto.
-\markboth{Nombre del alumno}{Título del proyecto}
+% \pagestyle{myheadings} %my head defined by markboth or markright
+% % No funciona bien \markboth sin "twoside" en \documentclass, pero al
+% % ponerlo se dan un montÃ³n de errores de underfull \vbox, con lo que no se
+% % ha puesto.
+% \markboth{Francisco Arturo Cruz Zelante}{Planificación optimizada de un sistema de semáforos mediante algoritmos evolutivos: una aplicación a la rotonda del Padre Anchieta, en Santa Cruz de Tenerife}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Numeracion en romanos
 \renewcommand{\thepage}{\roman{page}}
 \setcounter{page}{1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+\input{0-agradecimientos.tex}
+
+\newpage{\pagestyle{empty}}
+\thispagestyle{empty}
+\input{0-resumen.tex}
 
 \tableofcontents
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
-
 \listoffigures
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
-
 \listoftables
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \setlength{\parindent}{6mm}
+\setlength{\parskip}{4mm}
+
 %Numeracion a partir del capitulo I
 \renewcommand{\thepage}{\arabic{page}}
 \setcounter{page}{1}
 
-\chapter{Introducción}
-\label{chapter:intro}
+\input{1-intro.tex}
 
-\input{cap1.tex}
+\input{2-problema-antecedentes.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \input{3-desarrollo.tex}
 
-\chapter{Título del Capítulo Dos}
-\label{chapter:dos}
+% \input{4-resultados.tex}
 
-\input{cap2.tex}
+% \input{5-conclusiones-trabajo-futuro.tex}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
-\thispagestyle{empty}
-
-\chapter{Título del Capítulo Tres}
-\label{chapter:tres}
-
-\input{cap3.tex}
+% \input{6-conclusions-future-work.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\chapter{Título del Capítulo Cuatro}
-\label{chapter:cuatro}
-
-\input{cap4.tex}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
-\thispagestyle{empty}
-
-\chapter{Conclusiones y líneas futuras}
-\label{chapter:Conclusiones}
-
-\input{cap5.tex}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibheading
+\printbibliography
+\nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
 \begin{appendix}
 
-  \chapter{Título del Apéndice 1}
+  \chapter{Título del Apéndice 1} 
   \label{appendix:1}
   \input{apendice1.tex}
 
@@ -211,14 +211,5 @@
   \input{apendice2.tex}
 
 \end{appendix}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\addcontentsline{toc}{chapter}{Bibliografía}
-\bibliographystyle{plain}
-
-\bibliography{report}
-\nocite{*}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
