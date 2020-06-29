@@ -9,13 +9,32 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{multirow}
-\usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
 \usepackage{libertinus}
 \usepackage[T1]{fontenc}
 \usepackage{titlesec}
 \usepackage{csquotes}
-\usepackage[style=numeric]{biblatex}
+% \usepackage[ttdefault=true]{AnonymousPro}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{setspace}
+\usepackage[labelfont=bf]{subcaption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+
+\usepackage{courier}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\usepackage[style=numeric,sorting=none]{biblatex}
 \addbibresource{report.bib}
+ 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+ 
+\captionsetup{font={small,stretch=0.95}}
  
 \newcommand{\SONY}{{\sc Sony}}
 \newcommand{\MICROSOFT}{{\sc Microsoft}}
@@ -179,37 +198,37 @@
 %Numeracion a partir del capitulo I
 \renewcommand{\thepage}{\arabic{page}}
 \setcounter{page}{1}
+\pagestyle{plain}
 
 \input{1-intro.tex}
 
-\input{2-problema-antecedentes.tex}
+\input{2-antecedentes-objetivos.tex}
 
-% \input{3-desarrollo.tex}
+\input{3-desarrollo.tex}
 
-% \input{4-resultados.tex}
+\input{4-resultados.tex}
 
-% \input{5-conclusiones-trabajo-futuro.tex}
+\input{5-conclusiones-trabajo-futuro.tex}
 
-% \input{6-conclusions-future-work.tex}
+\input{6-conclusions-future-work.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\printbibheading
 \printbibliography
-\nocite{*}
+% \nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
-\thispagestyle{empty}
-\begin{appendix}
+% \newpage{\pagestyle{empty}}
+% \thispagestyle{empty}
+% \begin{appendix}
 
-  \chapter{Título del Apéndice 1} 
-  \label{appendix:1}
-  \input{apendice1.tex}
+%   \chapter{Título del Apéndice 1} 
+%   \label{appendix:1}
+%   \input{apendice1.tex}
 
-  \chapter{Título del Apéndice 2}
-  \label{appendix:2}
-  \input{apendice2.tex}
+%   \chapter{Título del Apéndice 2}
+%   \label{appendix:2}
+%   \input{apendice2.tex}
 
-\end{appendix}
+% \end{appendix}
 
 \end{document}
