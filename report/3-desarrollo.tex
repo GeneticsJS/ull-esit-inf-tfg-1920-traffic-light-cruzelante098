@@ -136,6 +136,7 @@ En este sentido, varios enfoques han sido tomados en cuenta, resultando al final
 Sin embargo, es relevante mencionar otros enfoques que en durante el desarrollo de este proyecto se tomaron en cuenta, dado que los datos del Cabildo se obtuvieron más adelante durante la fase de desarrollo de este trabajo.
 
 \subsection{Enfoque estocástico}
+\label{enfoque_estocastico}
 
 Este enfoque es el más sencillo. Consiste en generar los datos de tráfico y de peatones de forma aleatoria, tanto en flujo como en rutas. SUMO cuenta con una herramienta para hace precisamente esto, \texttt{randomTrips.py}~\cite{noauthor_randomtripspy_nodate}, un script de Python que, con un archivo de red como entrada, permite generar sendos archivos de tráfico y peatones aleatorios.
 
@@ -147,7 +148,7 @@ Por ejemplo, de las vías que nos interesan el informe contiene los datos de la 
 
 Estos datos son extremadamente débiles para inferir el tráfico en una hora particular, sobre todo si queremos el caso de la hora punta de las vías en cuestión. Y eso sin mencionar de que todavía nos faltarían datos de otras vías. Ello nos lleva a plantear el siguiente método.
 
-Sin embargo, este sí fue el enfoque empleado para generar los peatones, puesto que no se dispone de ningún dato sobre los movimientos de las personas que atraviesan los pasos de peatones de las vías conexas de la rotonda.
+Sin embargo, este sí fue el enfoque empleado para generar los peatones, puesto que no se dispone de ningún dato sobre los movimientos de las personas que atraviesan los pasos de peatones de las vías de la rotonda.
 
 
 \subsection{Enfoque de inundación}
@@ -176,7 +177,7 @@ Este enfoque, como se mencionó antes, solo resultaría útil hasta cierto punto
 
 \subsection{Enfoque empírico}
 
-Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo) \url{http://154.48.153.16:8080/aforos/}.
+Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo)\footnote{La web puede consultarse en \url{http://154.48.153.16:8080/aforos/}}.
 
 \begin{figure}[ht]
     \centering
@@ -226,19 +227,36 @@ Todos estos problemas se solucionaron (en su mayoría) añadiendo nuevos contado
 
 Este método es, pues, el que mejor resultados ha brindado y es con el que finalmente se llevó a cabo la generación del tráfico.
 
-\section{Los semáforos de la rotonda: configuraciones}
+\section{Configuración de las instancias empleadas para la simulación del tráfico}
 
-Una vez definidos el archivo de red y el de tráfico, llega el momento de tomar una decisión importante: ¿dónde han de situarse los semáforos? A fin de cuentas, la rotonda de Padre Anchieta no es una zona que contara previamente con semáforos, por lo que nos corresponde a nosotros determinar la localización de estos.
+\subsection{Instancias sin semáforos}
 
-Así pues, se proponen tres configuraciones distintas:
+Actualmente, la rotonda de Padre Anchieta no cuenta con ningún semáforo. La regulación del tráfico se produce únicamente por dos factores: la señalización (señales de ceda el paso, principalmente) y los pasos de peatones, los cuales hemos tenido en cuenta a la hora de evaluar el comportamiento del tráfico.
 
-\paragraph{Configuración 1: Semáforos en cada entrada y salida, con el carril interior siempre en verde.}
+Asimismo, la simulación de estas instancias realizaría una función de control con respecto a las instancias con semáforos, puesto que nos permitiría comparar el rendimiento de la rotonda actual con el caso de que tuviera semáforos.
 
-Una posible configuración de los semáforos es añadir uno en cada entrada y salida de la rotonda, de modo que esté absolutamente regulada por estos. Además, el carril interior permanecería en verde siempre que fuera posible, cambiando de color únicamente en los casos en los que la vía entrada a la rotonda tenga dos carriles y sea necesario regular el paso entre los carriles izquierdos de la entrada y la rotonda. 
+Se proponen tres instancias:
 
-\paragraph{Configuración 2: Semáforos en cada entrada y salida, con el carril interior cambiando de color.} Es la misma configuración que la 1, con la salvedad de que el carril interior cambia de color junto con el exterior independientemente de que la entrada que se esté regulando tenga un carril o dos. El objetivo de simular estas dos configuraciones es comprobar cuál es más eficiente gestionando el carril interior. Véase la figura~\ref{fig:conf2}. Tanto en esta configuración como en la anterior, las fases se modificaron manualmente para garantizar que siguen un ciclo correcto.
+\textbf{Instancia 1: Sin peatones.} Es la instancia más sencilla, puesto que únicamente se simulará tráfico rodado sin tener en cuenta a los peatones.
 
-\paragraph{Configuración 3: Semáforos al norte y al sur de la rotonda.} Este caso particular solamente instala dos semáforos: uno al norte de la rotonda (entre la entrada de la TF-5 en sentido Santa Cruz y la salida hacia la TF-5 en sentido La Orotava) y otro al sur (entre la salida hacia la TF-5 en sentido Santa Cruz y la entrada de doble carril desde la TF-5 en sentido La Orotava). Véase la figura~\ref{fig:conf3}. Esta configuración permitiría partir la rotonda a la mitad, en función del tráfico que circula a través de cada una de ellas, con el objetivo de facilitar la circulación. \textcolor{red}{Revisar esta frase.}
+\textbf{Instancia 2: \textit{Pocos} peatones.} Esta instancia es exactamente igual a la anterior, pero cuenta con aproximadamente 500 peatones generados con \texttt{randomTrips.py} mencionada en la sección~\ref{enfoque_estocastico}.
+
+\textbf{Instancia 3: \textit{Muchos} peatones.} De nuevo, esta instancia es idéntica a las dos primeras, con la salvedad de que cuenta con aproximadamente 2000 peatones generados con la misma herramienta, \texttt{randomTrips.py}.
+
+Tal y como se mencionó en la sección~\ref{enfoque_estocastico}, la generación de los peatones es completamente aleatoria y distribuida uniformemente tanto en tiempo (una hora de simulación) como en espacio, puesto que desafortunadamente no existen datos lo suficientemente granulares sobre los movimientos de los peatones en la zona.
+
+
+\subsection{Instancias con semáforos}
+
+Definidas las instancias anteriores, llega el momento de tomar una decisión importante: ¿dónde han de situarse los semáforos? A fin de cuentas, la rotonda de Padre Anchieta no es una zona que contara previamente con semáforos, por lo que nos corresponde a nosotros determinar la localización de estos.
+
+Así pues, se proponen tres instancias con configuraciones semafóricas distintas:
+
+\textbf{Instancia 1: Semáforos en cada entrada y salida, con el carril interior siempre en verde.} Una posible configuración de los semáforos es añadir uno en cada entrada y salida de la rotonda, de modo que esté absolutamente regulada por estos. Además, el carril interior permanecería en verde siempre que fuera posible, cambiando de color únicamente en los casos en los que la vía entrada a la rotonda tenga dos carriles y sea necesario regular el paso entre los carriles izquierdos de la entrada y la rotonda. Esta instancia no necesita simular ningún peatón, puesto que todas las entradas y salidas estarían reguladas por semáforos y, por extensión, también los pasos de peatones. Ello hace innecesario evaluar cómo se comportarían los peatones durante la simulación (simplemente se quedarían parados mientras el semáforo peatonal cambia a verde para que puedan cruzar).
+
+\textbf{Instancia 2: Semáforos en cada entrada y salida, con el carril interior cambiando de color.} Es la misma configuración que la 1, con la salvedad de que el carril interior cambia de color junto con el exterior independientemente de que la entrada que se esté regulando tenga un carril o dos. El objetivo de simular estas dos configuraciones es comprobar cuál es más eficiente gestionando el carril interior. Véase la figura~\ref{fig:conf2}. Tanto en esta configuración como en la anterior, las fases se modificaron manualmente para garantizar que siguen un ciclo correcto. Esta instancia tampoco tiene en cuenta los peatones por los mismos motivos que la anterior.
+
+\textbf{Instancia 3: Semáforos al norte y al sur de la rotonda.} Este caso particular solamente instala dos semáforos: uno al norte de la rotonda (entre la entrada de la TF-5 en sentido Santa Cruz y la salida hacia la TF-5 en sentido La Orotava) y otro al sur (entre la salida hacia la TF-5 en sentido Santa Cruz y la entrada de doble carril desde la TF-5 en sentido La Orotava). Véase la figura~\ref{fig:conf3}. Esta instancia, dado que cuenta con pasos de peatones sin regular por semáforos, sí tendrá en cuenta durante la simulación a los peatones, en las mismas cantidades mencionadas en el subsección anterior (de modo que se realizarán dos simulaciones de esta instancia, una con \textit{pocos} peatones, y otra con \textit{muchos} peatones).
 
 
 \begin{figure}[ht]
@@ -261,6 +279,65 @@ Una posible configuración de los semáforos es añadir uno en cada entrada y sa
 \end{figure}
 
 
+
 \section{El algoritmo evolutivo}
 
-Una vez se han definido los archivos de la simulación, corresponde evaluar la manera en que se va a implementar el algoritmo evolutivo. Para esto se ha empleado \texttt{Genetics.js}, una librería programada en TypeScript orientada a algoritmos evolutivos; en particular, algoritmos genéticos. Esta librería la programó Cristian Abrante, un antiguo alumno de la Escuela Superior de Ingeniería y Tecnología, para su TFG
+Una vez se han definido los archivos de la simulación, corresponde evaluar la manera en que se va a implementar el algoritmo evolutivo. Para esto se ha empleado \texttt{Genetics.js}, una librería programada en TypeScript orientada a algoritmos evolutivos; en particular, algoritmos genéticos. Esta librería la programó Cristian Abrante, un antiguo alumno de la Escuela Superior de Ingeniería y Tecnología, para su TFG titulado <<Framework web de computación evolutiva>>~\cite{abrante_dorta_framework_2019}. 
+
+Antes de proceder a emplear la librería, se hizo un fork de la misma y se realizaron algunos cambios. Los principales cambios están relacionados con la importación de módulos en TypeScript, de modo que todas las clases y elementos necesarios se pudieran importar directamente desde \texttt{genetics-js}. Asimismo, se modificó la librería para que los valores que el generador de números aleatorios que emplea el algoritmo pudiera detectar para qué fase en concreto estaba generando el valor, de modo que si cualquier fase contenía un semáforo en amarillo su duración sería exactamente de cuatro segundos.
+
+\subsection{Genotipo y fenotipo: representación de las posibles soluciones}
+
+En un algoritmo evolutivo (AE) es importante distinguir dos conceptos: el fenotipo y el genotipo.
+
+\textbf{El fenotipo} es el conjunto de objetos o entidades que conforman las posibles soluciones del problema original~\cite{eiben_introduction_2003}. Para el caso que aquí nos concierne, se trataría de las duraciones de las fases de cada uno de los semáforos de las intersecciones que figuran en el archivo de red.
+
+Pensemos en una sencilla intersección entre dos calles de un solo carril, estando regulada dicha intersección por dos semáforos (uno en cada calle), según muestra la figura~\ref{fig:semaforo-simple}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple1.png}
+        \caption{Fase 1.}
+        \label{fig:semaforo-simple-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple2.png}
+        \caption{Fase 2.}
+        \label{fig:semaforo-simple-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple3.png}
+        \caption{Fase 3.}
+        \label{fig:semaforo-simple-3}
+    \end{subfigure}
+    \caption{Cambio de fases en una intersección.}
+    \label{fig:semaforo-simple}
+\end{figure}
+
+Cada una de las fases de esta intersección tienen una duración asignada. Por ejemplo, podríamos asignar una duración a la fase 1 (figura~\ref{fig:semaforo-simple-1}) podría de 30 segundos, mientras que la 2 (figura~\ref{fig:semaforo-simple-2}) duraría 4 segundos (dado que es una fase que contiene un semáforo en ámbar), y finalmente la fase 3 duraría 45 segundos. Este conjunto de duraciones es una posible solución a nuestro problema, que al final lo que busca es asignar las duraciones a las fases de los semáforos de modo que permitan circular al tráfico de la manera más eficiente, y es con lo que lidiaría el algoritmo evolutivo. Así es, pues, como se representa el fenotipo.
+
+\textbf{El genotipo}, por otro lado, es la codificación de nuestra solución, es la manera en que representamos los individuos de modo que el algoritmo evolutivo pueda trabajar con ellos. Para el caso en cuestión, el fenotipo mostrado por la figura~\ref{fig:semaforo-simple} lo representaríamos por un \textit{array} de valores que se corresponderían con las duraciones de dichas fases. Por ejemplo: \texttt{[30, 4, 45]}. Suponiendo que contásemos con varias intersecciones, cada una de ellas compuesta de varios semáforos, y cada uno de estos compuestos de varias fases con sus respectivas duraciones, simplemente se añadirían al \textit{array} dichas duraciones como valores numéricos igual que antes: \texttt{[30, 4, 45, 20, 55, 4, 80, 22, 47, 4, ...]}.
+
+Vale la pena mencionar que, además de lidiar con duraciones de fases, el \textit{array} también contendrá valores numéricos en representación de los retardos de las intersecciones (véase la figura~\ref{fig:genotipo}). Estos retardos son los que se emplean para sincronizar varias intersecciones con semáforos de modo que se produzcan las denominadas \textit{oleadas de verde}~\cite{segredo_optimising_2019}.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{report/images/genotipo.png}
+    \caption{Ejemplo de genotipo.}
+    \label{fig:genotipo}
+\end{figure}
+
+\subsection{Aplicación del algoritmo evolutivo}
+
+
+
+\section{Estudio estadístico sobre los parámetros óptimos del algoritmo evolutivo}
+
+
