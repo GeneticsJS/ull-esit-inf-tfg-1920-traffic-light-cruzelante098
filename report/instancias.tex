@@ -33,7 +33,7 @@ Bien, dentro de esta intersección existen los denominados <<carriles internos>>
 
 Asimismo, es muy importante configurar bien las intersecciones puesto que son necesarias para añadir los semáforos y configurarlos adecuadamente en función de las vías que vaya a regular; situación que también se da para los pasos de peatones.
 
-La mayoría del trabajo de limpieza consistió, pues, en procurar la exactitud de las intersecciones de las vías de entrada y salida de la rotonda. Esto es posible modificando la forma de estas en \texttt{NETEDIT}; pero, por desgracia, es un trabajo en gran parte tedioso y a veces frustrante, puesto que la manera en que están definidas estas intersecciones es mediante un conjunto de puntos (que encierran la zona por la que pasan los carriles internos, como se ve en la figura~\ref{fig:interseccion3}). 
+La mayoría del trabajo de limpieza consistió, pues, en procurar la exactitud de las intersecciones de las vías de entrada y salida de la rotonda. Esto es posible modificando la forma de estas en \texttt{NETEDIT}; pero, por desgracia, es un trabajo en gran parte tedioso y a veces frustrante, puesto que la manera en que están definidas estas intersecciones es mediante un conjunto de puntos (que encierran la zona por la que pasan los carriles internos, como se ve en la Figura~\ref{fig:interseccion3}). 
 
 \begin{figure}[ht]
     \centering
@@ -96,9 +96,9 @@ Este es un caso bastante particular y tiene que ver con la salida de la TF-5, en
     \label{fig:salida-tf5-norte}
 \end{figure}
 
-Bien, la vía representada zona roja (figura~\ref{fig:salida-tf5-norte-cerca}) permite ir a la rotonda o incorporarse a la autopista. Esta incorporación a la TF-5 tiene sentido para los vehículos que vienen de la zona azul o la amarilla. También tendría sentido para los vehículos que provinieran de la autopista (zona verde) que pese a haber tomado la salida deseen reincorporarse a la autopista.
+Bien, la vía representada zona roja (Figura~\ref{fig:salida-tf5-norte-cerca}) permite ir a la rotonda o incorporarse a la autopista. Esta incorporación a la TF-5 tiene sentido para los vehículos que vienen de la zona azul o la amarilla. También tendría sentido para los vehículos que provinieran de la autopista (zona verde) que pese a haber tomado la salida deseen reincorporarse a la autopista.
 
-Este comportamiento es el correcto; sin embargo, durante el proceso de conversión \texttt{NETCONVERT} se equivocó y generó un archivo de red que no permitía que los vehículos provenientes de las zonas mencionadas pudieran incorporarse a la TF-5 en dicho lugar (figura~\ref{fig:netedit-tf5-norte-mal}), lo que provocaba que tuvieran que pasar por la rotonda de Padre Anchieta y tomar desde ahí la salida en dirección a la TF-5. Tal comportamiento es indeseable y se corrigió.
+Este comportamiento es el correcto; sin embargo, durante el proceso de conversión \texttt{NETCONVERT} se equivocó y generó un archivo de red que no permitía que los vehículos provenientes de las zonas mencionadas pudieran incorporarse a la TF-5 en dicho lugar (Figura~\ref{fig:netedit-tf5-norte-mal}), lo que provocaba que tuvieran que pasar por la rotonda de Padre Anchieta y tomar desde ahí la salida en dirección a la TF-5. Tal comportamiento es indeseable y se corrigió.
 
 \begin{figure}[ht]
     \centering
@@ -119,7 +119,7 @@ Este comportamiento es el correcto; sin embargo, durante el proceso de conversi�
     \label{fig:netedit-tf5-problema}
 \end{figure}
 
-Sin embargo, por limitaciones de SUMO, actualmente no es posible establecer carriles con prohibición de cambio asimétrica (como es el caso de la zona roja que se menciona antes): es decir, actualmente no se puede implementar un cambio de carril de modo que sea posible incorporarse a la autopista pero no sea posible realizar la acción inversa. Ello implica que con la modificación realizada para solucionar el problema los vehículos que vayan por la autopista podrán tomar la salida mucho más adelante de lo que en realidad pueden hacerlo (figura~\ref{fig:netedit-tf5-norte-bien}). No obstante, esta solución, aunque imperfecta, es mejor que impedir la incorporación a la TF-5 por los motivos mencionados en el párrafo anterior.
+Sin embargo, por limitaciones de SUMO, actualmente no es posible establecer carriles con prohibición de cambio asimétrica (como es el caso de la zona roja que se menciona antes): es decir, actualmente no se puede implementar un cambio de carril de modo que sea posible incorporarse a la autopista pero no sea posible realizar la acción inversa. Ello implica que con la modificación realizada para solucionar el problema los vehículos que vayan por la autopista podrán tomar la salida mucho más adelante de lo que en realidad pueden hacerlo (Figura~\ref{fig:netedit-tf5-norte-bien}). No obstante, esta solución, aunque imperfecta, es mejor que impedir la incorporación a la TF-5 por los motivos mencionados en el párrafo anterior.
 
 \subsection{Otras modificaciones}
 
@@ -160,7 +160,7 @@ Dado que nuestro archivo de red es lo suficientemente pequeño, es viable defini
 
 SUMO viene preparado con una herramienta (\texttt{OD2TRIPS}~\cite{noauthor_od2trips_nodate}) que puede leer archivos de matrices O/D en un formato concreto y convertirlos al formato de archivo de tráfico que nos interesa para realizar la simulación.
 
-La manera en que se definen las matrices O/D viene especificada en~\cite{noauthor_demandimporting_nodate}. La definición de los orígenes se realiza mediante TAZ (\textit{Traffic Analysis Zone}), zonas que se señalan en el archivo de red para agrupar un conjunto de vías de forma que sea fácil establecer el nodo donde se debe iniciar el trayecto y el nodo donde debe finalizar (véase la figura~\ref{fig:taz}).
+La manera en que se definen las matrices O/D viene especificada en~\cite{noauthor_demandimporting_nodate}. La definición de los orígenes se realiza mediante TAZ (\textit{Traffic Analysis Zone}), zonas que se señalan en el archivo de red para agrupar un conjunto de vías de forma que sea fácil establecer el nodo donde se debe iniciar el trayecto y el nodo donde debe finalizar (véase la Figura~\ref{fig:taz}).
 
 \begin{figure}[h]
     \centering
@@ -174,7 +174,7 @@ Este enfoque, como se mencionó antes, solo resultaría útil hasta cierto punto
 
 \subsection{Enfoque empírico}
 
-Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo)\footnote{La web puede consultarse en \url{http://154.48.153.16:8080/aforos/}}.
+Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la Figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo)\footnote{La web puede consultarse en \url{http://154.48.153.16:8080/aforos/}}.
 
 \begin{figure}[ht]
     \centering
@@ -214,7 +214,7 @@ Durante una prueba inicial, los resultados obtenidos con \texttt{flowrouter.py} 
 
 Es muy posible que este tipo de errores e inexactitudes se produjeran por la intención del algoritmo de satisfacer las restricciones impuestas por los datos de los aforadores. Asimismo, la configuración de algunos de estos contadores no era la idónea. 
 
-Por ejemplo, volviendo al caso de la carretera de Geneto, según muestra la figura~\ref{fig:aforadores}, esta cuenta con tres aforadores: el E-8 (en sentido ascendente), el E-9 (en sentido descendente) y el E-10 (en sentido descendente, colocado en el desvío hacia la autopista).
+Por ejemplo, volviendo al caso de la carretera de Geneto, según muestra la Figura~\ref{fig:aforadores}, esta cuenta con tres aforadores: el E-8 (en sentido ascendente), el E-9 (en sentido descendente) y el E-10 (en sentido descendente, colocado en el desvío hacia la autopista).
 
 Se da la circunstancia de que, por la manera en que \texttt{flowrouter.py} calcula las rutas, es posible que designara los orígenes y los destinos en unos nodos en los cuales realmente no deseamos que acabe el tráfico (porque, por ejemplo, no daría tiempo a que se formaran colas o a apreciar mejor durante la simulación el funcionamiento del tráfico).
 

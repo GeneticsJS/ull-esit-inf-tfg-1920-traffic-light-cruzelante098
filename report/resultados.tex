@@ -8,9 +8,9 @@ Esta sección presenta los resultados fruto de realizar el estudio estadístico,
 \subsection{Instancia S\textsubscript{4}: <<anchieta\_tls\_interior\_lane\_always\_green>>}
 
 
-Con respecto a los resultados del estudio estadístico de la primera instancia, se puede comprobar en la figura~\ref{fig:estudio:anchieta_tls_interior_lane_always_green} la evolución del fitness para cada una de las cuatro configuraciones que se plantearon para la instancia. 
+Con respecto a los resultados del estudio estadístico de la primera instancia, se puede comprobar en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_always_green} la evolución del fitness para cada una de las cuatro configuraciones que se plantearon para la instancia. 
 
-Las gráficas revelan claramente un incremento del fitness cuando la población es de 50 individuos, independientemente del cruce empleado, pese a que la mejoría no es especialmente abundante. Así pues, para determinar cual configuración es la mejor, hay que referirse a la tabla~\ref{tab:estudio:anchieta_tls_interior_lane_always_green}. Aquí figuran todas las configuraciones enfrentadas entre sí en parejas.
+Las gráficas revelan claramente un incremento del fitness cuando la población es de 50 individuos, independientemente del cruce empleado, pese a que la mejoría no es especialmente abundante. Así pues, para determinar cual configuración es la mejor, hay que referirse a la Tabla~\ref{tab:estudio:anchieta_tls_interior_lane_always_green}. Aquí figuran todas las configuraciones enfrentadas entre sí en parejas.
 
 En dicha tabla se puede apreciar como, al enfrentar a las configuraciones entre sí, la combinación de cruce \texttt{UniformCrossover} y población 50 se coloca como la mejor de todas, puesto que <<ganó>> tres de los <<enfrentamientos>> contra el resto de las configuraciones, revelándose así como el conjunto de parámetros del algoritmo evolutivo que ofrecen mejores resultados. En segunda posición queda el conjunto \texttt{OnePointCrossover} y población 50, al haber ganado solo dos de los enfrentamientos. Finalmente, puede apreciarse como no existe ninguna diferencia en emplear una configuración que tenga 10 individuos con cualquier tipo de cruce.
 
@@ -42,9 +42,9 @@ En dicha tabla se puede apreciar como, al enfrentar a las configuraciones entre 
 
 \subsection{Instancia S\textsubscript{5}: <<anchieta\_tls\_interior\_lane\_changes>>}
 
-Lo cierto es que el estudio de esta instancia arroja resultados similares a los de la instancia anterior. El estudio de la evolución del fitess, que puede apreciarse en la figura~\ref{fig:estudio:anchieta_tls_interior_lane_changes}, parece resaltar que, al igual que con la instancia anterior, el fitness mejora al usar una población mayor. Sin embargo, esta instancia proporciona, de manera general, un valor de fitness más alto que la anterior; y en el caso de las comparativas entre cruces, la diferencia en el valor del fitness es más acusada.
+Lo cierto es que el estudio de esta instancia arroja resultados similares a los de la instancia anterior. El estudio de la evolución del fitess, que puede apreciarse en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_changes}, parece resaltar que, al igual que con la instancia anterior, el fitness mejora al usar una población mayor. Sin embargo, esta instancia proporciona, de manera general, un valor de fitness más alto que la anterior; y en el caso de las comparativas entre cruces, la diferencia en el valor del fitness es más acusada.
 
-Observando los resultados de la evaluación por parejas de las diferentes configuraciones de la tabla~\ref{tab:estudio:anchieta_tls_interior_lane_changes}, los resultados quedan idénticos a los de la instancia anterior, terminando como ganador el conjunto de parámetros que emplea el cruce \texttt{UniformCrossover} y una población de 50 individuos. En segundo lugar, queda el conjunto \texttt{OnePointCrossover} y población 50 individuos; y de la misma manera, se comprueba que no hay diferencia en emplear uno u otro cruce cuando la población es de 10 invididuos.
+Observando los resultados de la evaluación por parejas de las diferentes configuraciones de la Tabla~\ref{tab:estudio:anchieta_tls_interior_lane_changes}, los resultados quedan idénticos a los de la instancia anterior, terminando como ganador el conjunto de parámetros que emplea el cruce \texttt{UniformCrossover} y una población de 50 individuos. En segundo lugar, queda el conjunto \texttt{OnePointCrossover} y población 50 individuos; y de la misma manera, se comprueba que no hay diferencia en emplear uno u otro cruce cuando la población es de 10 invididuos.
 
 \begin{figure}[h]
     \centering
@@ -75,9 +75,9 @@ Observando los resultados de la evaluación por parejas de las diferentes config
 
 \subsection{Instancia S\textsubscript{6}: <<anchieta\_tls\_few\_pedestrians>>}
 
-En comparación con las anteriores, los resultados de la evaluación del fitness de esta instancia (figura~\ref{fig:estudio:anchieta_tls_special_few_pedestrians}) arrojan resultados mucho mayores; por lo cual se aprecia que la utilización de menos semáforos redunda en un incremento bastante acusado del fitness. Asímismo, y en consonancia con las evaluaciones anteriores, la diferencia en la población se cristaliza una vez más como causante de un incremento en el fitness en el caso de ambos cruces, dando mejores resultados la utilización 50 individuos por generación.
+En comparación con las anteriores, los resultados de la evaluación del fitness de esta instancia (Figura~\ref{fig:estudio:anchieta_tls_special_few_pedestrians}) arrojan resultados mucho mayores; por lo cual se aprecia que la utilización de menos semáforos redunda en un incremento bastante acusado del fitness. Asímismo, y en consonancia con las evaluaciones anteriores, la diferencia en la población se cristaliza una vez más como causante de un incremento en el fitness en el caso de ambos cruces, dando mejores resultados la utilización 50 individuos por generación.
 
-Sin embargo, observando los resultados de la evaluación de los conjuntos de parámetros (tabla~\ref{tab:estudio:anchieta_tls_special_few_pedestrians}), se puede apreciar como los conjuntos \texttt{OnePointCrossover/Pob50} y \texttt{UniformCrossover/Pob50} llegan a un empate en el cual ambos han ganado (y perdido) la misma cantidad de veces en las evaluaciones con otros conjuntos, además de que no se aprecia diferencia estadística entre uno y otro. Así pues, la conclusión es que realmente no hay diferencia entre emplear cualquiera de los dos, puesto que brindaran resultados extremadamente parecidos.
+Sin embargo, observando los resultados de la evaluación de los conjuntos de parámetros (Tabla~\ref{tab:estudio:anchieta_tls_special_few_pedestrians}), se puede apreciar como los conjuntos \texttt{OnePointCrossover/Pob50} y \texttt{UniformCrossover/Pob50} llegan a un empate en el cual ambos han ganado (y perdido) la misma cantidad de veces en las evaluaciones con otros conjuntos, además de que no se aprecia diferencia estadística entre uno y otro. Así pues, la conclusión es que realmente no hay diferencia entre emplear cualquiera de los dos, puesto que brindaran resultados extremadamente parecidos.
 
 \begin{figure}[h]
     \centering
@@ -108,9 +108,9 @@ Sin embargo, observando los resultados de la evaluación de los conjuntos de par
 
 \subsection{Instancia S\textsubscript{7}: <<anchieta\_tls\_many\_pedestrians>>}
 
-La evaluación del fitness de cada conjunto de parámetros empleado en esta instancia ofrece resultados interesantes si se compara con la anterior, puesto que es fácil apreciar una reducción considerable del fitness en todos los casos, tal y como se puede apreciar en la figura~\ref{fig:estudio:anchieta_tls_special_many_pedestrians}.  
+La evaluación del fitness de cada conjunto de parámetros empleado en esta instancia ofrece resultados interesantes si se compara con la anterior, puesto que es fácil apreciar una reducción considerable del fitness en todos los casos, tal y como se puede apreciar en la Figura~\ref{fig:estudio:anchieta_tls_special_many_pedestrians}.  
 
-Observando los resultados de la competición entre sí de cada conjunto (tabla~\ref{tab:estudio:anchieta_tls_special_many_pedestrians}), se comprueba que los resultados son idénticos a los de la instancia anterior, con un empate entre los conjuntos \texttt{OnePointCrossover/Pob50} y \texttt{UniformCrossover/Pob50}; de modo que no hay diferencia entre emplear uno u otro.
+Observando los resultados de la competición entre sí de cada conjunto (Tabla~\ref{tab:estudio:anchieta_tls_special_many_pedestrians}), se comprueba que los resultados son idénticos a los de la instancia anterior, con un empate entre los conjuntos \texttt{OnePointCrossover/Pob50} y \texttt{UniformCrossover/Pob50}; de modo que no hay diferencia entre emplear uno u otro.
 
 \begin{figure}[h]
     \centering
