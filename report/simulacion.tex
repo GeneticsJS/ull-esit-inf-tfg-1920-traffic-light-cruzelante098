@@ -127,28 +127,28 @@ Las variables tenidas en cuenta para el estudio estadístico han sido dos:
 \textbf{Cruce} \textit{(Crossover)}. A la hora de evaluar el cruce entre genotipos, se han valorado dos opciones: \texttt{OnePointCrossover} y \texttt{UniformCrossover}.
 
 \begin{itemize}
-    \item \texttt{OnePointCrossover} intercambia un único punto (situado en la misma posición) de ambos genotipos. Por ejemplo: supongamos que manejamos dos genotipos distintos, los cuales podemos representar en binario: 0000 y 1111. \texttt{OnePointCrossover} se limitará a seleccionar una posición aleatoria, la cual será la misma para ambos genotipos, y dividirá el genotipo en dos <<secciones>> distintas, partidas por esa posición mencionada. A continuación, intercambiará entre entre ambos genotipos las mitades de uno de los lados. En el caso del genotipo anterior, si la posición seleccionada es la correspondiente al tercer elemento de izquierda a derecha, el resultado después del cruce sería 0011 y 1100 para el primer y el segundo genotipo, respectivamente.
-    \item \texttt{UniformCrossover}, por otro lado, intercambia elementos individuales entre sí, cuyas posiciones son seleccionadas aleatoriamente en función de un umbral que determina la probabilidad de que se produzca dicho intercambio. Tomando los genotipos anteriores, 0000 y 1111, y un umbral de 0.50, un posible resultado de aplicar el cruce podría ser 1001 y 0110 para el primer y segundo genotipo, respectivamente. Véase como, en este ejemplo ideal, un 50 \% de los puntos han sido intercambiados entre sí, en consonancia con el umbral marcado.
+    \item \texttt{OnePointCrossover}~\cite{eiben_422_2003} intercambia un único punto (situado en la misma posición) de ambos genotipos. Por ejemplo: supongamos que manejamos dos genotipos distintos, los cuales podemos representar en binario: 0000 y 1111. \texttt{OnePointCrossover} se limitará a seleccionar una posición aleatoria, la cual será la misma para ambos genotipos, y dividirá el genotipo en dos <<secciones>> distintas, partidas por esa posición mencionada. A continuación, intercambiará entre entre ambos genotipos las mitades de uno de los lados. En el caso del genotipo anterior, si la posición seleccionada es la correspondiente al tercer elemento de izquierda a derecha, el resultado después del cruce sería 0011 y 1100 para el primer y el segundo genotipo, respectivamente.
+    \item \texttt{UniformCrossover}~\cite{eiben_422_2003}, por otro lado, intercambia elementos individuales entre sí, cuyas posiciones son seleccionadas aleatoriamente en función de un umbral que determina la probabilidad de que se produzca dicho intercambio. Tomando los genotipos anteriores, 0000 y 1111, y un umbral de 0.50, un posible resultado de aplicar el cruce podría ser 1001 y 0110 para el primer y segundo genotipo, respectivamente. Véase como, en este ejemplo ideal, un 50 \% de los puntos han sido intercambiados entre sí, en consonancia con el umbral marcado.
 \end{itemize}
 
 
-\textbf{Población} \textit{(Population)}. La población determina la cantidad de individuos que son procesados durante una generación. En particular, se han seleccionado dos valores: 10 y 50.
+\textbf{Población} \textit{(Population)}. La población determina la cantidad de individuos que son evaluados durante una generación. En particular, se han seleccionado dos valores: 10 y 50.
 
 Junto con las variables mencionados, el algoritmo evolutivo se ha ejecutado, para el estudio estadístico, con los siguientes parámetros:
 
 \begin{itemize}
     \item Generaciones: 50. 
-    \item Generación aleatoria de valores para los individuos: uniforme entre 4 y 120 (sin embargo, devolverá 4 cuando el individuo contenga alguna duración de un semáforo en fase ámbar).
-    \item Selección: \texttt{RouletteWheel}.
-    \item Mutación: \texttt{RandomResseting}, con $r = 1 / g$, donde $r$ es el ratio de mutación y $g$ la cantidad de genes. Para la instancia actual, $r \approx 0.01$.
+    \item Selección: \texttt{RouletteWheel}~\cite{lipowski_roulette-wheel_2012}. Este método selecciona los mejores candidatos a la vez que ofrece a aquellos individuos con peor fitness que también sean escogidos. Para ello, asigna a cada individuo una probabilidad de ser seleccionado de manera proporcional a su fitness.
+    \item Mutación: \texttt{RandomResseting}~\cite{abrante_dorta_framework_2019}. Selecciona de manera uniforme un gen del individuo y le asigna un valor aleatorio dentro del rango $[4,120]$. Sin embargo, seleccionará siempre el valor $4$ cuando el gen a mutar sea de una fase que contiene un semáforo en fase ámbar. La cantidad de genes que serán mutados viene determinada por el ratio de mutación $r$, que para este proyecto equivale a $1 / g$, donde $g$ la cantidad de genes.
     \item Condición de terminación: por generaciones.
 \end{itemize}
+
 
 Con respecto a la simulación, se han tenido en cuenta los siguientes parámetros:
 
 \begin{itemize}
     \item Duración de la simulación: 1800 segundos (30 minutos, tramo 8:00-8:30).
-    \item Tiempo para teletrasporte: 120 segundos.
+    \item Tiempo para teletrasporte: 120 segundos. Este valor determina el tiempo que tardará el simulador antes de teletransportar un vehículo que, por razones estocásticas y de cómo está configurada la red, puede haberse quedado parado.
 \end{itemize}
 
 
@@ -170,7 +170,7 @@ $$
 S = (8*50*10*10) + (8*50*50*10) = 240.000
 $$
 
-Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con Bólido para llevar a cabo el estudio, el cual cuenta con 50 núcleos que han reducido el tiempo de cómputo a dos días.
+Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días.
 
 Para determinar qué conjunto de parámetros es mejor para una instancia particular, el algoritmo ejecutado para llevar a cabo el estudio estadístico evalúa dos posibles conjuntos entre sí para determinar de ellos cuál es mejor. Como hemos visto antes, hay 2 parámetros (recordemos, cruce y cantidad de individuos por generación; llamémosles $P_{1x}$ y $P_{2x}$) con 2 posibles valores cada uno, lo cual representamos con la $x$. Así pues, podríamos contar con que tenemos $P_{11}$, $P_{12}$, $P_{21}$ y $P_{22}$ conjuntos de parámetros que estamos valorando para cada instancia; dónde, por ejemplo, $P_{11}$ equivale a \texttt{OnePointCrossover} y 10 individuos. 
 
