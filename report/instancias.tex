@@ -23,9 +23,7 @@ Los archivos \texttt{xml} que se pasan al comando vienen predefinidos en el pack
 
 El archivo que obtenemos como resultado del proceso de conversión es con el cual podemos empezar a trabajar con SUMO y las herramientas que trae consigo.
 
-\subsection{Limpieza}
-
-\subsubsection{Intersecciones}
+\subsection{Intersecciones}
 
 Pese a que \texttt{NETCONVERT} hace un excelente trabajo generando el archivo de red, todavía es necesario realizar pequeños cambios antes de que pueda llevarse a cabo la simulación. Esto se realizó mediante \texttt{NETEDIT}, otra de las herramientas que viene en el paquete de SUMO, y que está orientada a editar archivos de red mediante una GUI, ya sea para modificar las vías (o los metadatos de estas), la forma de las intersecciones, los semáforos, el orden de preferencias en las vías, y toda una serie de funcionalidades relacionadas~\cite{noauthor_netedit_nodate}. El trabajo principal que se ha realizado en este aspecto tiene que ver con la forma de las intersecciones. 
 
@@ -65,7 +63,7 @@ La mayoría del trabajo de limpieza consistió, pues, en procurar la exactitud d
 
 Además, cabe mencionar que \texttt{NETEDIT}, en determinadas circunstancias o al intentar algunas modificaciones en concreto, ha llegado a cerrarse de forma inesperada debido a un error interno del programa, resultando además que se perdía todo el trabajo realizado hasta el momento, por lo que había que empezar de nuevo.
 
-\subsubsection{Vías mal priorizadas}
+\subsection{Vías mal priorizadas}
 
 Para señalar la prioridad de una vía sobre otra, SUMO asigna un \textit{valor de prioridad} en función del tipo de vía que sea, de acuerdo con una clasificación que también emplea \textit{OpenStreetMap}. Por ejemplo, una autopista tiene prioridad sobre las carreteras primarias, estas sobre las carreteras secundarias, estas sobre las calles urbanas, etc. 
 
@@ -75,7 +73,7 @@ Hay una \textit{flag} que se puede añadir al comando \texttt{NETCONVERT} mencio
 
 Por suerte, corregirlo no es particularmente complicado. Basta con reducir el valor de prioridad de la vía de entrada con respecto al de la rotonda y problema solucionado.
 
-\subsubsection{Vías mal representadas}
+\subsection{Vías mal representadas}
 
 Este es un caso bastante particular y tiene que ver con la salida de la TF-5, en dirección norte, que permite incorporarse a la rotonda de Padre Anchieta (representado en la figura \ref{fig:salida-tf5-norte}). 
 
@@ -94,7 +92,7 @@ Este es un caso bastante particular y tiene que ver con la salida de la TF-5, en
       \caption{La misma vista, desde cerca. Permite apreciar los distintos carriles que dan lugar o se incorporan a la salida en cuestión.}
       \label{fig:salida-tf5-norte-cerca}
     \end{subfigure}%
-    \caption{La zona roja representa la vía de doble carril (el de la izquierda permite la incorporación a la autopista y también ir a la rotonda de Padre Anchieta, mientras que el derecho permite ir a la rotonda únicamente). La azul se corresponde con la carretera proveniente del IES Viera y Clavijo. El carril verde es el proveniente de la autopista, y el amarillo el proveniente de la rotonda que está por debajo de la autopista. Los tres dan lugar a la vía representada por la zona roja.}
+    \caption[Incorporación a la rotonda de Padre Anchieta desde TF-5 sentido norte.]{Incorporación a la rotonda de Padre Anchieta desde TF-5 sentido norte. La zona roja representa la vía de doble carril (el de la izquierda permite la incorporación a la autopista y también ir a la rotonda de Padre Anchieta, mientras que el derecho permite ir a la rotonda únicamente). La azul se corresponde con la carretera proveniente del IES Viera y Clavijo. El carril verde es el proveniente de la autopista, y el amarillo el proveniente de la rotonda que está por debajo de la autopista. Los tres dan lugar a la vía representada por la zona roja.}
     \label{fig:salida-tf5-norte}
 \end{figure}
 
@@ -123,7 +121,7 @@ Este comportamiento es el correcto; sin embargo, durante el proceso de conversi�
 
 Sin embargo, por limitaciones de SUMO, actualmente no es posible establecer carriles con prohibición de cambio asimétrica (como es el caso de la zona roja que se menciona antes): es decir, actualmente no se puede implementar un cambio de carril de modo que sea posible incorporarse a la autopista pero no sea posible realizar la acción inversa. Ello implica que con la modificación realizada para solucionar el problema los vehículos que vayan por la autopista podrán tomar la salida mucho más adelante de lo que en realidad pueden hacerlo (figura~\ref{fig:netedit-tf5-norte-bien}). No obstante, esta solución, aunque imperfecta, es mejor que impedir la incorporación a la TF-5 por los motivos mencionados en el párrafo anterior.
 
-\subsubsection{Otras modificaciones}
+\subsection{Otras modificaciones}
 
 Mencionadas las modificaciones más sustanciales, en el archivo de red también se han realizado otras modificaciones menores como la forma de algunas vías (especialmente las vías de la rotonda en sí), que han sido retocadas para que sean más fieles a la realidad; la adición de pasos de peatones, la adición de aceras cuando era necesario y la supresión cuando eran aceras innecesarias o no se correspondían con la realidad, la configuración de los semáforos (de la que se hablará en su propia sección), la corrección de algunas conexiones que permitían giros prohibidos, etc.
 
@@ -154,15 +152,6 @@ Sin embargo, este sí fue el enfoque empleado para generar los peatones, puesto 
 \subsection{Enfoque de inundación}
 
 
-\begin{wrapfigure}{L}{5.5cm}
-    \centering
-    % \captionsetup{width=.8\linewidth}
-    \includegraphics[width=\linewidth]{report/images/taz.png}
-    \caption{Las TAZ aparecen delimitadas por las líneas azules.}
-    \label{fig:taz}
-\end{wrapfigure}
-
-
 A falta de datos para generar el tráfico, un enfoque interesante residía en generar el tráfico de modo que se lleva al límite el aforo de las vías de la rotonda; es decir, propiciando que circulara el máximo tráfico posible por todas las vías. Este enfoque, aunque en determinados casos resulte irreal, en cierta medida no es tan diferente de lo que sucede en realidad, puesto que en horas punta la rotonda de Padre Anchieta sufre de colas en todas las entradas (en las entradas desde autopista, tanto del norte como del sur, en la Av. Trinidad, en la carretera de la Esperanza y la de Geneto).
 
 Una manera de definir el archivo de tráfico de este enfoque es mediante matrices origen-destino (\textit{O/D matrices})~\cite{otto_anker_nielsen_two_1998}, las cuales se centran en definir el lugar de partida y de llegada junto con el flujo (cantidad de vehículos que circularán desde A hasta B).
@@ -172,6 +161,14 @@ Dado que nuestro archivo de red es lo suficientemente pequeño, es viable defini
 SUMO viene preparado con una herramienta (\texttt{OD2TRIPS}~\cite{noauthor_od2trips_nodate}) que puede leer archivos de matrices O/D en un formato concreto y convertirlos al formato de archivo de tráfico que nos interesa para realizar la simulación.
 
 La manera en que se definen las matrices O/D viene especificada en~\cite{noauthor_demandimporting_nodate}. La definición de los orígenes se realiza mediante TAZ (\textit{Traffic Analysis Zone}), zonas que se señalan en el archivo de red para agrupar un conjunto de vías de forma que sea fácil establecer el nodo donde se debe iniciar el trayecto y el nodo donde debe finalizar (véase la figura~\ref{fig:taz}).
+
+\begin{figure}[h]
+    \centering
+    % \captionsetup{width=.8\linewidth}
+    \includegraphics[width=0.5\linewidth]{report/images/taz.png}
+    \caption[Delimitación de las TAZ]{Delimitación de las TAZ. Aparecen delimitadas por las líneas azules.}
+    \label{fig:taz}
+\end{figure}
 
 Este enfoque, como se mencionó antes, solo resultaría útil hasta cierto punto, puesto que solamente representa un estado particular de la rotonda. Generalmente, la rotonda no absorbe el máximo aforo posible en todas las vías, por lo que un enfoque más preciso sería conveniente.
 
@@ -187,8 +184,6 @@ Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto t
 \end{figure}
 
 Como nuestro objetivo era simular una hora punta, nos acabamos decantando por obtener los datos del día jueves 21 de noviembre de 2019, a las 8:00, por ser el día que más tráfico hubo a esa hora.
-
-\subsubsection{Generación de rutas: \texttt{flowrouter.py}}
 
 Tener los datos de los aforadores es una gran ayuda a la hora de estimar con fiabilidad el tráfico real de la rotonda, pero no lo es todo, puesto que no indica qué ruta han seguido dichos vehículos ni tampoco cuál es el destino al que habían de llegar. Es decir, es conocido cuántos coches salen de A y cuántos llegan a B, pero no conocemos cuáles de los coches que han llegado a B procedían de A. Al final, de lo que disponemos es de contadores de vehículos, pero lo que nos interesa son las rutas que siguen dichos vehículos; o sea, una matriz O/D.
 

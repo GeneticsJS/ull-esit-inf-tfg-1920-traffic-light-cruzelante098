@@ -107,9 +107,11 @@ Este tipo de algoritmos se componen de varios elementos:
 
 Este tipo de parámetros se pueden emplear en la función de evaluación del algoritmo evolutivo para calcular el valor que correspondería a un individuo; en este caso, un conjunto de semáforos. En el siguiente capítulo se detallarán los parámetros tenidos en cuenta en dicha función, así como otros aspectos relevantes relacionados con el planteamiento del problema.
 
-%Gara: dónde se explica el problema con detenimiento: qué son las fases, con sus tiempos y retardos???
+Así pues, el TLSP busca solventar los tiempos que han de asignarse a cada fase de un conjunto de semáforos, buscando que tales tiempos se ajusten a determinadas restricciones y que sean óptimos. Una fase de un conjunto de semáforos es un momento determinado en que cada semáforo alumbra un color distinto; de modo que si existieran dos semáforos $S_1$ y $S_2$, una fase en concreto se correspondería con el semáforo $S_1$ en rojo y el semáforo $S_2$ en ámbar.
 
-Para obtener estos valores, es necesario simular el comportamiento de los vehículos con las distintas configuraciones de semáforos. Para esto, se ha empleado SUMO, un simulador de tráfico microscópico de código abierto, que nos proveerá con los parámetros necesarios para la función de evaluación.
+Cuando tratamos con varios conjuntos de semáforos es normal que algunas ciudades planteen una sincronización entre estos a través de retardos, denominadas <<oleadas de verde>>, lo que en determinadas circunstancias optimiza la circulación de vehículos. Tales detalles son tenidos en cuenta en la evaluación del algoritmo.
+
+Para obtener estos valores es necesario simular el comportamiento de los vehículos con las distintas configuraciones de semáforos. Para esto, se ha empleado SUMO, un simulador de tráfico microscópico de código abierto, que nos proveerá con los parámetros necesarios para la función de evaluación.
 
 La obtención de los datos necesarios para realizar las simulaciones, como el mapa de la localización que queremos simular, así como los datos de los vehículos, han sido obtenidos: de un lado, de \textit{OpenStreetMap} (para el caso del mapa); y de otro, del Cabildo de Tenerife (para el caso de los datos de circulación de la zona en cuestión). De esto se hablará con extensión en los siguientes capítulos, pues el tratamiento de estos datos conforma la mayor parte del proyecto. La figura~\ref{fig:evolutionary_alg_graph} sintetiza el proceso de trabajo principal del proyecto descrito en estos párrafos.
 
