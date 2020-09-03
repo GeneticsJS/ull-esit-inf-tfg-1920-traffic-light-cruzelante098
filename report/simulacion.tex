@@ -114,6 +114,28 @@ Vale la pena mencionar que, además de lidiar con duraciones de fases, el \texti
     \label{fig:genotipo}
 \end{figure}
 
+
+\subsection{Función objetivo}
+\label{subsec:funcion}
+
+Una vez definidos los individuos con los que se va a trabajar, es necesario establecer una función que determine que tan buenos candidatos son. Así pues, se propone una función objetivo adaptada del artículo~\cite{segredo_optimising_2019} y que toma en cuenta los siguientes objetivos:
+
+\begin{itemize}
+    \item Ha de maximizarse el número de vehículos $V_R$ que llegan a su destino; de manera equivalente, ha de minimizarse la cantidad de vehículos $V_{NR}$ que no llegan a su destino en un determinado tiempo de simulación $T_{sim}$.
+    \item Ha de minimizarse la duración general media del trayecto de todos los vehículos $T_{trip}$.
+    \item Ha de minimizarse el tiempo total $T_{sw}$ que han perdido los vehículos por estar parados o por ir más lento de lo que quisieran.
+\end{itemize}
+
+Todos los objetivos anteriores se combinan en la siguiente función objetivo:
+
+$$
+f_{obj} = \frac{V_R^2}{T_{trip} + T_{sw} + V_{NR} T_{sim}}
+$$
+
+Como puede apreciarse, los objetivos de maximización están colocados en el numerador; y los de minimización, en el denominador. Por ello, la función propuesta es de maximización. Esta es una de las diferencias respecto de la función que se adapta del artículo de referencia; principalmente porque la librería Genetics.js empleada no admite plantear el problema como uno de minimización. Otra de las diferencias radica en que la función propuesta no tiene en cuenta la maximización de la duración de las fases que contengan más semáforos en verde que en rojo.
+
+Al igual que en la función objetivo de referencia, la que se propone para este proyecto eleva al cuadrado el término $V_R$ para darle prioridad sobre el resto, dado que es el objetivo más importante (que los vehículos completen su trayecto). Además, $V_{NR}$ se multiplica por $T_{sim}$ para penalizar el incremento de vehículos que no alcanzan su destino en función del tiempo de la simulación.
+
 \section{Aplicación del algoritmo y estudio estadístico sobre los parámetros óptimos de ejecución}
 
 Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo.
@@ -121,6 +143,7 @@ Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están
 Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que requieren el empleo del algoritmo.
 
 \subsection{Parámetros de configuración}
+\label{subsec:parametros}
 
 Las variables tenidas en cuenta para el estudio estadístico han sido dos:
 
@@ -153,6 +176,7 @@ Con respecto a la simulación, se han tenido en cuenta los siguientes parámetro
 
 
 \subsection{Proceso del estudio estadístico}
+\label{subsec:proceso-estudio}
 
 Este estudio se centra en analizar si existe algún tipo de diferencia estadística en los resultados de emplear unos parámetros u otros, de modo que al final se empleasen los que mejor resultado devolvieran. Para este estudio se han tenido en cuenta dos parámetros: cruce y tamaño de población, para cada una de las  cuatro instancias citadas en la sección~\ref{subsec:instancias}.
 

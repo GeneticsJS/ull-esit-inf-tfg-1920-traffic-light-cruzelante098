@@ -3,7 +3,7 @@
 
 \section{Estudio estadístico}
 
-Esta sección presenta los resultados fruto de realizar el estudio estadístico, con el objetivo de averiguar cuales eran los mejores parámetros de los propuestos en el capítulo anterior para que el algoritmo evolutivo consiguiera mejores resultados. Se evalúa cada instancia de las mencionadas en la sección~\ref{subsec:instancias} por separado, aportando un conjunto de gráficas de la evolución del fitness para cada conjunto de parámetros evaluado y una tabla con los resultados numéricos de la comparación entre sí de todos los conjuntos, para averiguar si existe una diferencia estadística en los resultados ofrecidos.
+Esta sección presenta los resultados fruto del estudio estadístico sobre cuáles son los mejores parámetros de los propuestos en el capítulo anterior para optimizar los resultados del algoritmo evolutivo. Se evalúa cada instancia de las mencionadas en la sección~\ref{subsec:instancias} por separado, aportando un conjunto de gráficas de la evolución del fitness para cada conjunto de parámetros evaluado y una tabla con los resultados numéricos de la comparación entre sí de todos los conjuntos, para averiguar si existe una diferencia estadística en los resultados ofrecidos o, si por el contrario, no hay diferencia apreciable entre emplear una configuración u otra.
 
 \subsection{Instancia S\textsubscript{4}: <<anchieta\_tls\_interior\_lane\_always\_green>>}
 
@@ -12,7 +12,7 @@ Con respecto a los resultados del estudio estadístico de la primera instancia, 
 
 Las gráficas revelan claramente un incremento del fitness cuando la población es de 50 individuos, independientemente del cruce empleado, pese a que la mejoría no es especialmente abundante. Así pues, para determinar cual configuración es la mejor, hay que referirse a la Tabla~\ref{tab:estudio:anchieta_tls_interior_lane_always_green}. Aquí figuran todas las configuraciones enfrentadas entre sí en parejas.
 
-En dicha tabla se puede apreciar como, al enfrentar a las configuraciones entre sí, la combinación de cruce \texttt{UniformCrossover} y población 50 se coloca como la mejor de todas, puesto que <<ganó>> tres de los <<enfrentamientos>> contra el resto de las configuraciones, revelándose así como el conjunto de parámetros del algoritmo evolutivo que ofrecen mejores resultados. En segunda posición queda el conjunto \texttt{OnePointCrossover} y población 50, al haber ganado solo dos de los enfrentamientos. Finalmente, puede apreciarse como no existe ninguna diferencia en emplear una configuración que tenga 10 individuos con cualquier tipo de cruce.
+En dicha tabla se puede apreciar como, al enfrentar a las configuraciones entre sí, la combinación de cruce \texttt{UniformCrossover} y población de tamaño 50 se coloca como la mejor de todas, puesto que produce (observando la mediana) un fitness más elevado al compararla con tres de las configuraciones, revelándose así como el conjunto de parámetros del algoritmo evolutivo que ofrece mejores resultados. En segunda posición queda el conjunto \texttt{OnePointCrossover} y población de tamaño 50, al haber superado solo a dos de las configuraciones. Finalmente, puede apreciarse como no existe ninguna diferencia en emplear una configuración que tenga 10 individuos con cualquier tipo de cruce.
 
 
 \begin{figure}[h]
@@ -42,9 +42,9 @@ En dicha tabla se puede apreciar como, al enfrentar a las configuraciones entre 
 
 \subsection{Instancia S\textsubscript{5}: <<anchieta\_tls\_interior\_lane\_changes>>}
 
-Lo cierto es que el estudio de esta instancia arroja resultados similares a los de la instancia anterior. El estudio de la evolución del fitess, que puede apreciarse en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_changes}, parece resaltar que, al igual que con la instancia anterior, el fitness mejora al usar una población mayor. Sin embargo, esta instancia proporciona, de manera general, un valor de fitness más alto que la anterior; y en el caso de las comparativas entre cruces, la diferencia en el valor del fitness es más acusada.
+Lo cierto es que el estudio de esta instancia arroja resultados similares a los de la instancia anterior. El estudio de la evolución del fitess, que puede apreciarse en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_changes}, parece resaltar que, al igual que con la instancia anterior, el fitness mejora al usar una población mayor. Sin embargo, esta instancia proporciona de manera general un valor de fitness más alto que la anterior; y en el caso de las comparativas entre cruces, la diferencia en el valor del fitness es más acusada.
 
-Observando los resultados de la evaluación por parejas de las diferentes configuraciones de la Tabla~\ref{tab:estudio:anchieta_tls_interior_lane_changes}, los resultados quedan idénticos a los de la instancia anterior, terminando como ganador el conjunto de parámetros que emplea el cruce \texttt{UniformCrossover} y una población de 50 individuos. En segundo lugar, queda el conjunto \texttt{OnePointCrossover} y población 50 individuos; y de la misma manera, se comprueba que no hay diferencia en emplear uno u otro cruce cuando la población es de 10 invididuos.
+Observando los resultados de la evaluación por parejas de las diferentes configuraciones de la Tabla~\ref{tab:estudio:anchieta_tls_interior_lane_changes}, los resultados quedan idénticos a los de la instancia anterior, terminando como ganador el conjunto de parámetros que emplea el cruce \texttt{UniformCrossover} y una población de 50 individuos. En segundo lugar, queda el conjunto \texttt{OnePointCrossover} y población 50 individuos; y de la misma manera, se comprueba que no hay diferencia en emplear uno u otro cruce cuando la población es de 10 individuos.
 
 \begin{figure}[h]
     \centering
@@ -75,7 +75,7 @@ Observando los resultados de la evaluación por parejas de las diferentes config
 
 \subsection{Instancia S\textsubscript{6}: <<anchieta\_tls\_few\_pedestrians>>}
 
-En comparación con las anteriores, los resultados de la evaluación del fitness de esta instancia (Figura~\ref{fig:estudio:anchieta_tls_special_few_pedestrians}) arrojan resultados mucho mayores; por lo cual se aprecia que la utilización de menos semáforos redunda en un incremento bastante acusado del fitness. Asímismo, y en consonancia con las evaluaciones anteriores, la diferencia en la población se cristaliza una vez más como causante de un incremento en el fitness en el caso de ambos cruces, dando mejores resultados la utilización 50 individuos por generación.
+En comparación con las anteriores, los resultados de la evaluación del fitness de esta instancia (Figura~\ref{fig:estudio:anchieta_tls_special_few_pedestrians}) arrojan resultados mucho mayores; por lo cual se aprecia que la utilización de menos semáforos redunda en un incremento bastante acusado del fitness. Asimismo, y en consonancia con las evaluaciones anteriores, la diferencia en la población se cristaliza una vez más como causante de un incremento en el fitness en el caso de ambos cruces, dando mejores resultados la utilización 50 individuos por generación.
 
 Sin embargo, observando los resultados de la evaluación de los conjuntos de parámetros (Tabla~\ref{tab:estudio:anchieta_tls_special_few_pedestrians}), se puede apreciar como los conjuntos \texttt{OnePointCrossover/Pob50} y \texttt{UniformCrossover/Pob50} llegan a un empate en el cual ambos han ganado (y perdido) la misma cantidad de veces en las evaluaciones con otros conjuntos, además de que no se aprecia diferencia estadística entre uno y otro. Así pues, la conclusión es que realmente no hay diferencia entre emplear cualquiera de los dos, puesto que brindaran resultados extremadamente parecidos.
 
@@ -139,57 +139,23 @@ Observando los resultados de la competición entre sí de cada conjunto (Tabla~\
 
 
 \subsection{Análisis de los resultados}
+\label{subsec:analisis-resultados-configuraciones}
 
-Realizada una evaluación de las configuraciones anteriores, para la simulación se emplearán las instancias obtenidas del algoritmo evolutivo con los siguientes conjuntos de parámetros:
+Realizada una evaluación de las configuraciones anteriores y observando cuáles de ellas resultaron ganadoras, para la simulación se emplearán las instancias obtenidas del algoritmo evolutivo con los siguientes conjuntos de parámetros:
 
 \begin{itemize}
-    \item \textbf{anchieta\_tls\_interior\_lane\_always\_green:}: \texttt{UniformCrossover/Pob50}
-    \item \textbf{anchieta\_tls\_interior\_lane\_changes:} \texttt{UniformCrossover/Pob50}
-    \item \textbf{anchieta\_tls\_few\_pedestrians:} \texttt{UniformCrossover/Pob50}
-    \item \textbf{anchieta\_tls\_many\_pedestrians:} \texttt{UniformCrossover/Pob50}
+    \item (S\textsubscript{4}) \textbf{anchieta\_tls\_interior\_lane\_always\_green:} \texttt{UniformCrossover/Pob50}
+    \item (S\textsubscript{5}) \textbf{anchieta\_tls\_interior\_lane\_changes:} \texttt{UniformCrossover/Pob50}
+    \item (S\textsubscript{6}) \textbf{anchieta\_tls\_few\_pedestrians:} \texttt{UniformCrossover/Pob50}
+    \item (S\textsubscript{7}) \textbf{anchieta\_tls\_many\_pedestrians:} \texttt{UniformCrossover/Pob50}
 \end{itemize}
 
-
+Para las dos últimas instancias, dado que no existe diferencia estadística entre emplear \texttt{UniformCrossover/Pob50} y \texttt{OnePointCrossover/Pob50}, se ha optado por la primera por simple comodidad, dado que es la misma configuración empleada para las dos primeras instancias.
 
 % TABLAS
 
-\begin{sidewaystable}[h]
-    \bigskip\bigskip
-    \caption{}
-    \label{tab:estudio:anchieta_tls_special_few_pedestrians}
-    \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
-    \hline
-    \multicolumn{7}{c}{\textbf{anchieta\_tls\_few\_pedestrians}}                                                                                                                                                                                             \\ \hline
-    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Conjuntos de parámetros 1 y 2}}}        & \multicolumn{2}{c}{\textit{Media}}            & \multicolumn{2}{c}{\textit{Mediana}}          & \multicolumn{1}{c}{\multirow{2}{*}{\textit{p-value}}} & \multicolumn{1}{c}{\multirow{2}{*}{\textit{Ganador}}} \\ \cline{2-5}
-    \multicolumn{1}{c}{}                                                & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{}                                  & \multicolumn{1}{c}{}                                  \\ \hline
-    OnePointCrossover/Pop10 y OnePointCrossover/Pop50                   & 29.45247              & 37.67554              & 27.4298               & 38.05608              & 0.0002177574                                          & OnePointCrossover/Pop50                               \\ \hline
-    OnePointCrossover/Pop10 y UniformCrossover/Pop10                    & 29.45247              & 29.88526              & 27.4298               & 28.53967              & 0.8623907                                             & No hay diferencia estadística                         \\ \hline
-    OnePointCrossover/Pop10 y UniformCrossover/Pop50                    & 29.45247              & 38.31307              & 27.4298               & 38.35384              & 0.0003900244                                          & UniformCrossover/Pop50                                \\ \hline
-    OnePointCrossover/Pop50 y UniformCrossover/Pop10                    & 37.67554              & 29.88526              & 38.05608              & 28.53967              & 0.00180757                                            & OnePointCrossover/Pop50                               \\ \hline
-    OnePointCrossover/Pop50 y UniformCrossover/Pop50                    & 37.67554              & 38.31307              & 38.05608              & 38.35384              & 0.4469909                                             & No hay diferencia estadística                         \\ \hline
-    UniformCrossover/Pop10 y UniformCrossover/Pop50                     & 29.88526              & 38.31307              & 28.53967              & 38.35384              & 0.001050841                                           & UniformCrossover/Pop50                                \\ \hline
-    \end{tabular}}
-    
-    \bigskip\bigskip
-    \caption{}
-    \label{tab:estudio:anchieta_tls_special_many_pedestrians}
-    \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
-    \hline
-    \multicolumn{7}{c}{\textbf{anchieta\_tls\_many\_pedestrians}}                                                                                                                                                                                            \\ \hline
-    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Conjuntos de parámetros 1 y 2}}}        & \multicolumn{2}{c}{\textit{Media}}            & \multicolumn{2}{c}{\textit{Mediana}}          & \multicolumn{1}{c}{\multirow{2}{*}{\textit{p-value}}} & \multicolumn{1}{c}{\multirow{2}{*}{\textit{Ganador}}} \\ \cline{2-5}
-    \multicolumn{1}{c}{}                                                & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{}                                  & \multicolumn{1}{c}{}                                  \\ \hline
-    OnePointCrossover/Pop10 y OnePointCrossover/Pop50                   & 15.3666               & 17.38808              & 15.65755              & 17.53609              & 7.402106e-05                                          & OnePointCrossover/Pop50                               \\ \hline
-    OnePointCrossover/Pop10 y UniformCrossover/Pop10                    & 15.3666               & 15.26587              & 15.65755              & 15.11698              & 0.86804                                               & No hay diferencia estadística                         \\ \hline
-    OnePointCrossover/Pop10 y UniformCrossover/Pop50                    & 15.3666               & 17.72223              & 15.65755              & 17.9043               & 4.202438e-05                                          & UniformCrossover/Pop50                                \\ \hline
-    OnePointCrossover/Pop50 y UniformCrossover/Pop10                    & 17.38808              & 15.26587              & 17.53609              & 15.11698              & 0.001255819                                           & OnePointCrossover/Pop50                               \\ \hline
-    OnePointCrossover/Pop50 y UniformCrossover/Pop50                    & 17.38808              & 17.72223              & 17.53609              & 17.9043               & 0.390172                                              & No hay diferencia estadística                         \\ \hline
-    UniformCrossover/Pop10 y UniformCrossover/Pop50                     & 15.26587              & 17.72223              & 15.11698              & 17.9043               & 0.0005555893                                          & UniformCrossover/Pop50                                \\ \hline
-    \end{tabular}}
-\end{sidewaystable}
-
-
 \begin{sidewaystable}
-    \caption{Resultado de la comparación por parejas de la instancia anchieta\_tls\_interior\_lane\_always\_green}
+    \caption{Resultado de la comparación por parejas de la instancia S\textsubscript{4}}
     \label{tab:estudio:anchieta_tls_interior_lane_always_green}
     \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
     \hline
@@ -207,7 +173,7 @@ Realizada una evaluación de las configuraciones anteriores, para la simulación
     
     
     \bigskip\bigskip
-    \caption{Resultado de la comparación por parejas de la instancia anchieta\_tls\_interior\_lane\_changes}
+    \caption{Resultado de la comparación por parejas de la instancia S\textsubscript{5}}
     \label{tab:estudio:anchieta_tls_interior_lane_changes}
     \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
     \hline
@@ -225,10 +191,70 @@ Realizada una evaluación de las configuraciones anteriores, para la simulación
 
 
 
+\begin{sidewaystable}[h]
+    \bigskip\bigskip
+    \caption{Resultado de la comparación por parejas de la instancia S\textsubscript{6}}
+    \label{tab:estudio:anchieta_tls_special_few_pedestrians}
+    \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
+    \hline
+    \multicolumn{7}{c}{\textbf{anchieta\_tls\_few\_pedestrians}}                                                                                                                                                                                             \\ \hline
+    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Conjuntos de parámetros 1 y 2}}}        & \multicolumn{2}{c}{\textit{Media}}            & \multicolumn{2}{c}{\textit{Mediana}}          & \multicolumn{1}{c}{\multirow{2}{*}{\textit{p-value}}} & \multicolumn{1}{c}{\multirow{2}{*}{\textit{Ganador}}} \\ \cline{2-5}
+    \multicolumn{1}{c}{}                                                & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{}                                  & \multicolumn{1}{c}{}                                  \\ \hline
+    OnePointCrossover/Pop10 y OnePointCrossover/Pop50                   & 29.45247              & 37.67554              & 27.4298               & 38.05608              & 0.0002177574                                          & OnePointCrossover/Pop50                               \\ \hline
+    OnePointCrossover/Pop10 y UniformCrossover/Pop10                    & 29.45247              & 29.88526              & 27.4298               & 28.53967              & 0.8623907                                             & No hay diferencia estadística                         \\ \hline
+    OnePointCrossover/Pop10 y UniformCrossover/Pop50                    & 29.45247              & 38.31307              & 27.4298               & 38.35384              & 0.0003900244                                          & UniformCrossover/Pop50                                \\ \hline
+    OnePointCrossover/Pop50 y UniformCrossover/Pop10                    & 37.67554              & 29.88526              & 38.05608              & 28.53967              & 0.00180757                                            & OnePointCrossover/Pop50                               \\ \hline
+    OnePointCrossover/Pop50 y UniformCrossover/Pop50                    & 37.67554              & 38.31307              & 38.05608              & 38.35384              & 0.4469909                                             & No hay diferencia estadística                         \\ \hline
+    UniformCrossover/Pop10 y UniformCrossover/Pop50                     & 29.88526              & 38.31307              & 28.53967              & 38.35384              & 0.001050841                                           & UniformCrossover/Pop50                                \\ \hline
+    \end{tabular}}
+    
+    \bigskip\bigskip
+    \caption{Resultado de la comparación por parejas de la instancia S\textsubscript{7}}
+    \label{tab:estudio:anchieta_tls_special_many_pedestrians}
+    \resizebox{\textwidth}{!}{\begin{tabular}{lllllll}
+    \hline
+    \multicolumn{7}{c}{\textbf{anchieta\_tls\_many\_pedestrians}}                                                                                                                                                                                            \\ \hline
+    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Conjuntos de parámetros 1 y 2}}}        & \multicolumn{2}{c}{\textit{Media}}            & \multicolumn{2}{c}{\textit{Mediana}}          & \multicolumn{1}{c}{\multirow{2}{*}{\textit{p-value}}} & \multicolumn{1}{c}{\multirow{2}{*}{\textit{Ganador}}} \\ \cline{2-5}
+    \multicolumn{1}{c}{}                                                & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{1} & \multicolumn{1}{c}{2} & \multicolumn{1}{c}{}                                  & \multicolumn{1}{c}{}                                  \\ \hline
+    OnePointCrossover/Pop10 y OnePointCrossover/Pop50                   & 15.3666               & 17.38808              & 15.65755              & 17.53609              & 7.402106e-05                                          & OnePointCrossover/Pop50                               \\ \hline
+    OnePointCrossover/Pop10 y UniformCrossover/Pop10                    & 15.3666               & 15.26587              & 15.65755              & 15.11698              & 0.86804                                               & No hay diferencia estadística                         \\ \hline
+    OnePointCrossover/Pop10 y UniformCrossover/Pop50                    & 15.3666               & 17.72223              & 15.65755              & 17.9043               & 4.202438e-05                                          & UniformCrossover/Pop50                                \\ \hline
+    OnePointCrossover/Pop50 y UniformCrossover/Pop10                    & 17.38808              & 15.26587              & 17.53609              & 15.11698              & 0.001255819                                           & OnePointCrossover/Pop50                               \\ \hline
+    OnePointCrossover/Pop50 y UniformCrossover/Pop50                    & 17.38808              & 17.72223              & 17.53609              & 17.9043               & 0.390172                                              & No hay diferencia estadística                         \\ \hline
+    UniformCrossover/Pop10 y UniformCrossover/Pop50                     & 15.26587              & 17.72223              & 15.11698              & 17.9043               & 0.0005555893                                          & UniformCrossover/Pop50                                \\ \hline
+    \end{tabular}}
+\end{sidewaystable}
+
 
 \section{Simulación}
 
-Una vez hemos evaluado cual de las configuraciones 
+Con las instancias calculadas a partir de las mejores configuraciones según lo establecido en la sección anterior, pasamos a realizar la simulación para, finalmente, determinar si el empleo de semáforos optimizados mejora, empeora o no afecta al tráfico rodado de la rotonda del Padre Anchieta.
+
+Para ello, se ha tomado cada una de las instancias provistas por el algoritmo evolutivo, el cual ha sido ejecutado con la configuración que se establece en las secciones~\ref{subsec:proceso-estudio} y~\ref{subsec:analisis-resultados-configuraciones}. Posteriormente, se han realizado 10 simulaciones distintas por cada una de las instancias. En cada una de esas simulaciones se ha empleado una semilla calculada de manera aleatoria, para introducir aleatoriedad en la simulación por los motivos mencionados en la sección~\ref{subsec:proceso-estudio}; y finalmente, se han calculado la media de los resultados provistos por SUMO.
+
+Dichos resultados se pueden consultar en la Tabla~\ref{tab:estudio:resultados}, y se sintetizan en las siguientes variables:
+
+\begin{itemize}
+    \item \textbf{Variables con respecto a los vehículos.} Estas variables han sido calculadas en función de los vehículos definidos en el archivo de tráfico mencionado en la sección~\ref{sec:vehiculos}, y representan la media de las 10 simulaciones.
+    \begin{itemize}
+        \item \textit{Cargados.} Cantidad de vehículos que SUMO ha detectado en el archivo de tráfico.
+        \item \textit{Insertados.} Cantidad de vehículos que se han iniciado su trayecto en la simulación.
+        \item \textit{En ejecución.} Cantidad de vehículos insertados que, al momento de terminarse la simulación, no habían completado su trayecto.
+        \item \textit{A la espera.} Cantidad de vehículos que no se han podido insertar en la simulación debido a la congestión del tráfico.
+    \end{itemize}
+    
+    \item \textbf{Variables con respecto a la circulación.} Estas variables han sido calculadas en función de los vehículos \textit{insertados} y \textit{en ejecución}, y representan la media de las 10 simulaciones.
+    \begin{itemize}
+        \item \textit{Longitud (m).} Longitud media del trayecto escogido por los vehículos.
+        \item \textit{Velocidad (m/s).} Velocidad media del trayecto de los vehículos.
+        \item \textit{T. espera (s).} Tiempo medio en el cual un vehículo ha estado parado involuntariamente.
+        \item \textit{T. perdido (s).} Tiempo medio perdido debido a conducir más lento de lo deseado (incluye el \textit{tiempo de espera}).
+        \item \textit{Duración (s).} Duración media del trayecto.
+        \item \textit{Retardo (s).} Tiempo medio de espera de los vehículos que no pudieron insertarse debido a la falta de espacio en en en las vías de circulación al terminarse la simulación.
+    \end{itemize}
+    
+    \item \textbf{Fitness.} Fitness del candidato, calculado según la función especificada en la sección~\ref{subsec:funcion}.
+\end{itemize}
 
 \begin{sidewaystable}
     \caption{Resultados de la ejecución de la simulación empleando la configuración óptima}
@@ -238,15 +264,25 @@ Una vez hemos evaluado cual de las configuraciones
     \multicolumn{14}{c}{\textbf{Resultados de la simulación}}                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline
     \multicolumn{1}{c}{\multirow{2}{*}{\textit{Instancia}}} & \multicolumn{4}{c}{\textit{Vehículos}}                                                                                             &  & \multicolumn{6}{c}{\textit{Estadísticas}}                                                                                                                                                                            &  & \multirow{2}{*}{\textit{Fitness}} \\ \cline{2-5} \cline{7-12}
     \multicolumn{1}{c}{}                                    & \multicolumn{1}{c}{Cargados} & \multicolumn{1}{c}{Insertados} & \multicolumn{1}{c}{En ejecución} & \multicolumn{1}{c}{A la espera} &  & \multicolumn{1}{c}{Longitud (m)} & \multicolumn{1}{c}{Velocidad (m/s)} & \multicolumn{1}{c}{T. perdido (s)} & \multicolumn{1}{c}{T. espera (s)} & \multicolumn{1}{c}{Duración (s)} & \multicolumn{1}{c}{Retardo (s)} &  &                                   \\ \hline
-    anchieta\_no\_tls                                       & 14181.8                      & 13057.8                        & 614.6                            & 1124                            &  & 1705.982                         & 22.99                               & 88.34                              & 145.44                            & 44.94                            & 70.55                           &  & 21.71                             \\ \hline
-    anchieta\_no\_tls\_few\_pedestrians                     & 14182.8                      & 12904.8                        & 623.4                            & 1278                            &  & 1713.93                          & 23.253                              & 91.304                             & 148.404                           & 50.476                           & 71.458                          &  & 18.85                             \\ \hline
-    anchieta\_no\_tls\_many\_pedestrians                    & 14182.7                      & 12878.1                        & 640.1                            & 1304.6                          &  & 1707.695                         & 23.125                              & 94.263                             & 151.237                           & 51.693                           & 80.753                          &  & 17.41                             \\ \hline
-    anchieta\_tls\_interior\_lane\_always\_green      & 14184                        & 11954.1                        & 761.8                            & 2229.9                          &  & 1739.027                         & 23.883                              & 145.692                            & 201.943                           & 110.81                           & 85.724                          &  & 7.50                              \\ \hline
-    anchieta\_tls\_interior\_lane\_changes            & 14183.6                      & 12397.3                        & 781                              & 1786.3                          &  & 1708.098                         & 23.332                              & 130.275                            & 186.185                           & 91.921                           & 95.318                          &  & 10.59                             \\ \hline
-    anchieta\_tls\_few\_pedestrians                & 14181.7                      & 12669.1                        & 678.4                            & 1512.6                          &  & 1726.209                         & 23.32                               & 106.309                            & 163.292                           & 61.791                           & 87.167                          &  & 15.01                             \\ \hline
-    anchieta\_tls\_many\_pedestrians               & 14183.1                      & 12699.2                        & 737                              & 1483.9                          &  & 1763.325                         & 23.436                              & 115.69                             & 173.26                            & 71.151                           & 59.275                          &  & 14.09                             \\ \hline
+    (S\textsubscript{1}) anchieta\_no\_tls                                       & 14181.8                      & 13057.8                        & 614.6                            & 1124                            &  & 1705.982                         & 22.99                               & 88.34                              & 145.44                            & 44.94                            & 70.55                           &  & 21.71                             \\ \hline
+    (S\textsubscript{2}) anchieta\_no\_tls\_few\_pedestrians                     & 14182.8                      & 12904.8                        & 623.4                            & 1278                            &  & 1713.93                          & 23.253                              & 91.304                             & 148.404                           & 50.476                           & 71.458                          &  & 18.85                             \\ \hline
+    (S\textsubscript{3}) anchieta\_no\_tls\_many\_pedestrians                    & 14182.7                      & 12878.1                        & 640.1                            & 1304.6                          &  & 1707.695                         & 23.125                              & 94.263                             & 151.237                           & 51.693                           & 80.753                          &  & 17.41                             \\ \hline
+    (S\textsubscript{4}) anchieta\_tls\_interior\_lane\_always\_green      & 14184                        & 11954.1                        & 761.8                            & 2229.9                          &  & 1739.027                         & 23.883                              & 145.692                            & 201.943                           & 110.81                           & 85.724                          &  & 7.50                              \\ \hline
+    (S\textsubscript{5}) anchieta\_tls\_interior\_lane\_changes            & 14183.6                      & 12397.3                        & 781                              & 1786.3                          &  & 1708.098                         & 23.332                              & 130.275                            & 186.185                           & 91.921                           & 95.318                          &  & 10.59                             \\ \hline
+    (S\textsubscript{6}) anchieta\_tls\_few\_pedestrians                & 14181.7                      & 12669.1                        & 678.4                            & 1512.6                          &  & 1726.209                         & 23.32                               & 106.309                            & 163.292                           & 61.791                           & 87.167                          &  & 15.01                             \\ \hline
+    (S\textsubscript{7}) anchieta\_tls\_many\_pedestrians               & 14183.1                      & 12699.2                        & 737                              & 1483.9                          &  & 1763.325                         & 23.436                              & 115.69                             & 173.26                            & 71.151                           & 59.275                          &  & 14.09                             \\ \hline
     \end{tabular}}
 \end{sidewaystable}
 
 
 \subsection{Análisis de los resultados}
+
+La instancia que resultados obtiene en todos los marcadores es S\textsubscript{1}, <<anchieta\_no\_tls>>. Es evidente que los excelentes resultados que ofrece esta instancia se deben a la falta de obstáculos al tráfico, puesto que no contiene ni peatones ni semáforos, lo que la coloca a la cabeza con mejor fitness (21.71). El tiempo perdido medio es de 88 segundos, y la duración del trayecto borda los 45 s. Asimismo, la longitud y velocidad media del trayecto se establece en 1,705 km y 23 m/s, evaluadas sobre 13057.8 vehículos insertados de media. La duración media del trayecto y el retardo medio se sitúan, respectivamente, en 45 s y 70.5 s.
+
+La instancia S\textsubscript{2}, <<anchieta\_no\_tls\_few\_pedestrians>>, empeora, como era de esperar, en todos los marcadores; salvo la velocidad media del trayecto. Esto se debe a que menos vehículos que debían circular por la rotonda han podido completar su trayecto o incluso ser insertados. Véase el decremento de los vehículos insertados (-1.1 \%) y el considerable incremento de los vehículos a la espera (+12 \%). Sin embargo, no hay peatones que puedan interferir con el tráfico de la autopista, por lo que las cifras se ven inclinadas a tener más en cuenta a los vehículos que circulan por la TF-5 y menos a los vehículos que circulan a través de la rotonda; de ahí el incremento de la velocidad media (+1 \%) y la longitud media del trayecto (+0.4 \%) con respecto a S\textsubscript{1}. Por otro lado, la congestión sí que se ha notado en el marcador de fitness (18.85) y, consecuentemente, en los de tiempo perdido y duración del trayecto, que se han incrementado, con respecto a S\textsubscript{1}, +3.2 \% y +11 \%, respectivamente.
+
+La instancia S\textsubscript{3}, <<anchieta\_no\_tls\_many\_pedestrians>> ofrece resultados ligeramente peores que los de <<anchieta\_no\_tls\_few\_pedestrians>>, como era de esperar al cuadruplicar la cantidad de peatones. Con respecto a la instancia anterior, menos vehículos fueron insertados (-2 \%), y en cantidad similar empeora el marcador de vehículos a la espera (+2 \%) y el de vehículos en ejecución (+2.6 \%). Asimismo, se incrementa el tiempo perdido con respecto a S\textsubscript{2} (+3.15 \%) y S\textsubscript{1} (+6.28 \%); y la duración (+2.3 y 13 \%, respectivamente); lo que sitúa al fitness en un valor de 17.41.
+
+Observando los resultados de la simulación de las instancias sin semáforos, es posible concluir que la introducción de peatones hace que la circulación se ralentice de un modo apreciable con apenas 500 peatones (instancia S\textsubscript{2}), causando que 150 vehículos no logren ni siquiera ser insertados en la simulación debido a la congestión del tráfico. Por otro lado, el incremento de los peatones hasta los 2000 (instancia S\textsubscript{3}) no parece causar un gran colapso del tráfico, aunque sí lo empeora.
+
+Pasando a las instancias con semáforos, <<anchieta\_tls\_interior\_lane\_always\_green>> saca la peor nota de todas, con diferencia. 
