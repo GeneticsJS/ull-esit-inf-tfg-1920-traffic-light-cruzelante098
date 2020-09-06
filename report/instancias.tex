@@ -11,7 +11,7 @@ La zona de la rotonda del Padre Anchieta ha sido extraída de \textit{OpenStreet
 
 Aunque inicialmente se había seleccionado una zona considerable grande de la rotonda (incluyendo, por ejemplo, calles de la zona de la Av. Trinidad, como la Obispo Rey Redondo; así como vías de la zona del Coromoto), finalmente se seleccionó una zona que únicamente abarca la rotonda, las entradas y salidas y el tramo de la TF-5 que pasa por debajo, incluyendo las entradas y salidas de la autopista. Esto se debe a que los datos de tráfico disponibles se circunscriben únicamente a las zonas mencionadas, por lo que no se podría haber simulado otras vías conexas sin perder fiabilidad en la simulación (al tener que aproximar los datos de los vehículos que circulan por dichas vías, en vez de contar con datos empíricos).
 
-OSM ofrece los datos en formato \texttt{.osm}; sin embargo, los archivos de red legibles por SUMO y las demás herramientas del simulador siguen un formato XML con extensión \texttt{.net.xml}. Para realizar la conversión se empleó una de las herramientas que viene con el simulador, denominada \texttt{NETCONVERT}. Esta herramienta está específicamente destinada a importar archivos redes viales de diferentes fuentes para generar redes viales que puedan ser utilizadas por otras herramientas~\cite{noauthor_netconvert_nodate} (como SUMO, NetEdit, etc.).
+OSM ofrece los datos en formato \texttt{.osm}; sin embargo, los archivos de red legibles por SUMO y las demás herramientas del simulador siguen un formato XML con extensión \texttt{.net.xml}. Para realizar la conversión se empleó una de las herramientas que viene con el simulador, denominada \texttt{NETCONVERT}. Esta herramienta está específicamente destinada a importar mapas de diferentes fuentes para generar archivos de red que pueden ser utilizados por otras herramientas~\cite{noauthor_netconvert_nodate} (como SUMO, \texttt{NETEDIT}, etc.).
 
 % El comando empleado para ejecutar \texttt{NETCONVERT} fue el siguiente:
 
@@ -19,7 +19,7 @@ OSM ofrece los datos en formato \texttt{.osm}; sin embargo, los archivos de red 
 % netconvert --type-files osmNetconvert.typ.xml,osmNetconvertPedestrians.typ.xml --osm-files <Archivo OSM> --output-file <Nombre del archivo de salida> --geometry.remove --roundabouts.guess --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --no-turnarounds.except-deadend --crossings.guess --osm.all-attributes --sidewalks.guess
 % \end{lstlisting}
 
-Los archivos \texttt{XML} que se pasan al comando vienen predefinidos en el pack de herramientas de SUMO, y sirven principalmente para definir el modo en que se clasificarán las vías en el momento de convertirlas (por ejemplo, qué vías se clasificarán como calles o autopistas, con qué velocidad, etc.), así como la adición de aceras y pasos peatonales. El resto de \textit{flags} señalan a \texttt{NETCONVERT} cómo debe realizar la conversión (por ejemplo, pidiendo que infiera las intersecciones, los carriles de aceleración y desaceleración de las autopistas, etc.).
+\texttt{NETCONVERT}, además, permite introducir otros ficheros (varios de ellos predefinidos en el pack de herramientas de SUMO) que sirven para definir el modo en que se clasificarán las vías en el momento de convertirlas (por ejemplo, qué vías se clasificarán como calles o autopistas, con qué velocidad, etc.), así como la adición de aceras y pasos peatonales. El resto de \textit{flags} señalan a \texttt{NETCONVERT} cómo debe realizar la conversión (por ejemplo, pidiendo que infiera las intersecciones, los carriles de aceleración y desaceleración de las autopistas, etc.).
 
 El archivo que obtenemos como resultado del proceso de conversión es con el cual podemos empezar a trabajar con SUMO y las herramientas que trae consigo.
 
@@ -71,7 +71,7 @@ Durante el proceso de conversión es posible que algunas vías no estén señala
 
 Hay una \textit{flag} que se puede añadir al comando \texttt{NETCONVERT} mencionado en la sección~\ref{gen_conv} que se denomina \texttt{--roundabouts.guess}. Esta \textit{flag} permite que, durante el proceso de conversión, se detecten automáticamente las rotondas y se ajusten las prioridades de acuerdo con la norma general: las vías de la rotonda en sí tienen prioridad sobre las vías de entrada. Sin embargo, al ser un método heurístico, es posible que falle y es el caso ante el cual nos encontramos.
 
-Por suerte, corregirlo no es particularmente complicado. Basta con reducir el valor de prioridad de la vía de entrada con respecto al de la rotonda y problema solucionado.
+Por suerte, corregirlo no es particularmente complicado. Basta con reducir el valor de prioridad de la vía de entrada con respecto al de la rotonda.
 
 \subsection{Vías mal representadas}
 
@@ -96,9 +96,9 @@ Este es un caso bastante particular y tiene que ver con la salida de la TF-5, en
     \label{fig:salida-tf5-norte}
 \end{figure}
 
-Bien, la vía representada zona roja (Figura~\ref{fig:salida-tf5-norte-cerca}) permite ir a la rotonda o incorporarse a la autopista. Esta incorporación a la TF-5 tiene sentido para los vehículos que vienen de la zona azul o la amarilla. También tendría sentido para los vehículos que provinieran de la autopista (zona verde) que pese a haber tomado la salida deseen reincorporarse a la autopista.
+Bien, la vía representada por la zona roja (Figura~\ref{fig:salida-tf5-norte-cerca}) permite ir a la rotonda o incorporarse a la autopista. Esta incorporación a la TF-5 tiene sentido para los vehículos que vienen de la zona azul o la amarilla. También tendría sentido para los vehículos que provinieran de la autopista (zona verde) que pese a haber tomado la salida deseen reincorporarse a la autopista.
 
-Este comportamiento es el correcto; sin embargo, durante el proceso de conversión \texttt{NETCONVERT} se equivocó y generó un archivo de red que no permitía que los vehículos provenientes de las zonas mencionadas pudieran incorporarse a la TF-5 en dicho lugar (Figura~\ref{fig:netedit-tf5-norte-mal}), lo que provocaba que tuvieran que pasar por la rotonda de Padre Anchieta y tomar desde ahí la salida en dirección a la TF-5. Tal comportamiento es indeseable y se corrigió.
+Este comportamiento es el correcto; sin embargo, durante el proceso de conversión \texttt{NETCONVERT} se equivocó y generó un archivo de red que no permitía que los vehículos provenientes de las zonas mencionadas pudieran incorporarse a la TF-5 en dicho lugar (Figura~\ref{fig:netedit-tf5-norte-mal}), lo que provocaba que tuvieran que pasar por la rotonda de Padre Anchieta y tomar desde ahí la salida en dirección norte a la TF-5. Tal comportamiento es indeseable y se corrigió.
 
 \begin{figure}[ht]
     \centering
@@ -119,7 +119,7 @@ Este comportamiento es el correcto; sin embargo, durante el proceso de conversi�
     \label{fig:netedit-tf5-problema}
 \end{figure}
 
-Sin embargo, por limitaciones de SUMO, actualmente no es posible establecer carriles con prohibición de cambio asimétrica (como es el caso de la zona roja que se menciona antes): es decir, actualmente no se puede implementar un cambio de carril de modo que sea posible incorporarse a la autopista pero no sea posible realizar la acción inversa. Ello implica que con la modificación realizada para solucionar el problema los vehículos que vayan por la autopista podrán tomar la salida mucho más adelante de lo que en realidad pueden hacerlo (Figura~\ref{fig:netedit-tf5-norte-bien}). No obstante, esta solución, aunque imperfecta, es mejor que impedir la incorporación a la TF-5 por los motivos mencionados en el párrafo anterior.
+Sin embargo, por limitaciones de SUMO, actualmente no es posible establecer carriles con prohibición de cambio asimétrica (como es el caso de la zona roja que se menciona en la Figura~\ref{fig:salida-tf5-norte}): es decir, actualmente no se puede implementar un cambio de carril de modo que sea posible incorporarse a la autopista pero no sea posible realizar la acción inversa. Ello implica que con la modificación realizada para solucionar el problema los vehículos que vayan por la autopista podrán tomar la salida mucho más adelante de lo que en realidad pueden hacerlo (Figura~\ref{fig:netedit-tf5-norte-bien}). No obstante, esta solución, aunque imperfecta, es mejor que impedir la incorporación a la TF-5 por los motivos mencionados en el párrafo anterior.
 
 \subsection{Otras modificaciones}
 
@@ -132,7 +132,7 @@ El principal objetivo a la hora de generar el tráfico y los peatones era hacerl
 
 En este sentido, varios enfoques han sido tomados en cuenta, resultando al final como ganador la generación de tráfico en función de un algoritmo de maximización del flujo de red, con datos empíricos de aforadores de tráfico provistos por el Cabildo de Tenerife, gracias a un estudio que realizó la entidad en noviembre de 2019 en la rotonda de Padre Anchieta. 
 
-Sin embargo, es relevante mencionar otros enfoques que en durante el desarrollo de este proyecto se tomaron en cuenta, dado que los datos del Cabildo se obtuvieron más adelante durante la fase de desarrollo de este trabajo.
+Sin embargo, es relevante mencionar otros enfoques que durante el desarrollo de este proyecto se tomaron en cuenta, dado que los datos del Cabildo se obtuvieron más adelante durante, cuando el desarrollo de este trabajo ya estaba relativamente avanzado.
 
 \subsection{Enfoque estocástico}
 \label{enfoque_estocastico}
@@ -141,19 +141,20 @@ Este enfoque es el más sencillo. Consiste en generar los datos de tráfico y de
 
 Las desventajas que plantea este método saltan a la vista: los datos de tráfico generados muy probablemente no se correspondan con la realidad. Esto plantea un problema serio a la hora de obtener una simulación fiel, puesto que los datos de circulación en una situación como la actual pueden afectar sensiblemente al resultado final de la simulación y, en consecuencia, no se podría determinar con fiabilidad si los semáforos son una adición útil o no (que al final es el objetivo último de este trabajo).
 
-A falta de datos de tráfico, este enfoque parece el más aceptable. Sin embargo, el Cabildo de Tenerife publica anualmente un estudio de las intensidades de tráfico en las carreteras de Tenerife~\cite{rodriguez_hernandez_intensidades_2019}. Este estudio no contiene los datos de los aforadores de la rotonda de Padre Anchieta que se mencionaban antes, pero sí contiene la intensidad media diaria (IMD) anual de algunas vías que conectan con la rotonda. La IMD anual de define como el número de vehículos que pasan a través de una sección fija de la carretera dividido entre 365.
+A falta de datos de tráfico, este enfoque parece el más aceptable. Sin embargo, el Cabildo de Tenerife publica anualmente un estudio de las intensidades de tráfico en las carreteras de Tenerife~\cite{rodriguez_hernandez_intensidades_2019}. Este estudio no contiene los datos de los aforadores de la rotonda de Padre Anchieta que se mencionaban antes, pero sí contiene la intensidad media diaria (IMD) anual de algunas vías que conectan con la rotonda. La IMD anual se define como el número de vehículos que pasan a través de una sección fija de la carretera dividido entre 365.
 
-Por ejemplo, de las vías que nos interesan el informe contiene los datos de la IMD anual de la TF-5, de la TF-24 (la carretera de La Esperanza) y de la TF-263 (la carretera de Geneto). También tienen datos de la TF-265 (Camino de San Francisco de Paula) pero dicha carretera no conecta directamente con la rotonda, sino que lo hace con la Av. Astrofísico Francisco Sánchez, que sí es una vía de que entra y sale de la rotonda.
+Por ejemplo, de las vías que nos interesan, el informe contiene los datos de la IMD anual de la TF-5, de la TF-24 (la carretera de La Esperanza) y de la TF-263 (la carretera de Geneto). También tienen datos de la TF-265 (Camino de San Francisco de Paula) pero dicha carretera no conecta directamente con la rotonda, sino que lo hace con la Av. Astrofísico Francisco Sánchez, que sí es una vía con conexiones de entrada y salida de la rotonda.
 
-Estos datos son extremadamente débiles para inferir el tráfico en una hora particular, sobre todo si queremos el caso de la hora punta de las vías en cuestión. Y eso sin mencionar de que todavía nos faltarían datos de otras vías. Ello nos lleva a plantear el siguiente método.
+Estos datos son extremadamente débiles para inferir el tráfico en una hora particular, sobre todo si queremos el caso de la hora punta de las vías en cuestión. Y eso sin mencionar que todavía nos faltarían datos de otras vías. Ello nos lleva a plantear el siguiente método que se propone en la sección~\ref{sec:inundacion}.
 
-Sin embargo, este sí fue el enfoque empleado para generar los peatones, puesto que no se dispone de ningún dato sobre los movimientos de las personas que atraviesan los pasos de peatones de las vías de la rotonda.
+Sin embargo, este sí fue el enfoque empleado para generar los peatones, puesto que no se dispone de ningún dato sobre los movimientos de las personas que atraviesan los pasos de peatones de las vías de la rotonda, por lo que no quedaba otra que generarlos de manera aleatoria.
 
 
 \subsection{Enfoque de inundación}
+\label{sec:inundacion}
 
 
-A falta de datos para generar el tráfico, un enfoque interesante residía en generar el tráfico de modo que se lleva al límite el aforo de las vías de la rotonda; es decir, propiciando que circulara el máximo tráfico posible por todas las vías. Este enfoque, aunque en determinados casos resulte irreal, en cierta medida no es tan diferente de lo que sucede en realidad, puesto que en horas punta la rotonda de Padre Anchieta sufre de colas en todas las entradas (en las entradas desde autopista, tanto del norte como del sur, en la Av. Trinidad, en la carretera de la Esperanza y la de Geneto).
+A falta de datos para generar el tráfico, un enfoque interesante residía en generar el tráfico de modo que se llevara al límite el aforo de las vías de la rotonda; es decir, propiciando que circulara el máximo tráfico posible por todas las vías. Este enfoque, aunque en determinados casos resulte irreal, en cierta medida no es tan diferente de lo que sucede en realidad, puesto que en horas punta la rotonda de Padre Anchieta sufre de colas en todas las entradas (en las entradas desde autopista, tanto del norte como del sur, en la Av. Trinidad, en la carretera de la Esperanza y la de Geneto).
 
 Una manera de definir el archivo de tráfico de este enfoque es mediante matrices origen-destino (\textit{O/D matrices})~\cite{otto_anker_nielsen_two_1998}, las cuales se centran en definir el lugar de partida y de llegada junto con el flujo (cantidad de vehículos que circularán desde A hasta B).
 
@@ -167,7 +168,7 @@ La manera en que se definen las matrices O/D viene especificada en~\cite{noautho
     \centering
     % \captionsetup{width=.8\linewidth}
     \includegraphics[width=0.5\linewidth]{report/images/taz.png}
-    \caption[Delimitación de las TAZ]{Delimitación de las TAZ. Aparecen delimitadas por las líneas azules.}
+    \caption[Delimitación de las TAZ]{Delimitación de las TAZ. Aparecen encerradas por los polígonos azules.}
     \label{fig:taz}
 \end{figure}
 
@@ -190,7 +191,7 @@ Tener los datos de los aforadores es una gran ayuda a la hora de estimar con fia
 
 Así pues, el problema de inferir una matriz O/D a partir de datos de contadores de tráfico no es en absoluto desconocido y abunda bastante literatura sobre cómo abordar este problema (véase~\cite{otto_anker_nielsen_two_1998}). 
 
-Sin embargo, y como no podía ser de otro modo, los creadores de SUMO ya habían previsto que esta situación podría darse, así que decidieron incorporar dos herramientas para calcular las rutas con sus respectivos flujos a partir de datos de aforadores: \texttt{DFROUTER}~\cite{noauthor_dfrouter_nodate}; y su versión mejorada, \texttt{flowrouter.py}~\cite{noauthor_flowrouterpy_nodate,behrisch_route_2018}, la cual ha sido finalmente la empleada para generar el tráfico.
+Sin embargo, y como no podía ser de otro modo, los creadores de SUMO ya habían previsto que esta situación podría darse, así que decidieron incorporar dos herramientas para calcular las rutas con sus respectivos flujos a partir de datos de aforadores: \texttt{DFROUTER}~\cite{noauthor_dfrouter_nodate}; y su versión mejorada, \texttt{flowrouter.py}~\cite{noauthor_flowrouterpy_nodate,behrisch_route_2018}, la cual ha sido finalmente empleada para generar el tráfico.
 
 La diferencia entre ambas radica en el algoritmo que emplean para calcular las rutas y los flujos de los vehículos. \texttt{DFROUTER} está pensada para redes en las cuales todas las posibles entradas y salidas cuentan con aforadores, y los datos que estos brindan son relativamente precisos. \texttt{flowrouter.py}, por otro lado, está pensado para trabajar con más incertidumbre y, por tanto, es capaz de lidiar con redes en las cuales faltan aforadores y donde los datos pueden presentar cierto nivel de inconsistencia.
 
@@ -202,14 +203,14 @@ Estas herramientas toman como entrada tres archivos:
     \item Datos de flujo (aforador, flujo, plazo durante el cuál se detectó dicho flujo, etc.).
 \end{itemize}
 
-Y como salida general dos archivos:
+Y como salida emiten dos archivos:
 
 \begin{itemize}
-    \item Un archivo de rutas.
-    \item Un archivo de flujos (definidos en función de las rutas).
+    \item Un archivo de rutas, que define uno o varios caminos por los cuales pueden circular vehículos.
+    \item Un archivo de flujos, que define cuántos vehículos circulan por una ruta en concreto y en qué momento lo hacen.
 \end{itemize}
 
-Ha de señalarse que ambas herramientas están pensadas para trabajar con redes relativamente simples, concretamente autopistas, dado que suelen estar bien dotadas de aforadores y no poseen una topología especialmente compleja; por lo que es posible que los resultados que brindan dichas herramientas a veces pueden ser erráticos y confusos, por lo que la entrada debe ser lo más completa y precisa posible.
+Ha de señalarse que ambas herramientas están pensadas para trabajar con redes relativamente simples; especialmente autopistas, dado que suelen estar bien dotadas de aforadores y no poseen una topología especialmente compleja. Por ello, es posible que los resultados que brindan dichas herramientas a veces pueden ser erráticos y confusos, de modo que la entrada debe ser lo más completa y precisa posible.
 
 Durante una prueba inicial, los resultados obtenidos con \texttt{flowrouter.py} mostraban que había rutas que no seguía ningún vehículo cuando realmente debía de haber algún flujo. También, en algunos casos, se generaban rutas ilógicas, como circular desde la carretera de Geneto con la intención de incorporarse a la TF-5 sentido sur pasando por la rotonda, ignorando el desvío (más corto) del que dispone la carretera, que permite incorporarse a la autopista directamente.
 
@@ -217,7 +218,7 @@ Es muy posible que este tipo de errores e inexactitudes se produjeran por la int
 
 Por ejemplo, volviendo al caso de la carretera de Geneto, según muestra la Figura~\ref{fig:aforadores}, esta cuenta con tres aforadores: el E-8 (en sentido ascendente), el E-9 (en sentido descendente) y el E-10 (en sentido descendente, colocado en el desvío hacia la autopista).
 
-Se da la circunstancia de que, por la manera en que \texttt{flowrouter.py} calcula las rutas, es posible que designara los orígenes y los destinos en unos nodos en los cuales realmente no deseamos que acabe el tráfico (porque, por ejemplo, no daría tiempo a que se formaran colas o a apreciar mejor durante la simulación el funcionamiento del tráfico).
+Se da la circunstancia de que, por la manera en que \texttt{flowrouter.py} calcula las rutas, es posible que designara los orígenes y los destinos en unos nodos en los cuales realmente no deseamos que acabe o se inicie el tráfico (porque, por ejemplo, no daría tiempo a que se formaran colas o a apreciar mejor durante la simulación el funcionamiento del tráfico).
 
 Todos estos problemas se solucionaron (en su mayoría) añadiendo nuevos contadores manualmente. Para el ejemplo que estamos tratando, bastó con añadir un contador en la carretera de Geneto, sentido descendente, que estuviera un poco más arriba y que sumara el flujo de los contadores E-9 y E-10, y colocando a la misma altura el contador E-8 (el que estaba en sentido ascendente). Hecho con el resto de vías, la generación del tráfico es menos errática y durante la simulación es posible apreciar mejor el flujo de los vehículos.
 

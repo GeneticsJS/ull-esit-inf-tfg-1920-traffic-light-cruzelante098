@@ -20,23 +20,23 @@ Se proponen tres instancias sin semáforos:
 \paragraph{S\textsubscript{3} --- <<anchieta\_no\_tls\_many\_pedestrians>>.} De nuevo, esta instancia es idéntica a las dos primeras, con la salvedad de que cuenta con aproximadamente 2000 peatones generados con la misma herramienta, \texttt{randomTrips.py}.
 
 
-Tal y como se mencionó en la sección~\ref{enfoque_estocastico}, la generación de los peatones es completamente aleatoria y distribuida uniformemente tanto en tiempo (una hora de simulación) como en espacio, puesto que desafortunadamente no existen datos lo suficientemente granulares sobre los movimientos de los peatones en la zona.
+Tal y como se mencionó en la sección~\ref{enfoque_estocastico}, la generación de los peatones es completamente aleatoria y distribuida uniformemente tanto en tiempo (una hora de simulación) como en espacio (en todas las aceras), puesto que desafortunadamente no existen datos lo suficientemente granulares sobre los movimientos de los peatones en la zona.
 
 
 \subsection{Instancias con semáforos}
 \label{subsec:instancias}
 
-Definidas las instancias anteriores, llega el momento de tomar una decisión importante: ¿dónde han de situarse los semáforos? A fin de cuentas, la rotonda de Padre Anchieta no es una zona que contara previamente con semáforos, por lo que nos corresponde a nosotros determinar la localización de estos.
+Definidas las instancias anteriores, llega el momento de tomar una decisión importante: ¿dónde han de situarse los semáforos? A fin de cuentas, la rotonda de Padre Anchieta no es una zona que contara previamente con ellos, por lo que nos corresponde a nosotros determinar la localización de estos.
 
 Así pues, se proponen cuatro instancias con configuraciones semafóricas distintas:
 
-\paragraph{S\textsubscript{4} --- <<anchieta\_tls\_interior\_lane\_always\_green>>.} Semáforos en cada entrada y salida, con el carril interior siempre en verde. Una posible configuración de los semáforos es añadir uno en cada entrada y salida de la rotonda, de modo que esté absolutamente regulada por estos. Además, el carril interior permanecería en verde siempre que fuera posible, cambiando de color únicamente en los casos en los que la vía entrada a la rotonda tenga dos carriles y sea necesario regular el paso entre los carriles izquierdos de la entrada y la rotonda. Esta instancia no necesita simular ningún peatón, puesto que todas las entradas y salidas estarían reguladas por semáforos y, por extensión, también los pasos de peatones. Ello hace innecesario evaluar cómo se comportarían los peatones durante la simulación (simplemente se quedarían parados mientras el semáforo peatonal cambia a verde para que puedan cruzar).
+\paragraph{S\textsubscript{4} --- <<anchieta\_tls\_interior\_lane\_always\_green>>.} \textit{Semáforos en cada entrada y salida, con el carril interior siempre en verde.} Una posible configuración de los semáforos es añadir uno en cada entrada y salida de la rotonda, de modo que esté absolutamente regulada por estos. Además, los semáforos del carril interior permanecerían en verde siempre que fuera posible, cambiando de color únicamente en los casos en los que la vía entrada a la rotonda tenga dos carriles y sea necesario regular el paso entre los carriles izquierdos de la entrada y la rotonda. Esta instancia no necesita simular ningún peatón, puesto que todas las entradas y salidas estarían reguladas por semáforos y, por extensión, también los pasos de peatones. Ello hace innecesario evaluar cómo se comportarían los peatones durante la simulación (simplemente se quedarían parados mientras el semáforo peatonal cambia a verde para que puedan cruzar).
 
-\paragraph{S\textsubscript{5} --- <<anchieta\_tls\_interior\_lane\_changes>>.} Semáforos en cada entrada y salida, con el carril interior cambiando de color. Es la misma configuración que la 1, con la salvedad de que el carril interior cambia de color junto con el exterior independientemente de que la entrada que se esté regulando tenga un carril o dos. El objetivo de simular estas dos configuraciones es comprobar cuál es más eficiente gestionando el carril interior. Véase la Figura~\ref{fig:conf2}. Tanto en esta configuración como en la anterior, las fases se modificaron manualmente para garantizar que siguen un ciclo correcto. Esta instancia tampoco tiene en cuenta los peatones por los mismos motivos que la anterior.
+\paragraph{S\textsubscript{5} --- <<anchieta\_tls\_interior\_lane\_changes>>.} \textit{Semáforos en cada entrada y salida, con el carril interior cambiando de color.} Es la misma configuración que la que propone S\textsubscript{4}, con la salvedad de que el carril interior cambia de color junto con el exterior independientemente de que la entrada que se esté regulando tenga un carril o dos. El objetivo de simular estas dos configuraciones es comprobar cuál es más eficiente gestionando el carril interior. Véase la Figura~\ref{fig:conf2}. Tanto en esta configuración como en la anterior, las fases se modificaron manualmente para garantizar que siguen un ciclo correcto. Esta instancia tampoco tiene en cuenta los peatones por los mismos motivos que la anterior.
 
-\paragraph{S\textsubscript{6} --- <<anchieta\_tls\_few\_pedestrians>>.} Semáforos al norte y al sur de la rotonda con pocos peatones. Este caso particular solamente instala dos semáforos: uno al norte de la rotonda (entre la entrada de la TF-5 en sentido Santa Cruz y la salida hacia la TF-5 en sentido La Orotava) y otro al sur (entre la salida hacia la TF-5 en sentido Santa Cruz y la entrada de doble carril desde la TF-5 en sentido La Orotava). Véase la Figura~\ref{fig:conf3}. Esta instancia, dado que cuenta con pasos de peatones sin regular por semáforos, sí tendrá en cuenta durante la simulación a los peatones, cuya cantidad y rutas han sido definidas aleatoriamente por \texttt{randomTrips.py} dado que no existen datos medidos sobre tránsito de peatones en la zona. Esta instancia cuenta, aproximadamente, con 500 peatones.
+\paragraph{S\textsubscript{6} --- <<anchieta\_tls\_few\_pedestrians>>.}\textit{ Semáforos al norte y al sur de la rotonda con pocos peatones.} Este caso particular solamente instala dos semáforos: uno al norte de la rotonda (entre la entrada de la TF-5 en sentido Santa Cruz y la salida hacia la TF-5 en sentido La Orotava) y otro al sur (entre la salida hacia la TF-5 en sentido Santa Cruz y la entrada de doble carril desde la TF-5 en sentido La Orotava). Véase la Figura~\ref{fig:conf3}. Esta instancia, dado que cuenta con pasos de peatones sin regular por semáforos, sí tendrá en cuenta durante la simulación a los peatones, cuya cantidad y rutas han sido definidas aleatoriamente por \texttt{randomTrips.py} dado que no existen datos medidos sobre tránsito de peatones en la zona. Esta instancia cuenta, aproximadamente, con 500 peatones.
 
-\paragraph{S\textsubscript{7} --- <<anchieta\_tls\_many\_pedestrians>>.} Semáforos al norte y al sur de la rotonda con muchos peatones. Esta instancia es idéntica a la anterior, con la salvedad de que se ha cuadruplicado la cantidad de peatones que circulan por la zona, para poder evaluar la circulación de los vehículos con un tránsito más denso de peatones.
+\paragraph{S\textsubscript{7} --- <<anchieta\_tls\_many\_pedestrians>>.} \textit{Semáforos al norte y al sur de la rotonda con muchos peatones.} Esta instancia es idéntica a la anterior, con la salvedad de que se ha cuadruplicado la cantidad de peatones que circulan por la zona, para poder evaluar la circulación de los vehículos con un tránsito más denso de peatones.
 
 
 \begin{figure}[ht]
@@ -118,7 +118,7 @@ Vale la pena mencionar que, además de lidiar con duraciones de fases, el \texti
 \subsection{Función objetivo}
 \label{subsec:funcion}
 
-Una vez definidos los individuos con los que se va a trabajar, es necesario establecer una función que determine que tan buenos candidatos son. Así pues, se propone una función objetivo adaptada del artículo~\cite{segredo_optimising_2019} y que toma en cuenta los siguientes objetivos:
+Una vez definida la representación de los individuos con los que se va a trabajar, es necesario establecer una función que determine que tan buenos candidatos son. Así pues, se propone una función objetivo adaptada del artículo~\cite{segredo_optimising_2019} y que toma en cuenta los siguientes objetivos:
 
 \begin{itemize}
     \item Ha de maximizarse el número de vehículos $V_R$ que llegan a su destino; de manera equivalente, ha de minimizarse la cantidad de vehículos $V_{NR}$ que no llegan a su destino en un determinado tiempo de simulación $T_{sim}$.
@@ -140,7 +140,7 @@ Al igual que en la función objetivo de referencia, la que se propone para este 
 
 Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo.
 
-Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que requieren el empleo del algoritmo.
+Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y por tanto necesitan ser optimizadas.
 
 \subsection{Parámetros de configuración}
 \label{subsec:parametros}
@@ -178,34 +178,36 @@ Con respecto a la simulación, se han tenido en cuenta los siguientes parámetro
 \subsection{Proceso del estudio estadístico}
 \label{subsec:proceso-estudio}
 
-Este estudio se centra en analizar si existe algún tipo de diferencia estadística en los resultados de emplear unos parámetros u otros, de modo que al final se empleasen los que mejor resultado devolvieran. Para este estudio se han tenido en cuenta dos parámetros: cruce y tamaño de población, para cada una de las  cuatro instancias citadas en la sección~\ref{subsec:instancias}.
+Este estudio se centra en analizar si existe algún tipo de diferencia estadística en los resultados de emplear unos parámetros u otros. Para este estudio se han tenido en cuenta dos parámetros: cruce y tamaño de población, para cada una de las cuatro instancias citadas en la sección~\ref{subsec:instancias}.
 
 Contando con que tenemos 4 instancias que simular, y dado que para cada una de ellas hay 2 variables, cada una de ellas con 2 posibles valores, en total han de realizarse 16 ejecuciones en total: la primera instancia con una población de 10 individuos y usando un cruce tipo \texttt{OnePointCrossover}, la misma instancia pero variando el cruce, luego variando la población, y luego ambos; y de igual modo para el resto de las instancias.
 
 Además, en aras de unos resultados más robustos, cada una de las 16 configuraciones se ha ejecutado 10 veces con semillas distintas, para evitar que pudiera derivarse algún tipo de sesgo e introducir aleatoriedad en la simulación, algo que sucede en la vida real puesto que no hay dos días en que todos los vehículos y peatones realicen exactamente la misma ruta en el mismo momento. En cada una de esas ejecuciones también han de contarse las generaciones y los individuos de cada una de estas, puesto que cada individuo obtiene su valor de fitness a partir de los resultados de la simulación. Así pues, dado que todas las ejecuciones han tenido como parámetro 50 generaciones, y dado que la mitad de las 16 configuraciones empleaban 10 individuos y la otra mitad 50, el cúmulo de simulaciones realizadas se eleva a las 240.000.
 
 $$
-S = \sum_{1}^{i} C_i * G * I_i * E
+S = \sum_{1}^{i} C_i  I_i G E
 $$
 
 donde $S$ es el número de simulaciones realizadas, $i$ es la cantidad de valores seleccionados para el tamaño de la población (en este caso, 10 y 50, por lo que $i=2$), $C_i$ equivale a la cantidad de configuraciones que empleaban $I_i$ individuos (de las 16 configuraciones, la mitad empleaba 10 y la otra 50, por lo que $A_1 = A_2 = 8$), $G$ es la cantidad de generaciones (50, igual en todos los casos) y $E$ la de ejecuciones (10, es un valor fijo). Sentado lo anterior:
 
 $$
-S = (8*50*10*10) + (8*50*50*10) = 240.000
+S = (8*10*50*10) + (8*50*50*10) = 240.000
 $$
 
 Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días.
 
+\subsubsection{Clasificación de la mejor configuración}
+
 Para determinar qué conjunto de parámetros es mejor para una instancia particular, el algoritmo ejecutado para llevar a cabo el estudio estadístico evalúa dos posibles conjuntos entre sí para determinar de ellos cuál es mejor. Como hemos visto antes, hay 2 parámetros (recordemos, cruce y cantidad de individuos por generación; llamémosles $P_{1x}$ y $P_{2x}$) con 2 posibles valores cada uno, lo cual representamos con la $x$. Así pues, podríamos contar con que tenemos $P_{11}$, $P_{12}$, $P_{21}$ y $P_{22}$ conjuntos de parámetros que estamos valorando para cada instancia; dónde, por ejemplo, $P_{11}$ equivale a \texttt{OnePointCrossover} y 10 individuos. 
 
-Bien, el algoritmo evaluará los resultados que ofrece emplear el conjunto $P_{11}$ contra $P_{12}$, luego contra $P_{21}$; y así sucesivamente. Cuando haya terminado de evaluar dicho conjunto, continuará evaluando el siguiente ($P_{12}$) contra el resto salvo el primero, y así hasta que todas las combinaciones (sin repeticiones) de parejas posibles hayan sido comparadas entre sí.
+Bien, el algoritmo evaluará los resultados que ofrece emplear el conjunto $P_{11}$ contra $P_{12}$, luego contra $P_{21}$; y así sucesivamente. Cuando haya terminado de evaluar dicho conjunto, continuará evaluando el siguiente ($P_{12}$) contra el resto salvo el primero, y así hasta que todas las combinaciones (sin repeticiones) de parejas posibles hayan sido comparadas.
 
 Para determinar cuándo hay una diferencia estadística entre un conjunto u otro el algoritmo recibe como entrada dos vectores de valores (uno por conjunto de parámetros) a los cuales se les aplican varios tests estadísticos. A dichos vectores los denominaremos $\vec{Q}_x$.
 
 Cada vector contiene 10 valores, uno por cada ejecución. Cada una de las ejecuciones del algoritmo se ha llevado a cabo con 50 generaciones. Para determinar el valor de un elemento del vector, se ha seleccionado el valor de fitness del mejor individuo de cada una de las 50 generaciones y se ha realizado la media. Así pues, en cada vector tenemos las medias del fitness de los mejores individuos por generación de cada ejecución.
 
-Luego, una vez que contamos con ambos vectores, se les aplica el test de Shapiro para determinar el p-value de cada conjunto. Si algún p-value es menor a 0.05, se pasa directamente al test de Kruskal Wallis; si no, ambos p-value son mayores a 0.05, por lo que se cumple el test de normalidad y se ejecuta el test de Levene para analizar las varianzas entre ambos conjuntos. Si dicho test devuelve un resultado mayor a 0.05, las varianzas no presentan una diferencia significativa y por tanto el p-value final se calcula con el test de Anova. En caso de que las varianzas sí presenten una diferencia significativa, dicho p-value se calcula con el test de Welch.
+Luego, una vez que contamos con ambos vectores, se les aplica el test de Shapiro para determinar el p-value de cada conjunto. Si algún p-value es menor al nivel de significación alfa ($\alpha = 0.05$), se pasa directamente al test de Kruskal Wallis; si no, ambos p-value son mayores a $\alpha$, por lo que se cumple el test de normalidad y se ejecuta el test de Levene para analizar las varianzas entre ambos conjuntos. Si dicho test devuelve un resultado mayor a $\alpha$, las varianzas no presentan una diferencia significativa y por tanto el p-value final se calcula con el test de Anova. En caso de que las varianzas sí presenten una diferencia significativa, dicho p-value se calcula con el test de Welch.
 
-Una vez que hemos pasado la serie de tests anteriores, tendremos un p-value final. Si es superior a 0.05, se asume que no hay diferencia entre aplicar uno u otro conjunto puesto que ambos ofrecerán el mismo resultado; pero si es inferior a 0.05 existe una diferencia estadística entre ambos conjuntos de parámetros y, para determinar cual es mejor, se selecciona el que tenga mayor mediana calculada a partir de los elementos del vector $\vec{Q}_x$ del conjunto.
+Una vez que hemos pasado la serie de tests anteriores, tendremos un p-value final. Si es superior a $\alpha$, se asume que no hay diferencia entre aplicar uno u otro conjunto puesto que ambos ofrecerán el mismo resultado; pero si es inferior, existe una diferencia estadística entre ambos conjuntos de parámetros y, para determinar cual es mejor, se selecciona el que tenga mayor mediana calculada a partir de los elementos del vector $\vec{Q}_x$ del conjunto.
 
 Los resultados de este estudio se comentarán en su respectiva sección en el capítulo siguiente.
