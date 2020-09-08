@@ -4,6 +4,8 @@
 \section{Definición de la zona de simulación: el archivo de red}
 \label{def_zona_sim_archivo_red}
 
+Esta sección trata sobre el archivo de red y el tratamiento previo realizado para emplearse en las simulaciones. Este archivo define las carreteras, calles, aceras, semáforos y demás elementos viales que conforman la zona de la rotonda de Padre Anchieta.
+
 \subsection{Generación y conversión}
 \label{gen_conv}
 
@@ -115,7 +117,7 @@ Este comportamiento es el correcto; sin embargo, durante el proceso de conversi�
       \caption{Modificación realizada. Ahora los vehículos pueden incorporarse a la autopista, pero también los de la autopista pueden tomar la salida más adelante de lo que deberían.}
       \label{fig:netedit-tf5-norte-bien}
     \end{subfigure}%
-    \caption{Cambios realizados en la salida de la TF-5 (dir. norte) que va a la rotonda del Padre Anchieta.}
+    \caption{Cambios realizados en la salida de la TF-5 (dir. norte) que llega a la rotonda del Padre Anchieta.}
     \label{fig:netedit-tf5-problema}
 \end{figure}
 
@@ -137,7 +139,7 @@ Sin embargo, es relevante mencionar otros enfoques que durante el desarrollo de 
 \subsection{Enfoque estocástico}
 \label{enfoque_estocastico}
 
-Este enfoque es el más sencillo. Consiste en generar los datos de tráfico y de peatones de forma aleatoria, tanto en flujo como en rutas. SUMO cuenta con una herramienta para hace precisamente esto, \texttt{randomTrips.py}~\cite{noauthor_randomtripspy_nodate}, un script de Python que, con un archivo de red como entrada, permite generar sendos archivos de tráfico y peatones aleatorios.
+Este enfoque es el más sencillo. Consiste en generar los datos de tráfico y de peatones de forma aleatoria, tanto en flujo como en rutas. SUMO cuenta con una herramienta para hacer precisamente esto, \texttt{randomTrips.py}~\cite{noauthor_randomtripspy_nodate}, un script de Python que, con un archivo de red como entrada, permite generar sendos archivos de tráfico y peatones aleatorios.
 
 Las desventajas que plantea este método saltan a la vista: los datos de tráfico generados muy probablemente no se correspondan con la realidad. Esto plantea un problema serio a la hora de obtener una simulación fiel, puesto que los datos de circulación en una situación como la actual pueden afectar sensiblemente al resultado final de la simulación y, en consecuencia, no se podría determinar con fiabilidad si los semáforos son una adición útil o no (que al final es el objetivo último de este trabajo).
 
@@ -176,7 +178,7 @@ Este enfoque, como se mencionó antes, solo resultaría útil hasta cierto punto
 
 \subsection{Enfoque empírico}
 
-Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la Figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo)\footnote{La web puede consultarse en \url{http://154.48.153.16:8080/aforos/}}.
+Este enfoque es el que al final se ha empleado, puesto que transcurrido cierto tiempo desde el inicio del proyecto fue posible obtener datos de tráfico correspondientes a 21 aforadores colocados en las inmediaciones de la rotonda, en un estudio realizado por el Cabildo de Tenerife en la semana del 19 al 25 de noviembre de 2019 (véase la Figura~\ref{fig:aforadores}). Estos datos vienen desglosados por aforador, día y hora. Los datos de la autopista se obtuvieron desde la web (también del Cabildo).
 
 \begin{figure}[ht]
     \centering

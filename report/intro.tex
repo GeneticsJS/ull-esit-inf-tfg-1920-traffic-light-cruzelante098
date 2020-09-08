@@ -53,7 +53,7 @@ La optimización del tráfico en la rotonda se convierte, por tanto, en un asunt
 
 \footnotetext{Véase \url{https://visor.grafcan.es/visorweb/}}
 
-Las autoridades de la isla no son ajenas al problema de tráfico que plantea de la rotonda. El Cabildo de Tenerife, organismo de cuya competencia depende la rotonda, y el Gobierno de Canarias, de cuya competencia depende la TF-5, han planteado varias medidas, de entre las cuales cabe mencionar:
+Las autoridades de la isla no son ajenas al problema de tráfico que plantea la rotonda. El Cabildo de Tenerife, organismo de cuya competencia depende la rotonda, y el Gobierno de Canarias, de cuya competencia depende la TF-5, han planteado varias medidas, de entre las cuales cabe mencionar:
 
 \begin{itemize}
     \item El soterramiento de la TF-24 en dirección hacia Santa Cruz (a la espera de ejecutar el proyecto)~\cite{dia_cabildo_2019}.
@@ -67,7 +67,10 @@ Sin embargo, todas las medidas mencionadas suponen un cargo importante al erario
 
 \section{Objetivos}
 
-Con la elaboración de este proyecto lo que se propone es la instalación de semáforos en la rotonda, cuyas duraciones de fase se optimicen mediante un algoritmo evolutivo. De esta forma, se podrá comprobar si con la instalación de estos semáforos es posible mejorar la circulación del tráfico en función de determinados parámetros como: la duración media de los trayectos de los vehículos, la velocidad media de los vehículos, la cantidad de vehículos que han logrado completar su trayecto en una hora, etc.
+Con la elaboración de este proyecto lo que se propone es la instalación de semáforos en la rotonda, cuyas duraciones de fase se optimicen mediante un algoritmo evolutivo. De esta forma, se podrá comprobar si con la instalación de estos semáforos es posible mejorar la circulación del tráfico en función de determinados parámetros como: la duración media de los trayectos de los vehículos, la velocidad media de los vehículos, la cantidad de vehículos que han logrado completar su trayecto en
+un tiempo determinado, etc.
+% Gara
+%una hora, etc.
 
 El problema que se pretende abordar no es otro que el de la planificación de la duración de las fases de los semáforos, más conocido como el \textit{Traffic Light Scheduling Problem} (TLSP). Este problema de optimización plantea cuánto deberían durar las fases de los semáforos de uno o varios cruces para mejorar la circulación con respecto a varios parámetros; el más habitual de ellos siendo el tiempo medio de viaje de un grupo de vehículos desde un origen hasta el destino. Otros parámetros, como la distancia media o la contaminación de los vehículos también pueden ser tenidos en cuenta a la hora de evaluar el comportamiento de las distintas configuraciones semafóricas.
 
@@ -85,7 +88,7 @@ Para llevar a cabo el proyecto, se han empleado principalmente las dos herramien
 
 Los algoritmos evolutivos toman como guía la evolución biológica y la llevan al campo de la optimización. A diferencia de otros métodos, esta clase de algoritmos busca ofrecer mejores resultados mediante la evolución de los individuos de una población, haciéndolos mutar, combinando características entre ellos y seleccionando los mejores candidatos a optar a solución de un problema~\cite{eiben_introduction_2003} (normalmente, de optimización no lineal con un amplio espacio de búsqueda), donde otros algoritmos tardarían demasiado o serían directamente inviables.
 
-Este tipo de algoritmos se componen de varios elementos:
+Este tipo de algoritmos se componen de varios elementos~\cite{eiben_introduction_2003}:
 
 \begin{itemize}
     \item \textbf{Representación.} Es la manera en que representamos los individuos. Para el caso que aquí nos atañe, un individuo es una intersección vial con un conjunto de semáforos. La duración de cada una de las fases de esos semáforos, así como los retardos, se representan como un vector de números. Cada individuo es una posible solución.
@@ -93,11 +96,13 @@ Este tipo de algoritmos se componen de varios elementos:
     \item \textbf{Población}. Conjunto de individuos. Es útil para determinar cuantos individuos vamos a forzar a competir entre sí en una generación.
     \item \textbf{Mecanismo de selección de padres.} Se corresponde con los criterios tenidos en cuenta a la hora de determinar cuáles queremos que sean los individuos que se reproducirán en la generación, normalmente de carácter estocástico.
     \item \textbf{Operadores (recombinación y mutación).} Determinan la manera en que se alteran los individuos de la población.
-    \item \textbf{Mecanismo de selección de supervivientes (reemplazo).} Es similar al mecanismo de selección de padres, pero se realiza en una fase distinta del algoritmo; normalmente después de seleccionar a los padres y son escogidos según el valor que haya devuelto la función de evaluación, pero no es el único criterio.
+    \item \textbf{Mecanismo de selección de supervivientes (reemplazo).} Se centra en seleccionar a los individuos que formarán parte de la siguiente generación de entre la población padre y la población hija a partir de los operadores genéticos. Este mecanismo, a diferencia del de selección de padres, suele ser un método determinista basado en el fitness.
     \item \textbf{Inicialización y terminación.} Finalmente, debemos determinar de qué manera queremos iniciar el algoritmo (normalmente, con individuos generados aleatoriamente) y cómo queremos terminarlo (por ejemplo, tras un número determinado de iteraciones, o en función de un umbral, tomando como guía el \textit{fitness} o la diversidad entre individuos).
 \end{itemize}
 
 
+% Gara:
+% Yo creo que empezaría la frase diciendo algo como "este tipo de algoritmos se utilizarán para optimizar los tiempos y fases del conjunto de semáforos
 Este tipo de parámetros se pueden emplear en la función de evaluación del algoritmo evolutivo para calcular el valor que correspondería a un individuo; en este caso, un conjunto de semáforos. En el capítulo~\ref{cap:simulacion} se detallarán los parámetros tenidos en cuenta en dicha función, así como otros aspectos relevantes relacionados con el planteamiento del problema.
 
 Así pues, el TLSP busca solventar los tiempos que han de asignarse a cada fase de un conjunto de semáforos, buscando que tales tiempos se ajusten a determinadas restricciones y que sean óptimos. Una fase de un conjunto de semáforos es un momento determinado en que cada semáforo alumbra un color distinto. Por ejemplo: tomando en cuenta dos semáforos $S_1$ y $S_2$, una fase en concreto se correspondería con el semáforo $S_1$ en rojo y el semáforo $S_2$ en ámbar.
@@ -107,7 +112,7 @@ Cuando tratamos con varios conjuntos de semáforos es normal que algunas ciudade
 Para obtener estos valores es necesario simular el comportamiento de los vehículos con las distintas configuraciones de semáforos. Para esto se ha empleado SUMO, un simulador de tráfico microscópico de código abierto, que nos proveerá con los argumentos necesarios para la función de evaluación.
 
 La obtención de los datos necesarios para realizar las simulaciones, como el mapa de la localización que queremos simular, así como los datos de circulación de los vehículos, han sido obtenidos: de un lado, de \textit{OpenStreetMap} (para el caso del mapa); y de otro, del Cabildo de Tenerife (para el caso de los datos de circulación de la zona en cuestión). De esto se hablará con extensión en los siguientes capítulos, pues el tratamiento de estos datos conforma una parte importante del proyecto. La Figura~\ref{fig:evolutionary_alg_graph} sintetiza el proceso de trabajo principal del proyecto descrito en estos párrafos.
-
+% Gara: creo que primero pondría la gráfica y luego empezaría a explicar a partir de ella, indicando el capítulo/s en el que se desarrolla cada paso...
 
 \begin{figure}[!t]
     \centering
