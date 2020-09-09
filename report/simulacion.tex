@@ -22,7 +22,7 @@ Se proponen tres instancias sin semáforos:
 
 \paragraph{S\textsubscript{3} --- <<anchieta\_no\_tls\_many\_pedestrians>>.} De nuevo, esta instancia es idéntica a las dos primeras, con la salvedad de que cuenta con aproximadamente 2000 peatones generados con la misma herramienta, \texttt{randomTrips.py}.
 
-
+\bigskip
 Tal y como se mencionó en la sección~\ref{enfoque_estocastico}, la generación de los peatones es completamente aleatoria y distribuida uniformemente tanto en tiempo (una hora de simulación) como en espacio (en todas las aceras), puesto que desafortunadamente no existen datos lo suficientemente granulares sobre los movimientos de los peatones en la zona.
 
 
@@ -42,7 +42,7 @@ Así pues, se proponen cuatro instancias con configuraciones semafóricas distin
 \paragraph{S\textsubscript{7} --- <<anchieta\_tls\_many\_pedestrians>>.} \textit{Semáforos al norte y al sur de la rotonda con muchos peatones.} Esta instancia es idéntica a la anterior, con la salvedad de que se ha cuadruplicado la cantidad de peatones que circulan por la zona, para poder evaluar la circulación de los vehículos con un tránsito más denso de peatones.
 
 
-\begin{figure}[ht]
+\begin{figure}[!t]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
         \centering
@@ -65,7 +65,7 @@ Así pues, se proponen cuatro instancias con configuraciones semafóricas distin
 
 \section{El algoritmo evolutivo}
 
-Una vez se han definido los archivos de la simulación, corresponde evaluar la manera en que se va a implementar el algoritmo evolutivo. Para esto se ha empleado \texttt{Genetics.js}, una librería programada en TypeScript orientada a algoritmos evolutivos; en particular, algoritmos genéticos. Esta librería la programó Cristian Abrante, un antiguo alumno de la Escuela Superior de Ingeniería y Tecnología, para su TFG titulado <<Framework web de computación evolutiva>>~\cite{abrante_dorta_framework_2019}. 
+Una vez se han definido los archivos de la simulación, corresponde evaluar la manera en que se va a implementar el algoritmo evolutivo. Para esto se ha empleado \texttt{Genetics.js}, una librería programada en TypeScript orientada a algoritmos evolutivos; en particular, algoritmos genéticos. Esta librería la programó Cristian Abrante, un antiguo alumno de la Escuela Superior de Ingeniería y Tecnología, para su Trabajo de Fin de Grado titulado <<Framework web de computación evolutiva>>~\cite{abrante_dorta_framework_2019}. 
 
 Antes de proceder a emplear la librería, se hizo un fork de la misma y se realizaron algunos cambios. Los principales cambios están relacionados con la importación de módulos en TypeScript, de modo que todas las clases y elementos necesarios se pudieran importar directamente desde \texttt{genetics-js}. Asimismo, se modificó la librería para que los valores que el generador de números aleatorios que emplea el algoritmo pudiera detectar para qué fase en concreto estaba generando el valor, de modo que si cualquier fase contenía un semáforo en amarillo su duración sería exactamente de cuatro segundos.
 
@@ -143,12 +143,12 @@ Al igual que en la función objetivo de referencia, la que se propone para este 
 
 Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo.
 
-Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y por tanto necesitan ser optimizadas.
+Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y, por tanto, necesitan ser optimizadas.
 
 \subsection{Parámetros de configuración y pseudocódigo del algoritmo}
 \label{subsec:parametros}
 
-Las variables tenidas en cuenta para el estudio estadístico han sido dos:
+Los parámetros de configuración tenidos en cuenta para el estudio estadístico han sido dos:
 
 \textbf{Cruce} \textit{(Crossover)}. A la hora de evaluar el cruce entre genotipos, se han valorado dos opciones: \texttt{OnePointCrossover} y \texttt{UniformCrossover}.
 
@@ -159,7 +159,7 @@ Las variables tenidas en cuenta para el estudio estadístico han sido dos:
 
 \textbf{Población} \textit{(Population)}. La población determina la cantidad de individuos que son evaluados durante una generación. En particular, se han seleccionado dos valores: 10 y 50.
 
-Junto con las variables mencionados, el algoritmo evolutivo se ha ejecutado, para el estudio estadístico, con los siguientes parámetros:
+Junto con las variables mencionadas, el algoritmo evolutivo se ha ejecutado, para el estudio estadístico, con los siguientes parámetros:
 
 \begin{itemize}
     \item Generaciones: 50. 
@@ -178,6 +178,7 @@ Con respecto a la simulación, se han tenido en cuenta los siguientes parámetro
 \end{itemize}
 
 En el Algoritmo~\ref{algorithm:pseudocode} es posible apreciar el pseudocódigo básico del algoritmo evolutivo empleado.
+% Gara: no sé si las aclaraciones las pondría mejor en un párrafo descriptivo del algoritmo
 
 \begin{algorithm}
     \caption{Algoritmo evolutivo}
@@ -206,6 +207,8 @@ Este estudio se centra en analizar si existe algún tipo de diferencia estadíst
 
 Contando con que tenemos 4 instancias que simular, y dado que para cada una de ellas hay 2 variables, cada una de ellas con 2 posibles valores, en total han de realizarse 16 ejecuciones en total: la primera instancia con una población de 10 individuos y usando un cruce tipo \texttt{OnePointCrossover}, la misma instancia pero variando el cruce, luego variando la población, y luego ambos; y de igual modo para el resto de las instancias.
 
+% Gara: yo aquí pondría una tabla resumen/explicativa de las diferentes configuraciones
+
 Además, en aras de unos resultados más robustos, cada una de las 16 configuraciones se ha ejecutado 10 veces con semillas distintas, para evitar que pudiera derivarse algún tipo de sesgo e introducir aleatoriedad en la simulación, algo que sucede en la vida real puesto que no hay dos días en que todos los vehículos y peatones realicen exactamente la misma ruta en el mismo momento. En cada una de esas ejecuciones también han de contarse las generaciones y los individuos de cada una de estas, puesto que cada individuo obtiene su valor de fitness a partir de los resultados de la simulación. Así pues, dado que todas las ejecuciones han tenido como parámetro 50 generaciones, y dado que la mitad de las 16 configuraciones empleaban 10 individuos y la otra mitad 50, el cúmulo de simulaciones realizadas se eleva a las 240.000.
 
 $$
@@ -218,11 +221,12 @@ $$
 S = (8*10*50*10) + (8*50*50*10) = 240.000
 $$
 
-Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días, de modo que el estudio acabó ejecutándose en un ordenador Debian GNU/Linux con 4 procesadores AMD\textregistered{} Opteron\texttrademark{} (modelo número 6348 HE) a 2.8 GHz, con 64 gb de ram.
+Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días, de modo que el estudio acabó ejecutándose en un ordenador Debian GNU/Linux con 4 procesadores AMD\textregistered{} Opteron\texttrademark{} (modelo número 6348 HE) a 2.8 GHz, con 64 Gb de RAM.
 
 \subsubsection{Clasificación de la mejor configuración}
 
 Para determinar qué conjunto de parámetros es mejor para una instancia particular, el algoritmo ejecutado para llevar a cabo el estudio estadístico evalúa dos posibles conjuntos entre sí para determinar de ellos cuál es mejor. Como hemos visto antes, hay 2 parámetros (recordemos, cruce y cantidad de individuos por generación; llamémosles $P_{1x}$ y $P_{2x}$) con 2 posibles valores cada uno, lo cual representamos con la $x$. Así pues, podríamos contar con que tenemos $P_{11}$, $P_{12}$, $P_{21}$ y $P_{22}$ conjuntos de parámetros que estamos valorando para cada instancia; dónde, por ejemplo, $P_{11}$ equivale a \texttt{OnePointCrossover} y 10 individuos. 
+% Gara: pero la notación que se usa aquí no coincide con la de la fórmula anterior. No sé si sería mejor poner una tabla resumen de las configuraciones y ahí asignarle el id de la configuración
 
 Bien, el algoritmo evaluará los resultados que ofrece emplear el conjunto $P_{11}$ contra $P_{12}$, luego contra $P_{21}$; y así sucesivamente. Cuando haya terminado de evaluar dicho conjunto, continuará evaluando el siguiente ($P_{12}$) contra el resto salvo el primero, y así hasta que todas las combinaciones (sin repeticiones) de parejas posibles hayan sido comparadas.
 

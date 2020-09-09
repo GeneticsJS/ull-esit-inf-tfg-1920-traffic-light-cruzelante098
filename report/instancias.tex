@@ -134,7 +134,7 @@ El principal objetivo a la hora de generar el tráfico y los peatones era hacerl
 
 En este sentido, varios enfoques han sido tomados en cuenta, resultando al final como ganador la generación de tráfico en función de un algoritmo de maximización del flujo de red, con datos empíricos de aforadores de tráfico provistos por el Cabildo de Tenerife, gracias a un estudio que realizó la entidad en noviembre de 2019 en la rotonda de Padre Anchieta. 
 
-Sin embargo, es relevante mencionar otros enfoques que durante el desarrollo de este proyecto se tomaron en cuenta, dado que los datos del Cabildo se obtuvieron más adelante durante, cuando el desarrollo de este trabajo ya estaba relativamente avanzado.
+Sin embargo, es relevante mencionar otros enfoques que durante el desarrollo de este proyecto se tomaron en cuenta, dado que los datos del Cabildo se obtuvieron más adelante, cuando el desarrollo de este trabajo ya estaba relativamente avanzado.
 
 \subsection{Enfoque estocástico}
 \label{enfoque_estocastico}
@@ -198,7 +198,6 @@ Sin embargo, y como no podía ser de otro modo, los creadores de SUMO ya habían
 La diferencia entre ambas radica en el algoritmo que emplean para calcular las rutas y los flujos de los vehículos. \texttt{DFROUTER} está pensada para redes en las cuales todas las posibles entradas y salidas cuentan con aforadores, y los datos que estos brindan son relativamente precisos. \texttt{flowrouter.py}, por otro lado, está pensado para trabajar con más incertidumbre y, por tanto, es capaz de lidiar con redes en las cuales faltan aforadores y donde los datos pueden presentar cierto nivel de inconsistencia.
 
 Estas herramientas toman como entrada tres archivos:
-
 \begin{itemize}
     \item El archivo de red.
     \item Un archivo con los datos de los aforadores (nombre, posición, y si es de origen, destino o está en medio de otros dos aforadores).
@@ -206,7 +205,6 @@ Estas herramientas toman como entrada tres archivos:
 \end{itemize}
 
 Y como salida emiten dos archivos:
-
 \begin{itemize}
     \item Un archivo de rutas, que define uno o varios caminos por los cuales pueden circular vehículos.
     \item Un archivo de flujos, que define cuántos vehículos circulan por una ruta en concreto y en qué momento lo hacen.
