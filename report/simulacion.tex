@@ -139,13 +139,13 @@ Como puede apreciarse, los objetivos de maximización están colocados en el num
 
 Al igual que en la función objetivo de referencia, la que se propone para este proyecto eleva al cuadrado el término $V_R$ para darle prioridad sobre el resto, dado que es el objetivo más importante (que los vehículos completen su trayecto). Además, $V_{NR}$ se multiplica por $T_{sim}$ para penalizar el incremento de vehículos que no alcanzan su destino en función del tiempo de la simulación.
 
-\section{Aplicación del algoritmo y estudio estadístico sobre los parámetros óptimos de ejecución}
+\section{Parámetros óptimos de ejecución del algoritmo evolutivo}
 
-Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo.
+Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo para cada una de las instancias. Esta sección presenta los parámetros con los que se ha ejecutado el algoritmo; mientras que en el siguiente capítulo se explica con más detalle el proceso del estudio y los resultados que brinda.
 
-Este estudio se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y, por tanto, necesitan ser optimizadas.
+El estudio estadístico se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y, por tanto, necesitan ser optimizadas.
 
-\subsection{Parámetros de configuración y pseudocódigo del algoritmo}
+\subsection{Parámetros de configuración y pseudocódigo del algoritmo evolutivo}
 \label{subsec:parametros}
 
 Los parámetros de configuración tenidos en cuenta para el estudio estadístico han sido dos:
@@ -159,7 +159,7 @@ Los parámetros de configuración tenidos en cuenta para el estudio estadístico
 
 \textbf{Población} \textit{(Population)}. La población determina la cantidad de individuos que son evaluados durante una generación. En particular, se han seleccionado dos valores: 10 y 50.
 
-Junto con las variables mencionadas, el algoritmo evolutivo se ha ejecutado, para el estudio estadístico, con los siguientes parámetros:
+Junto con las variables mencionadas, el algoritmo evolutivo se ha ejecutado, tanto con el estudio estadístico como con la simulación final, con los siguientes parámetros:
 
 \begin{itemize}
     \item Generaciones: 50. 
@@ -170,72 +170,31 @@ Junto con las variables mencionadas, el algoritmo evolutivo se ha ejecutado, par
 \end{itemize}
 
 
-Con respecto a la simulación, se han tenido en cuenta los siguientes parámetros:
+Con respecto a la simulación en SUMO se han tenido en cuenta los siguientes parámetros:
 
 \begin{itemize}
     \item Duración de la simulación: 1800 segundos (30 minutos, tramo 8:00-8:30).
     \item Tiempo para teletrasporte: 120 segundos. Este valor determina el tiempo que tardará el simulador antes de teletransportar un vehículo que, por razones estocásticas, del funcionamiento del simulador y de cómo está configurada la red, puede haberse quedado estancado. A efectos del simulador, un vehículo estancado es aquel cuya velocidad es inferior a 0.1 m/s~\cite{noauthor_simulationwhy_nodate}. La elección de este valor responde a distintas pruebas que se realizaron, evaluando el comportamiento del simulador ante instancias y valores para el tiempo antes de teletransporte. SUMO tiene una tendencia considerable a estancar los vehículos sin causa aparente, lo que daña los resultados de la simulación (dado que paraliza el resto de vehículos), por lo que era necesario activar esta funcionalidad. Esto es por desgracia una limitación de SUMO.
 \end{itemize}
 
-En el Algoritmo~\ref{algorithm:pseudocode} es posible apreciar el pseudocódigo básico del algoritmo evolutivo empleado.
-% Gara: no sé si las aclaraciones las pondría mejor en un párrafo descriptivo del algoritmo
+En el Algoritmo~\ref{algorithm:pseudocode} es posible apreciar el pseudocódigo básico del algoritmo evolutivo empleado. En la fase de inicialización, aquellos genes que se correspondan con fases que tengan algún semáforo en ámbar tendrán un valor fijo $x=4$. Además, tal y como se explica en párrafos anteriores, para la selección se ha empleado un mecanismo de tipo \texttt{RouletteWheel}, para la mutación \texttt{RandomResseting}, el reemplazo es según el fitness (de manera determinista) y el mecanismo de cruce que se empleará en cada instancia en la simulación final será el determinado en el estudio estadístico, de los dos propuestos: \texttt{OnePointCrossover} o \texttt{UniformCrossover}.
 
 \begin{algorithm}
     \caption{Algoritmo evolutivo}
     \label{algorithm:pseudocode}
     
     \begin{algorithmic}[1]
-        \State \textit{Inicializar} la población con $n$ individuos semialeatorios. \Comment{Aquellos genes que se correspondan con fases que tengan algún semáforo en ámbar tendrán un valor fijo $x=4$.}
+        \State \textit{Inicializar} la población con $n$ individuos semialeatorios.
         
         \State \textit{Evaluar} la población mediante la función objetivo.
         
         \While{no se haya superado la cantidad máxima de generaciones}
-            \State \textit{Seleccionar} a los padres. \Comment{Empleando \texttt{RouletteWheel}}
-            \State \textit{Cruzar} a los padres en parejas. \Comment{Empleando \texttt{OnePointCrossover} o \texttt{UniformCrossover} según proceda}
-            \State \textit{Mutar} a la descendencia. \Comment{Empleando \texttt{RandomResseting}}
+            \State \textit{Seleccionar} a los padres. \Comment{\texttt{RouletteWheel}}
+            \State \textit{Cruzar} a los padres en parejas. \Comment{Mecanismo variable}
+            \State \textit{Mutar} a la descendencia. \Comment{\texttt{RandomResseting}}
             \State \textit{Evaluar} a la descendencia.
             \State \textit{Seleccionar} a los supervivientes.  \Comment{Reemplazando según el fitness}
         \EndWhile
     \end{algorithmic}
 \end{algorithm}
 
-
-\subsection{Proceso del estudio estadístico}
-\label{subsec:proceso-estudio}
-
-Este estudio se centra en analizar si existe algún tipo de diferencia estadística en los resultados de emplear unos parámetros u otros. Para este estudio se han tenido en cuenta dos parámetros: cruce y tamaño de población, para cada una de las cuatro instancias citadas en la sección~\ref{subsec:instancias}.
-
-Contando con que tenemos 4 instancias que simular, y dado que para cada una de ellas hay 2 variables, cada una de ellas con 2 posibles valores, en total han de realizarse 16 ejecuciones en total: la primera instancia con una población de 10 individuos y usando un cruce tipo \texttt{OnePointCrossover}, la misma instancia pero variando el cruce, luego variando la población, y luego ambos; y de igual modo para el resto de las instancias.
-
-% Gara: yo aquí pondría una tabla resumen/explicativa de las diferentes configuraciones
-
-Además, en aras de unos resultados más robustos, cada una de las 16 configuraciones se ha ejecutado 10 veces con semillas distintas, para evitar que pudiera derivarse algún tipo de sesgo e introducir aleatoriedad en la simulación, algo que sucede en la vida real puesto que no hay dos días en que todos los vehículos y peatones realicen exactamente la misma ruta en el mismo momento. En cada una de esas ejecuciones también han de contarse las generaciones y los individuos de cada una de estas, puesto que cada individuo obtiene su valor de fitness a partir de los resultados de la simulación. Así pues, dado que todas las ejecuciones han tenido como parámetro 50 generaciones, y dado que la mitad de las 16 configuraciones empleaban 10 individuos y la otra mitad 50, el cúmulo de simulaciones realizadas se eleva a las 240.000.
-
-$$
-S = \sum_{1}^{i} C_i  I_i G E
-$$
-
-donde $S$ es el número de simulaciones realizadas, $i$ es la cantidad de valores seleccionados para el tamaño de la población (en este caso, 10 y 50, por lo que $i=2$), $C_i$ equivale a la cantidad de configuraciones que empleaban $I_i$ individuos (de las 16 configuraciones, la mitad empleaba 10 y la otra 50, por lo que $A_1 = A_2 = 8$), $G$ es la cantidad de generaciones (50, igual en todos los casos) y $E$ la de ejecuciones (10, es un valor fijo). Sentado lo anterior:
-
-$$
-S = (8*10*50*10) + (8*50*50*10) = 240.000
-$$
-
-Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días, de modo que el estudio acabó ejecutándose en un ordenador Debian GNU/Linux con 4 procesadores AMD\textregistered{} Opteron\texttrademark{} (modelo número 6348 HE) a 2.8 GHz, con 64 Gb de RAM.
-
-\subsubsection{Clasificación de la mejor configuración}
-
-Para determinar qué conjunto de parámetros es mejor para una instancia particular, el algoritmo ejecutado para llevar a cabo el estudio estadístico evalúa dos posibles conjuntos entre sí para determinar de ellos cuál es mejor. Como hemos visto antes, hay 2 parámetros (recordemos, cruce y cantidad de individuos por generación; llamémosles $P_{1x}$ y $P_{2x}$) con 2 posibles valores cada uno, lo cual representamos con la $x$. Así pues, podríamos contar con que tenemos $P_{11}$, $P_{12}$, $P_{21}$ y $P_{22}$ conjuntos de parámetros que estamos valorando para cada instancia; dónde, por ejemplo, $P_{11}$ equivale a \texttt{OnePointCrossover} y 10 individuos. 
-% Gara: pero la notación que se usa aquí no coincide con la de la fórmula anterior. No sé si sería mejor poner una tabla resumen de las configuraciones y ahí asignarle el id de la configuración
-
-Bien, el algoritmo evaluará los resultados que ofrece emplear el conjunto $P_{11}$ contra $P_{12}$, luego contra $P_{21}$; y así sucesivamente. Cuando haya terminado de evaluar dicho conjunto, continuará evaluando el siguiente ($P_{12}$) contra el resto salvo el primero, y así hasta que todas las combinaciones (sin repeticiones) de parejas posibles hayan sido comparadas.
-
-Para determinar cuándo hay una diferencia estadística entre un conjunto u otro el algoritmo recibe como entrada dos vectores de valores (uno por conjunto de parámetros) a los cuales se les aplican varios tests estadísticos. A dichos vectores los denominaremos $\vec{Q}_x$.
-
-Cada vector contiene 10 valores, uno por cada ejecución. Cada una de las ejecuciones del algoritmo se ha llevado a cabo con 50 generaciones. Para determinar el valor de un elemento del vector, se ha seleccionado el valor de fitness del mejor individuo de cada una de las 50 generaciones y se ha realizado la media. Así pues, en cada vector tenemos las medias del fitness de los mejores individuos por generación de cada ejecución.
-
-Luego, una vez que contamos con ambos vectores, se les aplica el test de Shapiro para determinar el p-valor de cada conjunto. Si algún p-valor es menor al nivel de significación alfa ($\alpha = 0.05$), se pasa directamente al test de Kruskal Wallis; si no, ambos p-valor son mayores a $\alpha$, por lo que se cumple el test de normalidad y se ejecuta el test de Levene para analizar las varianzas entre ambos conjuntos. Si dicho test devuelve un resultado mayor a $\alpha$, las varianzas no presentan una diferencia significativa y por tanto el p-valor final se calcula con el test de Anova. En caso de que las varianzas sí presenten una diferencia significativa, dicho p-valor se calcula con el test de Welch.
-
-Una vez que hemos pasado la serie de tests anteriores, tendremos un p-valor final. Si es superior a $\alpha$, se asume que no hay diferencia entre aplicar uno u otro conjunto puesto que ambos ofrecerán el mismo resultado; pero si es inferior, existe una diferencia estadística entre ambos conjuntos de parámetros y, para determinar cual es mejor, se selecciona el que tenga mayor mediana calculada a partir de los elementos del vector $\vec{Q}_x$ del conjunto.
-
-Los resultados de este estudio se comentarán en su respectiva sección en el capítulo siguiente.

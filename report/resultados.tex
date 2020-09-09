@@ -2,10 +2,60 @@
 \label{cap:4-resultados}
 
 \section{Estudio estadístico}
+\label{subsec:proceso-estudio}
 
-Esta sección presenta los resultados fruto del estudio estadístico sobre cuáles son los mejores parámetros de los propuestos en el capítulo anterior para optimizar los resultados del algoritmo evolutivo. Se evalúa cada instancia de las mencionadas en la sección~\ref{subsec:instancias} por separado, aportando un conjunto de gráficas de la evolución del fitness para cada conjunto de parámetros evaluado y una tabla con los resultados numéricos de la comparación entre sí de todos los conjuntos, para averiguar si existe una diferencia estadística en los resultados ofrecidos o, si por el contrario, no hay diferencia apreciable entre emplear una configuración u otra.
+Este estudio se centra en analizar si existe algún tipo de diferencia estadística en los resultados de emplear unos parámetros u otros. Para este estudio se han tenido en cuenta dos parámetros: cruce y tamaño de población, para cada una de las cuatro instancias citadas en la sección~\ref{subsec:instancias}.
 
-\subsection{Instancia S\textsubscript{4}: <<anchieta\_tls\_interior\_lane\_always\_green>>}
+Contando con que tenemos 4 instancias que simular, y dado que para cada una de ellas hay 2 variables, cada una de ellas con 2 posibles valores, en total han de realizarse 16 ejecuciones en total: la primera instancia con una población de 10 individuos y usando un cruce tipo \texttt{OnePointCrossover}, la misma instancia pero variando el cruce, luego variando la población, y luego ambos; y de igual modo para el resto de las instancias. Véase la Tabla~\ref{tab:configuraciones} para ver todas las configuraciones evaluadas para cada una de las instancias.
+
+Además, en aras de unos resultados más robustos, cada una de las 16 configuraciones se ha ejecutado 10 veces con semillas distintas, para evitar que pudiera derivarse algún tipo de sesgo e introducir aleatoriedad en la simulación, algo que sucede en la vida real puesto que no hay dos días en que todos los vehículos y peatones realicen exactamente la misma ruta en el mismo momento. En cada una de esas ejecuciones también han de contarse las generaciones y los individuos de cada una de estas, puesto que cada individuo obtiene su valor de fitness a partir de los resultados de la simulación. Así pues, dado que todas las ejecuciones han tenido como parámetro 50 generaciones, y dado que la mitad de las 16 configuraciones empleaban 10 individuos y la otra mitad 50, el cúmulo de simulaciones realizadas se eleva a las 240.000.
+
+$$
+S = \sum_{1}^{i} C_i  I_i G E
+$$
+
+donde $S$ es el número de simulaciones realizadas, $i$ es la cantidad de valores seleccionados para el tamaño de la población (en este caso, 10 y 50, por lo que $i=2$), $C_i$ equivale a la cantidad de configuraciones que empleaban $I_i$ individuos (de las 16 configuraciones, la mitad empleaba 10 y la otra 50, por lo que $A_1 = A_2 = 8$), $G$ es la cantidad de generaciones (50, igual en todos los casos) y $E$ la de ejecuciones (10, es un valor fijo). Sentado lo anterior:
+
+$$
+S = (8*10*50*10) + (8*50*50*10) = 240.000
+$$
+
+Dado que cada una de las ejecuciones dura aproximadamente 30 segundos, el tiempo estimado (suponiendo que se ejecutasen secuencialmente) para completar el estudio es de aproximadamente 2000 horas (83 días). Por suerte, se ha contado con un ordenador considerablemente más potente para llevar a cabo el estudio, reduciendo el tiempo de simulación a dos días, de modo que el estudio acabó ejecutándose en un ordenador Debian GNU/Linux con 4 procesadores AMD\textregistered{} Opteron\texttrademark{} (modelo número 6348 HE) a 2.8 GHz, con 64 Gb de RAM.
+
+\subsection{Clasificación de la mejor configuración}
+
+Para determinar qué conjunto de parámetros es mejor para una instancia particular, el algoritmo ejecutado para llevar a cabo el estudio estadístico evalúa dos posibles conjuntos entre sí para determinar de ellos cuál es mejor. Como hemos visto antes, hay 2 parámetros (recordemos, cruce y cantidad de individuos por generación; llamémosles $P_{1x}$ y $P_{2x}$) con 2 posibles valores cada uno, lo cual representamos con la $x$. Así pues, podríamos contar con que tenemos $P_{11}$, $P_{12}$, $P_{21}$ y $P_{22}$ conjuntos de parámetros que estamos valorando para cada instancia; dónde, por ejemplo, $P_{11}$ equivale a \texttt{OnePointCrossover} y 10 individuos. Véase la Tabla~\ref{tab:configuraciones}, sobre los conjuntos de los parámetros planteados para cada instancia. 
+
+\begin{table}[h]
+\caption{Configuraciones planteadas para el algoritmo evolutivo, para cada una de las instancias}
+\label{tab:configuraciones}
+\centering
+\begin{tabular}{llll}
+\hline
+\multicolumn{1}{c}{\multirow{2}{*}{\textit{Código}}} &  & \multicolumn{2}{c}{\textit{Configuración}} \\ \cline{3-4} 
+\multicolumn{1}{c}{}                                 &  & \textit{Cruce}      & \textit{Población}   \\ \hline
+$P_{11}$                                             &  & OnePointCrossover   & 10                   \\ \hline
+$P_{12}$                                             &  & OnePointCrossover   & 50                   \\ \hline
+$P_{21}$                                             &  & UniformCrossover    & 10                   \\ \hline
+$P_{22}$                                             &  & UniformCrossover    & 50                   \\ \hline
+\end{tabular}
+\end{table}
+
+Bien, el algoritmo evaluará los resultados que ofrece emplear el conjunto $P_{11}$ contra $P_{12}$, luego contra $P_{21}$; y así sucesivamente. Cuando haya terminado de evaluar dicho conjunto, continuará evaluando el siguiente ($P_{12}$) contra el resto salvo el primero, y así hasta que todas las combinaciones (sin repeticiones) de parejas posibles hayan sido comparadas.
+
+Para determinar cuándo hay una diferencia estadística entre un conjunto u otro el algoritmo recibe como entrada dos vectores de valores (uno por conjunto de parámetros) a los cuales se les aplican varios tests estadísticos. A dichos vectores los denominaremos $\vec{Q}_x$.
+
+Cada vector contiene 10 valores, uno por cada ejecución. Cada una de las ejecuciones del algoritmo se ha llevado a cabo con 50 generaciones. Para determinar el valor de un elemento del vector, se ha seleccionado el valor de fitness del mejor individuo de cada una de las 50 generaciones y se ha realizado la media. Así pues, en cada vector tenemos las medias del fitness de los mejores individuos por generación de cada ejecución.
+
+Luego, una vez que contamos con ambos vectores, se les aplica el test de Shapiro para determinar el p-valor de cada conjunto. Si algún p-valor es menor al nivel de significación alfa ($\alpha = 0.05$), se pasa directamente al test de Kruskal Wallis; si no, ambos p-valor son mayores a $\alpha$, por lo que se cumple el test de normalidad y se ejecuta el test de Levene para analizar las varianzas entre ambos conjuntos. Si dicho test devuelve un resultado mayor a $\alpha$, las varianzas no presentan una diferencia significativa y por tanto el p-valor final se calcula con el test de Anova. En caso de que las varianzas sí presenten una diferencia significativa, dicho p-valor se calcula con el test de Welch.
+
+Una vez que hemos pasado la serie de tests anteriores, tendremos un p-valor final. Si es superior a $\alpha$, se asume que no hay diferencia entre aplicar uno u otro conjunto puesto que ambos ofrecerán el mismo resultado; pero si es inferior, existe una diferencia estadística entre ambos conjuntos de parámetros y, para determinar cual es mejor, se selecciona el que tenga mayor mediana calculada a partir de los elementos del vector $\vec{Q}_x$ del conjunto.
+
+\subsection{Evaluación de los resultados por instancia}
+
+Esta subsección presenta los resultados fruto del estudio estadístico sobre cuáles son los mejores parámetros de los propuestos en el capítulo anterior para optimizar los resultados del algoritmo evolutivo. Se evalúa cada instancia de las mencionadas en la sección~\ref{subsec:instancias} por separado, aportando un conjunto de gráficas de la evolución del fitness para cada conjunto de parámetros evaluado y una tabla con los resultados numéricos de la comparación entre sí de todos los conjuntos, para averiguar si existe una diferencia estadística en los resultados ofrecidos o, si por el contrario, no hay diferencia apreciable entre emplear una configuración u otra.
+
+\subsubsection{Instancia S\textsubscript{4}: <<anchieta\_tls\_interior\_lane\_always\_green>>}
 
 
 Con respecto a los resultados del estudio estadístico de la primera instancia, se puede comprobar en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_always_green} la evolución del fitness para cada una de las cuatro configuraciones que se plantearon para la instancia. 
@@ -54,7 +104,7 @@ UniformCrossover / Pob10                   & 0                      & 2         
     \label{fig:estudio:anchieta_tls_interior_lane_always_green}
 \end{figure}
 
-\subsection{Instancia S\textsubscript{5}: <<anchieta\_tls\_interior\_lane\_changes>>}
+\subsubsection{Instancia S\textsubscript{5}: <<anchieta\_tls\_interior\_lane\_changes>>}
 
 Lo cierto es que el estudio de esta instancia arroja resultados similares a los de la instancia anterior. El estudio de la evolución del fitness, que puede apreciarse en la Figura~\ref{fig:estudio:anchieta_tls_interior_lane_changes}, parece resaltar que, al igual que con la instancia anterior, el fitness mejora al usar una población mayor. Sin embargo, esta instancia proporciona de manera general un valor de fitness más alto que la anterior; y en el caso de las comparativas entre cruces, la diferencia en el valor del fitness es más acusada.
 
@@ -101,7 +151,7 @@ UniformCrossover / Pob10                   & 0                      & 2         
 
 
 
-\subsection{Instancia S\textsubscript{6}: <<anchieta\_tls\_few\_pedestrians>>}
+\subsubsection{Instancia S\textsubscript{6}: <<anchieta\_tls\_few\_pedestrians>>}
 
 En comparación con las anteriores, los resultados de la evaluación del fitness de esta instancia (Figura~\ref{fig:estudio:anchieta_tls_special_few_pedestrians}) arrojan resultados mucho mayores. Asimismo, y en consonancia con las evaluaciones anteriores, la diferencia en la población se demuestra una vez más como causante de un incremento en el fitness en el caso de ambos cruces, dando mejores resultados la utilización 50 individuos por generación.
 
@@ -148,7 +198,7 @@ UniformCrossover / Pob10                   & 0                      & 2         
 
 
 
-\subsection{Instancia S\textsubscript{7}: <<anchieta\_tls\_many\_pedestrians>>}
+\subsubsection{Instancia S\textsubscript{7}: <<anchieta\_tls\_many\_pedestrians>>}
 
 La evaluación del fitness de cada conjunto de parámetros empleado en esta instancia ofrece resultados interesantes si se compara con la anterior, puesto que es fácil apreciar una reducción considerable del fitness en todos los casos, tal y como se puede apreciar en la Figura~\ref{fig:estudio:anchieta_tls_special_many_pedestrians}.  
 
@@ -318,22 +368,22 @@ Dichos resultados se pueden consultar en la Tabla~\ref{tab:estudio:resultados}, 
     \resizebox{\textwidth}{!}{\begin{tabular}{llllllllllllll}
     \hline
     \multicolumn{14}{c}{\textbf{Resultados de la simulación}}                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline
-    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Instancia}}} & \multicolumn{4}{c}{\textit{Vehículos}}                                                                                             &  & \multicolumn{6}{c}{\textit{Estadísticas}}                                                                                                                                                                            &  & \multirow{2}{*}{\textit{Fitness}} \\ \cline{2-5} \cline{7-12}
-    \multicolumn{1}{c}{}                                    & \multicolumn{1}{c}{Cargados} & \multicolumn{1}{c}{Insertados} & \multicolumn{1}{c}{En ejecución} & \multicolumn{1}{c}{A la espera} &  & \multicolumn{1}{c}{Longitud (m)} & \multicolumn{1}{c}{Velocidad (m/s)} & \multicolumn{1}{c}{T. perdido (s)} & \multicolumn{1}{c}{T. espera (s)} & \multicolumn{1}{c}{Duración (s)} & \multicolumn{1}{c}{Retardo (s)} &  &                                   \\ \hline
-    (S\textsubscript{1}) anchieta\_no\_tls                                       & 14181.8                      & 13057.8                        & 614.6                            & 1124                            &  & 1705.982                         & 22.99                               & 88.34                              & 145.44                            & 44.94                            & 70.55                           &  & 21.71                             \\ \hline
-    (S\textsubscript{2}) anchieta\_no\_tls\_few\_pedestrians                     & 14182.8                      & 12904.8                        & 623.4                            & 1278                            &  & 1713.93                          & 23.253                              & 91.304                             & 148.404                           & 50.476                           & 71.458                          &  & 18.85                             \\ \hline
-    (S\textsubscript{3}) anchieta\_no\_tls\_many\_pedestrians                    & 14182.7                      & 12878.1                        & 640.1                            & 1304.6                          &  & 1707.695                         & 23.125                              & 94.263                             & 151.237                           & 51.693                           & 80.753                          &  & 17.41                             \\ \hline
-    (S\textsubscript{4}) anchieta\_tls\_interior\_lane\_always\_green      & 14184                        & 11954.1                        & 761.8                            & 2229.9                          &  & 1739.027                         & 23.883                              & 145.692                            & 201.943                           & 110.81                           & 85.724                          &  & 7.50                              \\ \hline
-    (S\textsubscript{5}) anchieta\_tls\_interior\_lane\_changes            & 14183.6                      & 12397.3                        & 781                              & 1786.3                          &  & 1708.098                         & 23.332                              & 130.275                            & 186.185                           & 91.921                           & 95.318                          &  & 10.59                             \\ \hline
-    (S\textsubscript{6}) anchieta\_tls\_few\_pedestrians                & 14181.7                      & 12669.1                        & 678.4                            & 1512.6                          &  & 1726.209                         & 23.32                               & 106.309                            & 163.292                           & 61.791                           & 87.167                          &  & 15.01                             \\ \hline
-    (S\textsubscript{7}) anchieta\_tls\_many\_pedestrians               & 14183.1                      & 12699.2                        & 737                              & 1483.9                          &  & 1763.325                         & 23.436                              & 115.69                             & 173.26                            & 71.151                           & 59.275                          &  & 14.09                             \\ \hline
+    \multicolumn{1}{c}{\multirow{2}{*}{\textit{Instancia}}}                      & \multicolumn{4}{c}{\textit{Vehículos}}                                                                                             &  & \multicolumn{6}{c}{\textit{Estadísticas}}                                                                                                                                                                            &  & \multirow{2}{*}{\textit{Fitness}} \\ \cline{2-5} \cline{7-12}
+    \multicolumn{1}{c}{}                                                         & \multicolumn{1}{c}{Cargados} & \multicolumn{1}{c}{Insertados} & \multicolumn{1}{c}{En ejecución} & \multicolumn{1}{c}{A la espera} &  & \multicolumn{1}{c}{Longitud (m)} & \multicolumn{1}{c}{Velocidad (m/s)} & \multicolumn{1}{c}{T. perdido (s)} & \multicolumn{1}{c}{T. espera (s)} & \multicolumn{1}{c}{Duración (s)} & \multicolumn{1}{c}{Retardo (s)} &  &                                   \\ \hline
+    (S\textsubscript{1}) anchieta\_no\_tls                                       & 14181.8                      & 13057.8                        & 614.6                            & 1124                            &  & 1705.982                         & 22.99                               & 88.34                               & 44.94                            & 145.44                           & 70.55                           &  & 21.71                             \\ \hline
+    (S\textsubscript{2}) anchieta\_no\_tls\_few\_pedestrians                     & 14182.8                      & 12904.8                        & 623.4                            & 1278                            &  & 1713.93                          & 23.253                              & 91.304                              & 50.476                           & 148.404                          & 71.458                          &  & 18.85                             \\ \hline
+    (S\textsubscript{3}) anchieta\_no\_tls\_many\_pedestrians                    & 14182.7                      & 12878.1                        & 640.1                            & 1304.6                          &  & 1707.695                         & 23.125                              & 94.263                              & 51.693                           & 151.237                          & 80.753                          &  & 17.41                             \\ \hline
+    (S\textsubscript{4}) anchieta\_tls\_interior\_lane\_always\_green            & 14184                        & 11954.1                        & 761.8                            & 2229.9                          &  & 1739.027                         & 23.883                              & 145.692                             & 110.81                           & 201.943                          & 85.724                          &  & 7.50                              \\ \hline
+    (S\textsubscript{5}) anchieta\_tls\_interior\_lane\_changes                  & 14183.6                      & 12397.3                        & 781                              & 1786.3                          &  & 1708.098                         & 23.332                              & 130.275                             & 91.921                           & 186.185                          & 95.318                          &  & 10.59                             \\ \hline
+    (S\textsubscript{6}) anchieta\_tls\_few\_pedestrians                        & 14181.7                      & 12669.1                        & 678.4                            & 1512.6                          &  & 1726.209                         & 23.32                               & 106.309                              & 61.791                           & 163.292                          & 87.167                          &  & 15.01                             \\ \hline
+    (S\textsubscript{7}) anchieta\_tls\_many\_pedestrians                       & 14183.1                      & 12699.2                        & 737                              & 1483.9                          &  & 1763.325                         & 23.436                              & 115.69                               & 71.151                           & 173.26                           & 59.275                          &  & 14.09                             \\ \hline
     \end{tabular}}
 \end{sidewaystable}
 
 
 \subsection{Análisis de los resultados}
 
-La instancia que mejores resultados obtiene en todos los indicadores es S\textsubscript{1}, <<anchieta\_no\_tls>>. Es evidente que los excelentes resultados que ofrece esta instancia se deben a la falta de obstáculos al tráfico, puesto que no contiene ni peatones ni semáforos, lo que la coloca a la cabeza con mejor fitness (21.71). El tiempo perdido medio es de 88 segundos, y la duración del trayecto borda los 45 s. Asimismo, la longitud y velocidad media del trayecto se establece en 1,705 km y 23 m/s, evaluadas sobre 13057.8 vehículos insertados de media. La duración media del trayecto y el retardo medio se sitúan, respectivamente, en 45 s y 70.5 s.
+La instancia que mejores resultados obtiene en todos los indicadores es S\textsubscript{1}, <<anchieta\_no\_tls>>. Es evidente que los excelentes resultados que ofrece esta instancia se deben a la falta de obstáculos al tráfico, puesto que no contiene ni peatones ni semáforos, lo que la coloca a la cabeza con mejor fitness (21.71). El tiempo perdido medio es de 88 segundos, y la duración del trayecto borda los 145 s. Asimismo, la longitud y velocidad media del trayecto se establece en 1,705 km y 23 m/s, evaluadas sobre 13057.8 vehículos insertados de media. El retardo medio se sitúa en 70.5 s.
 
 La instancia S\textsubscript{2}, <<anchieta\_no\_tls\_few\_pedestrians>>, empeora, como era de esperar, en todos los indicadores; salvo la velocidad media del trayecto. Esto se debe a que menos vehículos que debían circular por la rotonda han podido completar su trayecto o incluso ser insertados. Véase el decremento de los vehículos insertados (-1.1 \%) y el considerable incremento de los vehículos a la espera (+12 \%). Sin embargo, no hay peatones que puedan interferir con el tráfico de la autopista, por lo que las cifras se ven inclinadas a tener más en cuenta a los vehículos que circulan por la TF-5 y menos a los vehículos que circulan a través de la rotonda; de ahí el incremento de la velocidad media (+1 \%) y la longitud media del trayecto (+0.4 \%) con respecto a S\textsubscript{1}. Por otro lado, la congestión sí que se ha notado en el fitness (18.85) y, consecuentemente, en los de tiempo perdido y duración del trayecto, que se han incrementado con respecto a S\textsubscript{1} +3.2 \% y +11 \%, respectivamente.
 
@@ -348,6 +398,37 @@ La instancia S\textsubscript{5}, <<anchieta\_tls\_interior\_lane\_changes>>, por
 La instancia S\textsubscript{6}, <<anchieta\_tls\_few\_pedestrians>>, mejora considerablemente en todos los indicadores cuando la comparamos con S\textsubscript{4} y S\textsubscript{5}, pero aún así continúa sin ser una opción viable al compararla con la peor de las instancias sin semáforos (S\textsubscript{3}). Comparada con S\textsubscript{5} incrementa los vehículos insertados (+2.1 \%), mantiene aproximadamente la misma velocidad media, decrementa los vehículos en ejecución (-11.8 \%) y a la espera (-15 \%), el tiempo perdido medio (-18.5 \%), la duración media (-33 \%) y el retardo medio (-8.4 \%), alcanzando un fitness de 15.01. Sin embargo, la imagen es distinta al compararla con S\textsubscript{3}, puesto que queda 2.4 puntos por debajo de esta en el valor del fitness. Comparando los indicadores entre ambas, S\textsubscript{6} reduce los vehículos insertados (-1.62 \%), incrementa los vehículos a la espera (+13.75 \%), la longitud media (+1.1 \%), el tiempo perdido medio (+11.3 \%), la duración media (+16.3 \%) y el retardo medio (+7.3 \%). La instancia no es capaz de mejorar los indicadores pese a que tiene 4 veces menos peatones que la peor instancia sin semáforos.
 
 Finalmente, la instancia S\textsubscript{7}, <<anchieta\_tls\_many\_pedestrians>> no ofrece resultados mucho más alentadores que S\textsubscript{6}, dado que empeora casi todos sus indicadores, al ser la única diferencia entre ambas el incremento de los peatones. Comparada con S\textsubscript{6}, los vehículos insertados apenas varían, se incrementan los vehículos en ejecución (+8 \%) y decrementan los que están a la espera (-1.9 \%). Es la instancia con mayor longitud media de trayecto (1763 m, +2 \%). Asimismo, se incrementa el tiempo perdido medio (+7.8 \%) y la duración media (+13.2 \%), a la vez que decrementa el retardo (-32 \%). Todo ello nos deja un fitness final de 14.09.
+
+Los indicadores estadísticos más relevantes pueden apreciarse en las gráficas de la Figura~\ref{fig:estudio:indicadores-relevantes}.
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[t]{.49\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{report/images/estudio/veh-sin.pdf}
+    \caption{Indicadores estadísticos sobre los vehículos en las instancias sin semáforos}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{.49\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{report/images/estudio/veh-con.pdf}
+        \caption{Indicadores estadísticos sobre los vehículos en las instancias con semáforos}
+    \end{subfigure}
+    \vspace{0.7cm}
+    \begin{subfigure}[t]{.49\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{report/images/estudio/est-sin.pdf}
+        \caption{Indicadores estadísticos de tiempo en las instancias sin semáforos}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{.49\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{report/images/estudio/est-con.pdf}
+      \caption{Indicadores estadísticos de tiempo en las instancias con semáforos}
+    \end{subfigure}
+    \caption{Indicadores estadísticos más relevantes, comparados entre instancias}
+    \label{fig:estudio:indicadores-relevantes}
+\end{figure}
 
 Así pues, evaluadas las cifras anteriores, se pueden alcanzar las siguientes conclusiones:
 

@@ -4,11 +4,15 @@
     \textbf{Resumen}
 \end{center}
 
-La rotonda del Padre Anchieta (Tenerife) está situada en una posición estratégica al conectar con el corazón académico, de ocio, comercial y urbanístico de la ciudad de La Laguna; por lo que asume una cantidad sustancial de tráfico que, en horas punta, suele causar atascos importantes. Con el objetivo de aliviar la congestión del tráfico, este proyecto estudia la instalación de semáforos en la rotonda, optimizando la duración de las fases de estos gracias a un algoritmo evolutivo. Para ello, emplea SUMO para llevar a cabo la simulación del tráfico.
+La rotonda del Padre Anchieta (Tenerife) está situada en una posición estratégica al conectar el corazón académico, de ocio, comercial y urbanístico de la ciudad de La Laguna; por lo que asume una cantidad sustancial de tráfico que, en horas punta, suele causar atascos importantes. Con el objetivo de aliviar la congestión del tráfico, este proyecto estudia la instalación de semáforos en la rotonda, optimizando la duración de las fases de estos gracias a un algoritmo evolutivo. Para ello se emplea Genetics.js, una librería programada en TypeScript orientada a algoritmos evolutivos; y SUMO, un simulador de tráfico microscópico de código abierto.
 
 \medskip
 
-El proyecto emplea un mapa de la zona obtenido de OpenStretMap, y el flujo de tráfico es generado gracias a datos del Cabildo de Tenerife. Se ha llevado a cabo un estudio estadístico previo para determinar los mejores parámetros del algoritmo evolutivo. Se concluyó que los resultados de la simulación indicaban que el empleo de los semáforos no consigue mejorar el tráfico de la rotonda.
+La simulación se realiza gracias a dos archivos básicos: el archivo de red, que no es más que un mapa de la rotonda de Padre Anchieta obtenido de OpenStretMap y convertido al formato del empleado por SUMO; y el archivo de tráfico, generado gracias a una herramienta del simulador, \texttt{flowrouter.py}, que genera rutas de tráfico a partir de datos de aforadores. Estos datos fueron provistos por el Cabildo de Tenerife, en un estudio realizado en la rotonda por la corporación en 2019. 
+
+\medskip
+
+Se han evaluado siete casos distintos respecto a la rotonda, tres de ellos sin semáforos y los otros cuatro con semáforos; modificando la cantidad de peatones y las configuraciones semafóricas en cada uno de ellos. Para determinar qué parámetros del algoritmo evolutivo proporcionaban los mejores resultados, se llevó a cabo un estudio estadístico previo en función de dos parámetros: el tipo de cruce y el tamaño de la población. Finalmente, una vez realizado el estudio estadístico previo y la simulación de cada caso, se concluyó que el empleo de semáforos optimizados no consigue mejorar el tráfico de la rotonda; y que el incremento de los peatones ralentiza de modo perceptible el tráfico rodado. Una serie de mejoras propuestas como trabajo futuro se incluye al final de esta memoria.
 
 \medskip
 
@@ -24,11 +28,15 @@ El proyecto emplea un mapa de la zona obtenido de OpenStretMap, y el flujo de tr
     \textbf{Abstract}
 \end{center}
 
-The Padre Anchieta roundabout (Tenerife) is strategically located as it connects the academic, leisure, commercial and urban heart of the city of La Laguna; therefore it assumes a substantial amount of traffic which, at peak times, often causes major traffic jams. With the aim of relieving traffic congestion, this project studies the installation of traffic lights in the roundabout, optimizing the duration of the phases of these thanks to an evolutionary algorithm. To this end, it uses SUMO to carry out traffic simulation.
+The Padre Anchieta roundabout (Tenerife) is located in a strategic position by connecting the academic, leisure, commercial and urban heart of the city of La Laguna; so it takes on a substantial amount of traffic which, at peak times, often causes major traffic jams. With the aim of alleviating traffic congestion, this project studies the installation of traffic lights in the roundabout, optimizing the duration of the phases of these thanks to an evolutionary algorithm. For this, Genetics.js is used, a TypeScript library oriented to evolutionary algorithms; and SUMO, an open source microscopic traffic simulator.
 
 \medskip
 
-The project uses a map of the area obtained from OpenStretMap, and the traffic flow is generated thanks to data from the Tenerife Island Council. A previous statistical study has been carried out to determine the best parameters of the evolutionary algorithm. It was concluded that the results of the simulation indicated that the use of the traffic lights does not manage to improve the traffic of the roundabout.
+The simulation is carried out thanks to two basic files: the network file, which is nothing more than a map of the Padre Anchieta roundabout obtained from OpenStretMap and converted to the format used by SUMO; and the traffic file, generated thanks to a simulator tool, \texttt{flowrouter.py}, which generates traffic routes based on gauge data. These data were provided by the Tenerife Island Council, in a study carried out by the corporation in the roundabout in 2019.
+
+\medskip
+
+Seven different cases have been evaluated with respect to the roundabout, three of them without traffic lights and the other four with traffic lights; modifying the number of pedestrians and the traffic light configurations in each of them, when applicable. To determine which parameters of the evolutionary algorithm provided the best results, a previous statistical study was carried out based on two parameters: the type of crossing and the size of the population. Finally, once the previous statistical study and the simulation of each case had been carried out, it was concluded that the use of optimized traffic lights did not improve traffic in the roundabout; and that the increase in pedestrians noticeably slows down road traffic. A series of improvements proposed as future work is included at the end of this report.
 
 \medskip
 
