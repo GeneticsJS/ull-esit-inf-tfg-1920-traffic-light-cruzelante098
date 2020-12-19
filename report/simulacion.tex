@@ -1,0 +1,200 @@
+\chapter{Simulación y optimización}
+\label{cap:simulacion}
+
+\section{Configuración de las instancias empleadas para la simulación del tráfico}
+
+Esta sección trata las instancias sobre las cuales se realizaron simulaciones. Está dividida en dos subsecciones: la primera (subsección~\ref{subsec:instancias-nosemaf}) habla sobre las instancias sin semáforos, cuyas únicas diferencias residen en la cantidad de peatones que contiene cada una; mientras que las segunda (subsección~\ref{subsec:instancias}) trata las instancias con semáforos, especificando dónde fueron colocados estos así como las variaciones en los peatones.
+
+\subsection{Instancias sin semáforos}
+\label{subsec:instancias-nosemaf}
+
+Actualmente, la rotonda de Padre Anchieta no cuenta con ningún semáforo. La regulación del tráfico se produce únicamente por dos factores: la señalización (señales de ceda el paso, principalmente) y los pasos de peatones, los cuales hemos tenido en cuenta a la hora de evaluar el comportamiento del tráfico.
+
+Asimismo, la simulación de estas instancias realizaría una función de control con respecto a las instancias con semáforos, puesto que nos permitiría comparar el rendimiento de la rotonda actual con el caso de que tuviera semáforos.
+
+Se proponen tres instancias sin semáforos:
+
+\paragraph{S\textsubscript{1} --- <<anchieta\_no\_tls>>.} Es la instancia más sencilla, puesto que únicamente se simulará tráfico rodado sin tener en cuenta a los peatones.
+
+
+\paragraph{S\textsubscript{2} --- <<anchieta\_no\_tls\_few\_pedestrians>>.} Esta instancia es exactamente igual a la anterior, pero cuenta con aproximadamente 500 peatones generados de manera aleatoria y uniforme con el script \texttt{randomTrips.py}.
+
+
+\paragraph{S\textsubscript{3} --- <<anchieta\_no\_tls\_many\_pedestrians>>.} De nuevo, esta instancia es idéntica a las dos primeras, con la salvedad de que cuenta con aproximadamente 2000 peatones generados con la misma herramienta, \texttt{randomTrips.py}.
+
+\bigskip
+Tal y como se mencionó en la sección~\ref{enfoque_estocastico}, la generación de los peatones es completamente aleatoria y distribuida uniformemente tanto en tiempo (una hora de simulación) como en espacio (en todas las aceras), puesto que desafortunadamente no existen datos lo suficientemente granulares sobre los movimientos de los peatones en la zona.
+
+
+\subsection{Instancias con semáforos}
+\label{subsec:instancias}
+
+Definidas las instancias anteriores, llega el momento de tomar una decisión importante: ¿dónde han de situarse los semáforos? A fin de cuentas, la rotonda de Padre Anchieta no es una zona que contara previamente con ellos, por lo que nos corresponde a nosotros determinar la localización de estos.
+
+Así pues, se proponen cuatro instancias con configuraciones semafóricas distintas:
+
+\paragraph{S\textsubscript{4} --- <<anchieta\_tls\_interior\_lane\_always\_green>>.} \textit{Semáforos en cada entrada y salida, con el carril interior siempre en verde.} Una posible configuración de los semáforos es añadir uno en cada entrada y salida de la rotonda, de modo que esté absolutamente regulada por estos. Además, los semáforos del carril interior permanecerían en verde siempre que fuera posible, cambiando de color únicamente en los casos en los que la vía entrada a la rotonda tenga dos carriles y sea necesario regular el paso entre los carriles izquierdos de la entrada y la rotonda. Esta instancia no necesita simular ningún peatón, puesto que todas las entradas y salidas estarían reguladas por semáforos y, por extensión, también los pasos de peatones. Ello hace innecesario evaluar cómo se comportarían los peatones durante la simulación (simplemente se quedarían parados mientras el semáforo peatonal cambia a verde para que puedan cruzar).
+
+\paragraph{S\textsubscript{5} --- <<anchieta\_tls\_interior\_lane\_changes>>.} \textit{Semáforos en cada entrada y salida, con el carril interior cambiando de color.} Es la misma configuración que la que propone S\textsubscript{4}, con la salvedad de que el carril interior cambia de color junto con el exterior independientemente de que la entrada que se esté regulando tenga un carril o dos. El objetivo de simular estas dos configuraciones es comprobar cuál es más eficiente gestionando el carril interior. Véase la Figura~\ref{fig:conf2}. Tanto en esta configuración como en la anterior, las fases se modificaron manualmente para garantizar que siguen un ciclo correcto. Esta instancia tampoco tiene en cuenta los peatones por los mismos motivos que la anterior.
+
+\paragraph{S\textsubscript{6} --- <<anchieta\_tls\_few\_pedestrians>>.}\textit{ Semáforos al norte y al sur de la rotonda con pocos peatones.} Este caso particular solamente instala dos semáforos: uno al norte de la rotonda (entre la entrada de la TF-5 en sentido Santa Cruz y la salida hacia la TF-5 en sentido La Orotava) y otro al sur (entre la salida hacia la TF-5 en sentido Santa Cruz y la entrada de doble carril desde la TF-5 en sentido La Orotava). Véase la Figura~\ref{fig:conf3}. Esta instancia, dado que cuenta con pasos de peatones sin regular por semáforos, sí tendrá en cuenta durante la simulación a los peatones, cuya cantidad y rutas han sido definidas aleatoriamente por \texttt{randomTrips.py} dado que no existen datos medidos sobre tránsito de peatones en la zona. Esta instancia cuenta, aproximadamente, con 500 peatones.
+
+\paragraph{S\textsubscript{7} --- <<anchieta\_tls\_many\_pedestrians>>.} \textit{Semáforos al norte y al sur de la rotonda con muchos peatones.} Esta instancia es idéntica a la anterior, con la salvedad de que se ha cuadruplicado la cantidad de peatones que circulan por la zona, para poder evaluar la circulación de los vehículos con un tránsito más denso de peatones.
+
+
+\begin{figure}[!t]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/conf2.png}
+        \caption{Imagen del archivo de red con los semáforos de las configuraciones S\textsubscript{4} y S\textsubscript{5}.}
+        \label{fig:conf2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/conf3.png}
+        \caption{Imagen del archivo de red con los semáforos de la configuración S\textsubscript{6} y S\textsubscript{7}.}
+        \label{fig:conf3}
+    \end{subfigure}
+    \caption{Distintas configuraciones de los semáforos.}
+    \label{fig:confs}
+\end{figure}
+
+
+
+\section{El algoritmo evolutivo}
+
+Una vez se han definido los archivos de la simulación, corresponde evaluar la manera en que se va a implementar el algoritmo evolutivo. Para esto se ha empleado \texttt{Genetics.js}, una librería programada en TypeScript orientada a algoritmos evolutivos; en particular, algoritmos genéticos. Esta librería la programó Cristian Abrante, un antiguo alumno de la Escuela Superior de Ingeniería y Tecnología, para su Trabajo de Fin de Grado titulado <<Framework web de computación evolutiva>>~\cite{abrante_dorta_framework_2019}. 
+
+Antes de proceder a emplear la librería, se hizo un fork de la misma y se realizaron algunos cambios. Los principales cambios están relacionados con la importación de módulos en TypeScript, de modo que todas las clases y elementos necesarios se pudieran importar directamente desde \texttt{genetics-js}. Asimismo, se modificó la librería para que los valores que el generador de números aleatorios que emplea el algoritmo pudiera detectar para qué fase en concreto estaba generando el valor, de modo que si cualquier fase contenía un semáforo en amarillo su duración sería exactamente de cuatro segundos.
+
+\subsection{Genotipo y fenotipo: representación de las posibles soluciones}
+
+En un algoritmo evolutivo (AE) es importante distinguir dos conceptos: el fenotipo y el genotipo.
+
+\textbf{El fenotipo} es el conjunto de objetos o entidades que conforman las posibles soluciones del problema original~\cite{eiben_introduction_2003}. Para el caso que aquí nos concierne, se trataría de las duraciones de las fases de cada uno de los semáforos de las intersecciones que figuran en el archivo de red.
+
+Pensemos en una sencilla intersección entre dos calles de un solo carril, estando regulada dicha intersección por dos semáforos (uno en cada calle), según muestra la Figura~\ref{fig:semaforo-simple}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple1.png}
+        \caption{Fase 1.}
+        \label{fig:semaforo-simple-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple2.png}
+        \caption{Fase 2.}
+        \label{fig:semaforo-simple-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{report/images/semaforossimple3.png}
+        \caption{Fase 3.}
+        \label{fig:semaforo-simple-3}
+    \end{subfigure}
+    \caption{Cambio de fases en una intersección.}
+    \label{fig:semaforo-simple}
+\end{figure}
+
+Cada una de las fases de esta intersección tienen una duración asignada. Por ejemplo, podríamos asignar una duración a la fase 1 (Figura~\ref{fig:semaforo-simple-1}) de 30 segundos, mientras que la 2 (Figura~\ref{fig:semaforo-simple-2}) duraría 4 segundos (dado que es una fase que contiene un semáforo en ámbar), y finalmente la fase 3 duraría 45 segundos. Este conjunto de duraciones es una posible solución a nuestro problema, que al final lo que busca es asignar las duraciones a las fases de los semáforos de modo que permitan circular al tráfico de la manera más eficiente, y es con lo que lidiaría el algoritmo evolutivo. Así es, pues, como se representa el fenotipo.
+
+\textbf{El genotipo}, por otro lado, es la codificación de nuestra solución, es la manera en que representamos los individuos de modo que el algoritmo evolutivo pueda trabajar con ellos. Para el caso en cuestión, el fenotipo mostrado por la Figura~\ref{fig:semaforo-simple} lo representaríamos por un \textit{array} de valores que se corresponderían con las duraciones de dichas fases. Por ejemplo: \texttt{[30, 4, 45]}. Suponiendo que contásemos con varias intersecciones, cada una de ellas compuesta de varios semáforos, y cada uno de estos compuestos de varias fases con sus respectivas duraciones, simplemente se añadirían al \textit{array} dichas duraciones como valores numéricos igual que antes: \texttt{[30, 4, 45, 20, 55, 4, 80, 22, 47, 4, ...]}.
+
+Vale la pena mencionar que, además de lidiar con duraciones de fases, el \textit{array} también contendrá valores numéricos en representación de los retardos de las intersecciones (véase la Figura~\ref{fig:genotipo}). Estos retardos son los que se emplean para sincronizar varias intersecciones con semáforos de modo que se produzcan las denominadas \textit{oleadas de verde}~\cite{segredo_optimising_2019}.
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{report/images/genotipo.png}
+    \caption{Ejemplo de genotipo.}
+    \label{fig:genotipo}
+\end{figure}
+
+
+\subsection{Función objetivo}
+\label{subsec:funcion}
+
+Una vez definida la representación de los individuos con los que se va a trabajar, es necesario establecer una función que determine que tan buenos candidatos son. Así pues, se propone una función objetivo adaptada del artículo~\cite{segredo_optimising_2019} y que toma en cuenta los siguientes objetivos:
+
+\begin{itemize}
+    \item Ha de maximizarse el número de vehículos $V_R$ que llegan a su destino; de manera equivalente, ha de minimizarse la cantidad de vehículos $V_{NR}$ que no llegan a su destino en un determinado tiempo de simulación $T_{sim}$.
+    \item Ha de minimizarse la duración general media del trayecto de todos los vehículos $T_{trip}$.
+    \item Ha de minimizarse el tiempo total $T_{sw}$ que han perdido los vehículos por estar parados o por ir más lento de lo que quisieran.
+\end{itemize}
+
+Todos los objetivos anteriores se combinan en la siguiente función objetivo:
+
+$$
+f_{obj} = \frac{V_R^2}{T_{trip} + T_{sw} + V_{NR} T_{sim}}
+$$
+
+Como puede apreciarse, los objetivos de maximización están colocados en el numerador; y los de minimización, en el denominador. Por ello, la función propuesta es de maximización. Esta es una de las diferencias respecto de la función que se adapta del artículo de referencia; principalmente porque la librería Genetics.js empleada no admite plantear el problema como uno de minimización. Otra de las diferencias radica en que la función propuesta no tiene en cuenta la maximización de la duración de las fases que contengan más semáforos en verde que en rojo.
+
+Al igual que en la función objetivo de referencia, la que se propone para este proyecto eleva al cuadrado el término $V_R$ para darle prioridad sobre el resto, dado que es el objetivo más importante (que los vehículos completen su trayecto). Además, $V_{NR}$ se multiplica por $T_{sim}$ para penalizar el incremento de vehículos que no alcanzan su destino en función del tiempo de la simulación.
+
+\section{Parámetros óptimos de ejecución del algoritmo evolutivo}
+
+Con el objetivo de mejorar el funcionamiento del algoritmo y saber que se están empleando los parámetros adecuados de configuración para obtener los mejores resultados, se ha realizado un estudio estadístico que alterna distintos parámetros del algoritmo evolutivo para cada una de las instancias. Esta sección presenta los parámetros con los que se ha ejecutado el algoritmo; mientras que en el siguiente capítulo se explica con más detalle el proceso del estudio y los resultados que brinda.
+
+El estudio estadístico se ha realizado por separado para cada una de las instancias detalladas en la sección~\ref{subsec:instancias}, dado que son las únicas que cuentan con semáforos y, por tanto, necesitan ser optimizadas.
+
+\subsection{Parámetros de configuración y pseudocódigo del algoritmo evolutivo}
+\label{subsec:parametros}
+
+Los parámetros de configuración tenidos en cuenta para el estudio estadístico han sido dos:
+
+\textbf{Cruce} \textit{(Crossover)}. A la hora de evaluar el cruce entre genotipos, se han valorado dos opciones: \texttt{OnePointCrossover} y \texttt{UniformCrossover}.
+
+\begin{itemize}
+    \item \texttt{OnePointCrossover}~\cite{eiben_422_2003} intercambia un único punto (situado en la misma posición) de ambos genotipos. Por ejemplo: supongamos que manejamos dos genotipos distintos, los cuales podemos representar en binario: 0000 y 1111. Este operador de cruce seleccionará una posición aleatoria, la cual será la misma para ambos genotipos, y dividirá a cada uno en dos partes distintas. A continuación, intercambiará entre ambos genotipos las mitades de uno de los lados. En el caso del genotipo anterior, si la posición seleccionada es la correspondiente al segundo elemento de izquierda a derecha, el resultado después del cruce sería 0011 y 1100 para el primer y el segundo genotipo, respectivamente.
+    \item \texttt{UniformCrossover}~\cite{eiben_422_2003}, por otro lado, intercambia elementos individuales entre sí cuyas posiciones son seleccionadas aleatoriamente en función de un umbral, que determina la probabilidad de que se produzca dicho intercambio. Tomando los genotipos anteriores, 0000 y 1111, y un umbral de 0.50, un posible resultado de aplicar el cruce podría ser 1001 y 0110 para el primer y segundo genotipo, respectivamente. Véase como, en este ejemplo ideal, un 50 \% de los puntos han sido intercambiados entre sí, en consonancia con el umbral definido. Evidentemente, si el umbral es mayor, una mayor cantidad de puntos serán intercambiados entre sí, y viceversa.
+\end{itemize}
+
+\textbf{Población} \textit{(Population)}. La población determina la cantidad de individuos que son evaluados durante una generación. En particular, se han seleccionado dos valores: 10 y 50.
+
+Junto con las variables mencionadas, el algoritmo evolutivo se ha ejecutado, tanto con el estudio estadístico como con la simulación final, con los siguientes parámetros:
+
+\begin{itemize}
+    \item Generaciones: 50. 
+    \item Selección: \texttt{RouletteWheel}~\cite{lipowski_roulette-wheel_2012}. Este método selecciona los mejores candidatos a la vez que ofrece a aquellos individuos con peor fitness que también sean escogidos. Para ello, asigna a cada individuo una probabilidad de ser seleccionado de manera proporcional a su fitness.
+    \item Mutación: \texttt{RandomResseting}~\cite{abrante_dorta_framework_2019}. Selecciona de manera uniforme un gen del individuo y le asigna un valor aleatorio dentro del rango $[4,120]$. Sin embargo, seleccionará siempre el valor $4$ cuando el gen a mutar sea de una fase que contiene un semáforo en fase ámbar. La cantidad de genes que serán mutados viene determinada por el ratio de mutación $r$, que para este proyecto equivale a $1 / g$, donde $g$ la cantidad de genes.
+    \item Reemplazo (selección de supervivientes): Se realiza en función del fitness, de manera determinista y elitista. De la población obtenida en las fases anteriores, se descartan los individuos con menor fitness hasta que el tamaño de la población vuelve a ser el mismo que el determinado inicialmente, valorando a los padres y los hijos.
+    \item Condición de terminación: por generaciones.
+\end{itemize}
+
+
+Con respecto a la simulación en SUMO se han tenido en cuenta los siguientes parámetros:
+
+\begin{itemize}
+    \item Duración de la simulación: 1800 segundos (30 minutos, tramo 8:00-8:30).
+    \item Tiempo para teletrasporte: 120 segundos. Este valor determina el tiempo que tardará el simulador antes de teletransportar un vehículo que, por razones estocásticas, del funcionamiento del simulador y de cómo está configurada la red, puede haberse quedado estancado. A efectos del simulador, un vehículo estancado es aquel cuya velocidad es inferior a 0.1 m/s~\cite{noauthor_simulationwhy_nodate}. La elección de este valor responde a distintas pruebas que se realizaron, evaluando el comportamiento del simulador ante instancias y valores para el tiempo antes de teletransporte. SUMO tiene una tendencia considerable a estancar los vehículos sin causa aparente, lo que daña los resultados de la simulación (dado que paraliza el resto de vehículos), por lo que era necesario activar esta funcionalidad. Esto es por desgracia una limitación de SUMO.
+\end{itemize}
+
+En el Algoritmo~\ref{algorithm:pseudocode} es posible apreciar el pseudocódigo básico del algoritmo evolutivo empleado. En la fase de inicialización, aquellos genes que se correspondan con fases que tengan algún semáforo en ámbar tendrán un valor fijo $x=4$. Además, tal y como se explica en párrafos anteriores, para la selección se ha empleado un mecanismo de tipo \texttt{RouletteWheel}, para la mutación \texttt{RandomResseting}, el reemplazo es según el fitness (de manera determinista) y el mecanismo de cruce que se empleará en cada instancia en la simulación final será el determinado en el estudio estadístico, de los dos propuestos: \texttt{OnePointCrossover} o \texttt{UniformCrossover}.
+
+\begin{algorithm}
+    \caption{Algoritmo evolutivo}
+    \label{algorithm:pseudocode}
+    
+    \begin{algorithmic}[1]
+        \State \textit{Inicializar} la población con $n$ individuos semialeatorios.
+        
+        \State \textit{Evaluar} la población mediante la función objetivo.
+        
+        \While{no se haya superado la cantidad máxima de generaciones}
+            \State \textit{Seleccionar} a los padres. \Comment{\texttt{RouletteWheel}}
+            \State \textit{Cruzar} a los padres en parejas. \Comment{Mecanismo variable}
+            \State \textit{Mutar} a la descendencia. \Comment{\texttt{RandomResseting}}
+            \State \textit{Evaluar} a la descendencia.
+            \State \textit{Seleccionar} a los supervivientes.  \Comment{Reemplazando según el fitness}
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+

@@ -7,15 +7,38 @@
 \usepackage[spanish]{babel}
 \usepackage{alltt}
 \usepackage{algorithm}
-\usepackage{algorithmic}
+% \usepackage{algorithmic}
 \usepackage{multirow}
-\usepackage[top=2cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}
 \usepackage{libertinus}
 \usepackage[T1]{fontenc}
 \usepackage{titlesec}
 \usepackage{csquotes}
-\usepackage[style=numeric]{biblatex}
+% \usepackage[ttdefault=true]{AnonymousPro}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{setspace}
+\usepackage[labelfont=bf]{subcaption}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{rotating}
+\usepackage{algpseudocode}
+
+
+\usepackage{courier}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\usepackage[style=numeric,sorting=none]{biblatex}
 \addbibresource{report.bib}
+ 
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+ 
+\captionsetup{font={small,stretch=0.95}}
  
 \newcommand{\SONY}{{\sc Sony}}
 \newcommand{\MICROSOFT}{{\sc Microsoft}}
@@ -139,6 +162,41 @@
     \normalfont \bfseries \Huge %change this size to your needs for the second line
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\thispagestyle{empty}
+
+\bigskip
+D. {\bf Eduardo Manuel Segredo González}, con N.I.F. 78.564.242-Z, profesor Ayudante Doctor adscrito al Departamento de Ingeniería Informática y de Sistemas de la Universidad de La Laguna, como tutor
+
+\bigskip
+D${}^a$. {\bf Gara Miranda Valladares}, con N.I.F. 78.563.584-T, profesora Titular de Universidad adscrita al Departamento de Ingeniería Informática y de Sistemas de la Universidad de La Laguna, como cotutora\pagestyle{empty}
+
+\bigskip
+\bigskip
+\bigskip
+{\bf C E R T I F I C A N}
+
+\bigskip
+\bigskip
+Que la presente memoria titulada:
+
+\bigskip
+``{\it Planificación optimizada de un sistema de semáforos mediante algoritmos evolutivos: una aplicación a la rotonda del Padre Anchieta, en Santa Cruz de Tenerife}''
+
+\bigskip
+\bigskip
+\bigskip
+
+\noindent ha sido realizada bajo su dirección por D. {\bf Francisco Arturo Cruz Zelante},
+con N.I.F. 51.152.069-T.
+
+\bigskip
+\bigskip
+
+Y para que así conste, en cumplimiento de la legislación vigente y a los efectos
+oportunos firman la presente en La Laguna a \today
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage{\pagestyle{empty}}
@@ -157,11 +215,11 @@
 
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
-\input{0-agradecimientos.tex}
+\input{agradecimientos.tex}
 
 \newpage{\pagestyle{empty}}
 \thispagestyle{empty}
-\input{0-resumen.tex}
+\input{resumen.tex}
 
 \tableofcontents
 
@@ -179,37 +237,33 @@
 %Numeracion a partir del capitulo I
 \renewcommand{\thepage}{\arabic{page}}
 \setcounter{page}{1}
+\pagestyle{plain}
 
-\input{1-intro.tex}
-
-\input{2-problema-antecedentes.tex}
-
-% \input{3-desarrollo.tex}
-
-% \input{4-resultados.tex}
-
-% \input{5-conclusiones-trabajo-futuro.tex}
-
-% \input{6-conclusions-future-work.tex}
+\input{intro.tex}
+\input{instancias.tex}
+\input{simulacion.tex}
+\input{resultados.tex}
+\input{conclusiones-trabajo-futuro.tex}
+\input{conclusions-future-work.tex}
+\input{presupuesto.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\printbibheading
 \printbibliography
-\nocite{*}
+% \nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage{\pagestyle{empty}}
-\thispagestyle{empty}
-\begin{appendix}
+% \newpage{\pagestyle{empty}}
+% \thispagestyle{empty}
+% \begin{appendix}
 
-  \chapter{Título del Apéndice 1} 
-  \label{appendix:1}
-  \input{apendice1.tex}
+%   \chapter{Título del Apéndice 1} 
+%   \label{appendix:1}
+%   \input{apendice1.tex}
 
-  \chapter{Título del Apéndice 2}
-  \label{appendix:2}
-  \input{apendice2.tex}
+%   \chapter{Título del Apéndice 2}
+%   \label{appendix:2}
+%   \input{apendice2.tex}
 
-\end{appendix}
+% \end{appendix}
 
 \end{document}
