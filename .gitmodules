@@ -1,3 +1,6 @@
 [submodule "src/traffic-light-scheduling-ga"]
 	path = src/traffic-light-scheduling-ga
 	url = https://github.com/cruzelante098/traffic-light-scheduling-ga
+[submodule "src\\GeneticsJS"]
+	path = src\\GeneticsJS
+	url = https://github.com/cruzelante098/GeneticsJS
